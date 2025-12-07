@@ -4,13 +4,64 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AP World History — StudyStuff</title>
-  <style>body{font-family:Segoe UI,Roboto,Arial,sans-serif;padding:2rem;background:#f7f7fb;color:#111}.card{max-width:720px;margin:0 auto;background:#fff;padding:1.5rem;border-radius:8px;box-shadow:0 6px 18px rgba(20,20,40,0.06)}a.button{display:inline-block;margin-top:1rem;padding:0.5rem 0.9rem;background:#0ea5a4;color:#fff;border-radius:6px;text-decoration:none}</style>
+  <style>
+    body{font-family:Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;padding:2rem;background:#f7f7fb;color:#111}
+    .card{max-width:720px;margin:0 auto;background:#fff;padding:1.5rem;border-radius:8px;box-shadow:0 6px 18px rgba(20,20,40,0.06)}
+    a.button{display:inline-block;margin-top:1rem;padding:0.5rem 0.9rem;background:#0ea5a4;color:#fff;border-radius:6px;text-decoration:none}
+    /* Sidebar styles */
+    #sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);opacity:0;pointer-events:none;transition:opacity .18s ease;z-index:1190}
+    #sidebar-overlay.visible{opacity:1;pointer-events:auto}
+    #sidebar{position:fixed;left:0;top:0;height:100%;width:320px;max-width:90vw;background:#fff;border-right:1px solid rgba(0,0,0,0.06);box-shadow:10px 0 30px rgba(20,20,40,0.12);transform:translateX(-110%);transition:transform .22s cubic-bezier(.2,.9,.3,1);display:flex;flex-direction:column;z-index:1200}
+    #sidebar.open{transform:translateX(0)}
+    #sidebar .sidebar-header{padding:1rem;border-bottom:1px solid rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:space-between}
+    #sidebar .sidebar-body{padding:1rem;overflow:auto;flex:1}
+    #sidebar .sidebar-body li{cursor:pointer;padding:0.15rem 0.25rem;border-radius:4px}
+    #sidebar .sidebar-body li:hover{background:rgba(37,99,235,0.06)}
+    #sidebar .sidebar-body li.active{background:rgba(14,165,164,0.12);font-weight:600}
+    #open-sidebar-btn{position:fixed;left:1rem;bottom:1rem;z-index:1300;padding:0.6rem 0.9rem;border-radius:999px;border:none;background:#0ea5a4;color:#fff;box-shadow:0 6px 18px rgba(20,20,40,0.12);cursor:pointer}
+    #sidebar .close-btn{background:transparent;border:none;font-size:1.1rem;cursor:pointer}
+  </style>
 </head>
 <body>
+  <!-- Sidebar -->
+  <button id="open-sidebar-btn" type="button" onclick="document.getElementById('sidebar').classList.add('open');document.getElementById('sidebar-overlay').classList.add('visible');document.getElementById('sidebar').setAttribute('aria-hidden','false')">Sidebar</button>
+  <div id="sidebar-overlay"></div>
+  <aside id="sidebar" aria-hidden="true">
+    <div class="sidebar-header">
+      <strong>StudyStuff:</strong>
+      <button class="close-btn" id="close-sidebar" aria-label="Close sidebar">✕</button>
+    </div>
+    <div class="sidebar-body">
+      <section><h3>Testing:</h3><ul><li class="sidebar-item" data-id="act">ACT</li><li class="sidebar-item" data-id="sat">SAT</li><li class="sidebar-item" data-id="psat">PSAT</li></ul></section>
+      <section><h3>Math:</h3><ul><li class="sidebar-item" data-id="math3">Math III</li></ul></section>
+      <section><h3>History:</h3><ul><li class="sidebar-item" data-id="apworld">AP World History</li></ul></section>
+      <section><h3>Science:</h3><ul><li class="sidebar-item" data-id="bio1">Biology I Honors</li></ul></section>
+    </div>
+  </aside>
+
   <div class="card">
     <h1>AP World History</h1>
     <p>Notes or materials for AP World History go here.</p>
     <a class="button" href="index.html">← Back</a>
   </div>
+
+  <script>
+    (function initSidebar(){
+      const openBtn = document.getElementById('open-sidebar-btn');
+      const overlay = document.getElementById('sidebar-overlay');
+      const sidebar = document.getElementById('sidebar');
+      const closeBtn = document.getElementById('close-sidebar');
+      if (!openBtn || !overlay || !sidebar || !closeBtn) return;
+      function showSidebar(){ sidebar.classList.add('open'); overlay.classList.add('visible'); sidebar.setAttribute('aria-hidden','false'); }
+      function hideSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('visible'); sidebar.setAttribute('aria-hidden','true'); }
+      openBtn.addEventListener('click', showSidebar);
+      closeBtn.addEventListener('click', hideSidebar);
+      overlay.addEventListener('click', hideSidebar);
+      document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hideSidebar(); });
+      const sidebarItems = Array.from(document.querySelectorAll('.sidebar-item'));
+      sidebarItems.forEach(item=>{ item.addEventListener('click', ()=>{ const id = item.dataset.id; if(id) window.location.href = id + '.html'; }); });
+    })();
+  </script>
+
 </body>
 </html>
