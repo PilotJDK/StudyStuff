@@ -16,6 +16,9 @@
 			#sidebar.open{transform:translateX(0)}
 			#sidebar .sidebar-header{padding:1rem;border-bottom:1px solid rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:space-between}
 			#sidebar .sidebar-body{padding:1rem;overflow:auto;flex:1}
+			#sidebar .sidebar-body li{cursor:pointer;padding:0.15rem 0.25rem;border-radius:4px}
+			#sidebar .sidebar-body li:hover{background:rgba(37,99,235,0.06)}
+			#sidebar .sidebar-body li.active{background:rgba(14,165,164,0.12);font-weight:600}
 			#open-sidebar-btn{position:fixed;left:1rem;bottom:1rem;z-index:1300;padding:0.6rem 0.9rem;border-radius:999px;border:none;background:#0ea5a4;color:#fff;box-shadow:0 6px 18px rgba(20,20,40,0.12);cursor:pointer}
 			#sidebar .close-btn{background:transparent;border:none;font-size:1.1rem;cursor:pointer}
 			/* Sidebar action buttons */
@@ -40,29 +43,29 @@
 			</div>
 			<section>
 			  <h3>Testing:</h3>
-			  <ul>
-				<li>- ACT</li>
-				<li>- SAT</li>
-				<li>- PSAT</li>
-			  </ul>
+								<ul>
+									<li class="sidebar-item" data-id="act">- ACT</li>
+									<li class="sidebar-item" data-id="sat">- SAT</li>
+									<li class="sidebar-item" data-id="psat">- PSAT</li>
+								</ul>
 			</section>
 			<section>
 			  <h3>Math:</h3>
-			  <ul>
-				<li>- Math III Honors</li>
-			  </ul>
+									<ul>
+										<li class="sidebar-item" data-id="math3">- Math III Honors</li>
+									</ul>
 			</section>
 			<section>
 			  <h3>History:</h3>
-			  <ul>
-				<li>- AP World History</li>
-			  </ul>
+									<ul>
+										<li class="sidebar-item" data-id="apworld">- AP World History</li>
+									</ul>
 			</section>
 			<section>
 			  <h3>Science:</h3>
-			  <ul>
-				<li>- Biology I Honors</li>
-			  </ul>
+									<ul>
+										<li class="sidebar-item" data-id="bio1">- Biology I Honors</li>
+									</ul>
 			</section>
 		  </div>
 		</aside>
@@ -108,6 +111,32 @@
 					openBtn.addEventListener('click', showSidebar);
 					closeBtn.addEventListener('click', hideSidebar);
 					overlay.addEventListener('click', hideSidebar);
+					// Sidebar item click behavior: update main content
+					const contentMsg = document.getElementById('message');
+					const sidebarItems = Array.from(document.querySelectorAll('.sidebar-item'));
+					sidebarItems.forEach(item=>{
+						item.addEventListener('click', (e)=>{
+							const id = item.dataset.id || item.textContent.trim();
+							console.log('sidebar item clicked', id);
+							// mark active
+							sidebarItems.forEach(i=>i.classList.remove('active'));
+							item.classList.add('active');
+							// update main content area with a small card
+							const now = new Date().toLocaleTimeString();
+							contentMsg.textContent = `Selected ${item.textContent.replace('- ','')}. (updated ${now})`;
+							// optional: create a detail area or expand main
+							let existing = document.getElementById('detail-card');
+							if (!existing){
+								existing = document.createElement('div');
+								existing.id = 'detail-card';
+								existing.style.cssText = 'margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;box-shadow:0 6px 18px rgba(20,20,40,0.04)';
+								document.querySelector('main').appendChild(existing);
+							}
+							existing.innerHTML = `<h2>${item.textContent.replace('- ','')}</h2><p>Placeholder details for <strong>${item.textContent.replace('- ','')}</strong>.</p><p><small>Loaded ${now}</small></p>`;
+							// close sidebar after selection
+							hideSidebar();
+						});
+					});
 					document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hideSidebar(); });
 					// hide when clicking main content
 					document.querySelector('main').addEventListener('click', ()=>{ if (sidebar.classList.contains('open')) hideSidebar(); });
