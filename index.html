@@ -22,7 +22,7 @@
 	</head>
 	<body>
 		<!-- Sidebar and controls: placed as direct children of body so fixed positioning works reliably -->
-		<button id="open-sidebar-btn" type="button">Sidebar</button>
+		<button id="open-sidebar-btn" type="button" onclick="document.getElementById('sidebar').classList.add('open');document.getElementById('sidebar-overlay').classList.add('visible');document.getElementById('sidebar').setAttribute('aria-hidden','false');console.log('inline open clicked')">Sidebar</button>
 		<div id="sidebar-overlay"></div>
 		<aside id="sidebar" aria-hidden="true">
 		  <div class="sidebar-header">
@@ -76,6 +76,7 @@
 			</script>
 			<script>
 				(function initSidebar(){
+					console.log('initSidebar running');
 					const openBtn = document.getElementById('open-sidebar-btn');
 					const overlay = document.getElementById('sidebar-overlay');
 					const sidebar = document.getElementById('sidebar');
@@ -84,11 +85,13 @@
 					if (!openBtn || !overlay || !sidebar || !closeBtn) return;
 
 					function showSidebar(){
+						console.log('showSidebar called');
 						sidebar.classList.add('open');
 						overlay.classList.add('visible');
 						sidebar.setAttribute('aria-hidden', 'false');
 					}
 					function hideSidebar(){
+						console.log('hideSidebar called');
 						sidebar.classList.remove('open');
 						overlay.classList.remove('visible');
 						sidebar.setAttribute('aria-hidden', 'true');
