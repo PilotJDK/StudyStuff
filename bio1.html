@@ -66,6 +66,7 @@
     #sidebar .sidebar-body li:hover{background:rgba(37,99,235,0.06)}
     #open-sidebar-btn{position:fixed;left:1rem;bottom:1rem;z-index:1300;padding:0.6rem 0.9rem;border-radius:999px;border:none;background:#0ea5a4;color:#fff;box-shadow:0 6px 18px rgba(20,20,40,0.12);cursor:pointer}
     #sidebar .close-btn{background:transparent;border:none;font-size:1.1rem;cursor:pointer}
+    .page-controls{display:flex;gap:.6rem;align-items:center;margin-bottom:.6rem}
   </style>
 </head>
 <body>
@@ -86,7 +87,16 @@
   </aside>
   <div class="page">
     <div>
-      <div class="card">
+      <div class="page-controls">
+        <label class="micro">View</label>
+        <select id="view-select" class="search" style="width:10rem">
+          <option value="both">Both</option>
+          <option value="notes">Notes only</option>
+          <option value="quiz">Quiz only</option>
+        </select>
+        <button id="toggle-unit-selector" class="btn">Units ▾</button>
+      </div>
+      <div id="notes-card" class="card">
         <h1>Biology I — Notes</h1>
         <div class="note-controls">
           <input id="search-notes" class="search" placeholder="Search notes (keywords)..." />
@@ -98,13 +108,25 @@
         </div>
       </div>
 
-      <div class="card quiz" style="margin-top:1rem">
+      <div id="quiz-card" class="card quiz" style="margin-top:1rem">
         <div class="score">
           <div>
             <strong>Quiz — Biology I</strong>
             <div class="small">Answer question types: multiple-choice, select-all, true/false</div>
           </div>
           <div class="micro">Score: <span id="score">0</span> / <span id="total">0</span></div>
+        </div>
+        </div>
+
+        <div id="unit-selector" style="margin-top:.6rem;display:none;border-top:1px dashed rgba(0,0,0,0.04);padding-top:.6rem">
+          <div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.4rem">
+            <button id="select-all-units" class="btn">Select All</button>
+            <button id="hide-unit-selector" class="btn secondary">Hide</button>
+            <button id="shuffle-start" class="btn secondary">Shuffle & Start</button>
+          </div>
+          <div id="unit-checkboxes" style="display:flex;flex-direction:column;gap:.3rem">
+            <!-- populated dynamically -->
+          </div>
         </div>
 
         <hr />
@@ -213,7 +235,7 @@ window.addEventListener('scroll', ()=>{
 // QUIZ implementation
 const questions = [
   {
-    id:'q1',type:'multiple',q:'What is the powerhouse of the cell?',
+    id:'q1', unit:'unit1', type:'multiple', q:'What is the powerhouse of the cell?',
     choices:['Ribosome','Mitochondria','Endoplasmic Reticulum','Golgi Apparatus'],
     answer:1,
     explain:'Mitochondria generate ATP via cellular respiration.',
@@ -225,7 +247,7 @@ const questions = [
     ]
   },
   {
-    id:'q2',type:'truefalse',q:'DNA is double-stranded.',
+    id:'q2', unit:'unit2', type:'truefalse', q:'DNA is double-stranded.',
     choices:['True','False'],answer:0,
     explain:'DNA is typically double-stranded forming a double helix.',
     explain_each:[
@@ -234,7 +256,7 @@ const questions = [
     ]
   },
   {
-    id:'q3',type:'selectall',q:'Which of the following are components of a nucleotide?',
+    id:'q3', unit:'unit2', type:'selectall', q:'Which of the following are components of a nucleotide?',
     choices:['Phosphate group','Amino acid','Sugar','Nitrogenous base'],
     answer:[0,2,3],
     explain:'Nucleotides contain a phosphate, a sugar, and a nitrogenous base.',
@@ -246,7 +268,7 @@ const questions = [
     ]
   },
   {
-    id:'q4',type:'multiple',q:'Which process produces gametes?',
+    id:'q4', unit:'unit1', type:'multiple', q:'Which process produces gametes?',
     choices:['Mitosis','Meiosis','Binary fission','Photosynthesis'],
     answer:1,
     explain:'Meiosis reduces chromosome number to produce gametes.',
@@ -258,7 +280,7 @@ const questions = [
     ]
   },
   {
-    id:'q5',type:'truefalse',q:'Prokaryotic cells have a nucleus.',
+    id:'q5', unit:'unit1', type:'truefalse', q:'Prokaryotic cells have a nucleus.',
     choices:['True','False'],answer:1,
     explain:'Prokaryotes lack a membrane-bound nucleus.',
     explain_each:[
@@ -276,8 +298,63 @@ const submitBtn = document.getElementById('submit-answer');
 const nextBtn = document.getElementById('next-question');
 const resetBtn = document.getElementById('reset-quiz');
 
+let sessionQuestions = [];
+
+function shuffleArray(a){
+  for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; }
+  return a;
+}
+
+function buildUnitSelector(){
+  const container = document.getElementById('unit-checkboxes'); if(!container) return;
+  container.innerHTML = '';
+  notes.units.forEach(u=>{
+    const id = u.id;
+    const row = document.createElement('label'); row.style.display='flex'; row.style.alignItems='center'; row.style.gap='0.5rem';
+    const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = true; cb.dataset.unit = id; cb.id = 'chk-'+id;
+    const span = document.createElement('span'); span.textContent = u.title;
+    row.appendChild(cb); row.appendChild(span);
+    container.appendChild(row);
+  });
+}
+
+function getSelectedUnits(){
+  const checks = Array.from(document.querySelectorAll('#unit-checkboxes input[type="checkbox"]'));
+  const sel = checks.filter(c=>c.checked).map(c=>c.dataset.unit);
+  return sel.length? sel : notes.units.map(u=>u.id);
+}
+
+function buildSessionQuestions(){
+  const selected = getSelectedUnits();
+  // filter questions by unit (if question.unit exists), otherwise keep
+  let pool = questions.filter(q=>{ return !q.unit || selected.includes(q.unit); });
+  // deep-copy and shuffle choices per question
+  const mapped = pool.map(orig=>{
+    const q = JSON.parse(JSON.stringify(orig));
+    // shuffle choice order and remap answers/explanations
+    const idxs = q.choices.map((_,i)=>i);
+    shuffleArray(idxs);
+    const newChoices = idxs.map(i=>q.choices[i]);
+    const newExplainEach = idxs.map(i=> (q.explain_each && q.explain_each[i]) ? q.explain_each[i] : '');
+    // remap answer
+    if(Array.isArray(q.answer)){
+      const newAns = q.answer.map(origIdx=> idxs.findIndex(n=>n===origIdx)).filter(v=>v>=0);
+      q.answer = newAns;
+    } else {
+      q.answer = idxs.findIndex(n=>n===q.answer);
+    }
+    q.choices = newChoices; q.explain_each = newExplainEach;
+    return q;
+  });
+  shuffleArray(mapped);
+  sessionQuestions = mapped;
+  currentIndex = 0; score = 0; total = 0; scoreEl.textContent=score; totalEl.textContent=total;
+  renderQuestion(currentIndex);
+}
+
 function renderQuestion(idx){
-  const q = questions[idx];
+  if(!sessionQuestions || sessionQuestions.length===0){ quizArea.innerHTML = '<div class="small">No questions available for selected units. Use the Units button to select different units.</div>'; submitBtn.disabled=true; nextBtn.disabled=true; return; }
+  const q = sessionQuestions[idx];
   quizArea.innerHTML = '';
   const questionEl = document.createElement('div'); questionEl.className='question'; questionEl.innerHTML = `<strong>Q${idx+1}.</strong> ${q.q}`;
   quizArea.appendChild(questionEl);
@@ -285,94 +362,88 @@ function renderQuestion(idx){
 
   if(q.type === 'multiple' || q.type === 'truefalse'){
     q.choices.forEach((c,i)=>{
-      const ch = document.createElement('div'); ch.className='choice'; ch.tabIndex=0; ch.dataset.index=i; ch.textContent = c;
-      ch.onclick = ()=>{ // select single
-        choices.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
-        ch.classList.add('selected');
-      };
+      const ch = document.createElement('div'); ch.className='choice'; ch.tabIndex=0; ch.dataset.index=i; ch.innerHTML = `<span>${c}</span>`;
+      ch.onclick = ()=>{ choices.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected')); ch.classList.add('selected'); };
       choices.appendChild(ch);
     });
   } else if(q.type === 'selectall'){
     q.choices.forEach((c,i)=>{
-      const ch = document.createElement('label'); ch.className='choice'; ch.style.display='flex'; ch.style.alignItems='center';
+      const ch = document.createElement('label'); ch.className='choice'; ch.style.display='flex'; ch.style.alignItems='center'; ch.style.justifyContent='space-between';
+      const left = document.createElement('span'); left.style.display='flex'; left.style.alignItems='center';
       const cb = document.createElement('input'); cb.type='checkbox'; cb.style.marginRight='0.6rem'; cb.dataset.index = i;
-      ch.appendChild(cb); ch.appendChild(document.createTextNode(c));
+      left.appendChild(cb); left.appendChild(document.createTextNode(c));
+      ch.appendChild(left);
       choices.appendChild(ch);
     });
   }
   quizArea.appendChild(choices);
-
-  // explanation area (only shown on correct answer per request)
   const explainEl = document.createElement('div'); explainEl.id='explain'; explainEl.style.marginTop='0.6rem'; quizArea.appendChild(explainEl);
-
-  // set buttons
   submitBtn.disabled = false; nextBtn.disabled = true;
 }
 
 function arraysEqual(a,b){ if(a.length!==b.length) return false; a = [...a].sort(); b=[...b].sort(); return a.every((v,i)=>v===b[i]); }
 
 submitBtn.addEventListener('click', ()=>{
-  const q = questions[currentIndex];
+  const q = sessionQuestions[currentIndex];
   const choicesEl = quizArea.querySelector('.choices');
+  if(!q) return;
   let correct = false;
-  let userSelection = null; // index or array
+  let userSelection = null;
 
   if(q.type === 'multiple' || q.type === 'truefalse'){
     const sel = choicesEl.querySelector('.choice.selected');
     if(!sel){ alert('Please select an answer'); return; }
-    const idx = Number(sel.dataset.index);
-    userSelection = idx;
-    if(idx === q.answer){ correct = true; sel.classList.add('correct'); }
-    else{ sel.classList.add('wrong'); }
+    const idx = Number(sel.dataset.index); userSelection = idx;
+    if(idx === q.answer){ correct = true; sel.classList.add('correct'); } else { sel.classList.add('wrong'); }
   } else if(q.type === 'selectall'){
     const checked = Array.from(choicesEl.querySelectorAll('input[type="checkbox"]')).filter(c=>c.checked).map(c=>Number(c.dataset.index));
     if(checked.length===0){ alert('Select at least one option'); return; }
     userSelection = checked;
-    if(arraysEqual(checked, q.answer)){
-      correct = true;
-      // mark correct ones
-      checked.forEach(i=>{ const el = choicesEl.querySelector('[data-index="'+i+'"]').parentElement; el.classList.add('correct'); });
-    } else {
-      // mark selected wrong choices
-      Array.from(choicesEl.querySelectorAll('input[type="checkbox"]')).forEach(c=>{ if(c.checked){ c.parentElement.classList.add('wrong'); } });
-    }
+    if(arraysEqual(checked, q.answer)){ correct = true; checked.forEach(i=>{ const el = choicesEl.querySelector('[data-index="'+i+'"]').closest('.choice'); if(el) el.classList.add('correct'); }); }
+    else { Array.from(choicesEl.querySelectorAll('input[type="checkbox"]')).forEach(c=>{ if(c.checked){ c.closest('.choice').classList.add('wrong'); } }); }
   }
 
-  // update counters
-  total += 1;
-  if(correct) score += 1;
-  scoreEl.textContent = score; totalEl.textContent = total;
+  total += 1; if(correct) score += 1; scoreEl.textContent = score; totalEl.textContent = total;
 
-  // show detailed explanation for every option (rule out others)
-  const explainEl = document.getElementById('explain');
-  explainEl.innerHTML = '';
-  const list = document.createElement('div'); list.className='micro';
-  const ul = document.createElement('ul'); ul.style.paddingLeft='1rem';
+  const explainEl = document.getElementById('explain'); explainEl.innerHTML = '';
+  const list = document.createElement('div'); list.className='micro'; const ul = document.createElement('ul'); ul.style.paddingLeft='1rem';
   q.choices.forEach((choice,i)=>{
     const li = document.createElement('li'); li.style.marginBottom='0.5rem';
     const prefix = (Array.isArray(userSelection) ? (userSelection.includes(i) ? 'Your selection — ' : '') : (userSelection===i ? 'Your selection — ' : ''));
     const correctness = ( (Array.isArray(q.answer) ? q.answer.includes(i) : q.answer===i) ) ? ' (correct)' : ' (incorrect)';
-    li.innerHTML = `<strong>${prefix}${choice}</strong>${correctness}<div style="margin-top:0.25rem;">${(q.explain_each && q.explain_each[i]) ? q.explain_each[i] : (i===q.answer ? q.explain : '')}</div>`;
+    li.innerHTML = `<strong>${prefix}${choice}</strong>${correctness}<div style="margin-top:0.25rem">${(q.explain_each && q.explain_each[i]) ? q.explain_each[i] : (i===q.answer ? q.explain : '')}</div>`;
     ul.appendChild(li);
-  });
-  list.appendChild(ul);
-  explainEl.appendChild(list);
+  }); list.appendChild(ul); explainEl.appendChild(list);
 
   submitBtn.disabled = true; nextBtn.disabled = false;
 });
 
 nextBtn.addEventListener('click', ()=>{
-  // advance to next question
-  currentIndex = (currentIndex + 1) % questions.length;
+  if(!sessionQuestions || sessionQuestions.length===0) return;
+  currentIndex = (currentIndex + 1) % sessionQuestions.length;
   renderQuestion(currentIndex);
 });
 
 resetBtn.addEventListener('click', ()=>{
-  if(!confirm('Reset quiz score and progress?')) return; score = 0; total = 0; scoreEl.textContent=score; totalEl.textContent=total; currentIndex=0; renderQuestion(currentIndex);
+  if(!confirm('Reset quiz score and progress?')) return;
+  score = 0; total = 0; scoreEl.textContent=score; totalEl.textContent=total; currentIndex=0; buildSessionQuestions();
 });
 
-// initialize quiz
-renderQuestion(currentIndex);
+// Unit selector & view handlers
+document.getElementById('toggle-unit-selector').addEventListener('click', ()=>{ const el = document.getElementById('unit-selector'); el.style.display = (el.style.display==='none' || !el.style.display) ? 'block' : 'none'; });
+document.getElementById('select-all-units').addEventListener('click', ()=>{ document.querySelectorAll('#unit-checkboxes input[type="checkbox"]').forEach(c=>c.checked=true); });
+document.getElementById('hide-unit-selector').addEventListener('click', ()=>{ document.getElementById('unit-selector').style.display='none'; });
+document.getElementById('shuffle-start').addEventListener('click', ()=>{ buildSessionQuestions(); document.getElementById('unit-selector').style.display='none'; });
+
+document.getElementById('view-select').addEventListener('change', (e)=>{
+  const v = e.target.value; const notesCard = document.getElementById('notes-card'); const quizCard = document.getElementById('quiz-card');
+  if(v === 'both'){ notesCard.style.display='block'; quizCard.style.display='block'; }
+  else if(v === 'notes'){ notesCard.style.display='block'; quizCard.style.display='none'; }
+  else { notesCard.style.display='none'; quizCard.style.display='block'; }
+});
+
+// initial setup
+buildUnitSelector(); buildSessionQuestions();
 
 </script>
 <script>
