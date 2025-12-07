@@ -18,6 +18,10 @@
 			#sidebar .sidebar-body{padding:1rem;overflow:auto;flex:1}
 			#open-sidebar-btn{position:fixed;left:1rem;bottom:1rem;z-index:1300;padding:0.6rem 0.9rem;border-radius:999px;border:none;background:#0ea5a4;color:#fff;box-shadow:0 6px 18px rgba(20,20,40,0.12);cursor:pointer}
 			#sidebar .close-btn{background:transparent;border:none;font-size:1.1rem;cursor:pointer}
+			/* Sidebar action buttons */
+			.sidebar-actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem}
+			.sidebar-link{display:inline-block;padding:0.4rem 0.75rem;background:#0ea5a4;color:#fff;border-radius:6px;text-decoration:none;font-weight:600}
+			.sidebar-link.secondary{background:#2563eb}
 		</style>
 	</head>
 	<body>
@@ -30,6 +34,10 @@
 			<button class="close-btn" id="close-sidebar" aria-label="Close sidebar">✕</button>
 		  </div>
 		  <div class="sidebar-body">
+			<div class="sidebar-actions">
+			  <a class="sidebar-link" href="questions.html">Questions</a>
+			  <a class="sidebar-link secondary" href="docs.html">Docs</a>
+			</div>
 			<section>
 			  <h3>Testing:</h3>
 			  <ul>
