@@ -113,25 +113,12 @@
 					const sidebarItems = Array.from(document.querySelectorAll('.sidebar-item'));
 					sidebarItems.forEach(item=>{
 						item.addEventListener('click', (e)=>{
-							const id = item.dataset.id || item.textContent.trim();
-							console.log('sidebar item clicked', id);
-							// mark active
-							sidebarItems.forEach(i=>i.classList.remove('active'));
-							item.classList.add('active');
-							// update main content area with a small card
-							const now = new Date().toLocaleTimeString();
-							contentMsg.textContent = `Selected ${item.textContent.replace('- ','')}. (updated ${now})`;
-							// optional: create a detail area or expand main
-							let existing = document.getElementById('detail-card');
-							if (!existing){
-								existing = document.createElement('div');
-								existing.id = 'detail-card';
-								existing.style.cssText = 'margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;box-shadow:0 6px 18px rgba(20,20,40,0.04)';
-								document.querySelector('main').appendChild(existing);
+							const id = item.dataset.id;
+							console.log('sidebar navigation click', id);
+							// Navigate to the page for this item (same-folder html files)
+							if (id){
+								window.location.href = `${id}.html`;
 							}
-							existing.innerHTML = `<h2>${item.textContent.replace('- ','')}</h2><p>Placeholder details for <strong>${item.textContent.replace('- ','')}</strong>.</p><p><small>Loaded ${now}</small></p>`;
-							// close sidebar after selection
-							hideSidebar();
 						});
 					});
 					document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hideSidebar(); });
