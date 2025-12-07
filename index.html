@@ -8,6 +8,16 @@
 			body{font-family:Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;padding:2rem;background:#f7f7fb;color:#111}
 			main{max-width:720px;margin:0 auto;background:#fff;padding:1.5rem;border-radius:8px;box-shadow:0 6px 18px rgba(20,20,40,0.06)}
 			button{margin-top:1rem;padding:0.5rem 1rem;border-radius:6px;border:1px solid #2b6cb0;background:#3182ce;color:#fff;cursor:pointer}
+
+			/* Sidebar styles similar to 24flight behavior */
+			#sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);opacity:0;pointer-events:none;transition:opacity .18s ease}
+			#sidebar-overlay.visible{opacity:1;pointer-events:auto}
+			#sidebar{position:fixed;right:0;top:0;height:100%;width:320px;max-width:90vw;background:#fff;border-left:1px solid rgba(0,0,0,0.06);box-shadow:-10px 0 30px rgba(20,20,40,0.12);transform:translateX(110%);transition:transform .22s cubic-bezier(.2,.9,.3,1);display:flex;flex-direction:column;z-index:1200}
+			#sidebar.open{transform:translateX(0)}
+			#sidebar .sidebar-header{padding:1rem;border-bottom:1px solid rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:space-between}
+			#sidebar .sidebar-body{padding:1rem;overflow:auto;flex:1}
+			#open-sidebar-btn{position:fixed;right:1rem;bottom:1rem;z-index:1300;padding:0.6rem 0.9rem;border-radius:999px;border:none;background:#0ea5a4;color:#fff;box-shadow:0 6px 18px rgba(20,20,40,0.12);cursor:pointer}
+			#sidebar .close-btn{background:transparent;border:none;font-size:1.1rem;cursor:pointer}
 		</style>
 	</head>
 	<body>
@@ -22,6 +32,54 @@
 					const now = new Date().toLocaleTimeString();
 					msg.textContent = `Button clicked at ${now}`;
 				});
+
+				/* Sidebar setup for StudyStuff (open/close, overlay, escape key) */
+				const openBtn = document.createElement('button');
+				openBtn.id = 'open-sidebar-btn';
+				openBtn.type = 'button';
+				openBtn.textContent = 'Sidebar';
+				document.body.appendChild(openBtn);
+
+				const overlay = document.createElement('div');
+				overlay.id = 'sidebar-overlay';
+				document.body.appendChild(overlay);
+
+				const sidebar = document.createElement('aside');
+				sidebar.id = 'sidebar';
+				sidebar.innerHTML = `
+				  <div class="sidebar-header">
+					<strong>Sidebar</strong>
+					<button class="close-btn" id="close-sidebar" aria-label="Close sidebar">✕</button>
+				  </div>
+				  <div class="sidebar-body">
+					<p>This is a simple sidebar copied for StudyStuff. Click outside to close.</p>
+					<ul>
+						<li><a href="#">Link A</a></li>
+						<li><a href="#">Link B</a></li>
+						<li><a href="#">Link C</a></li>
+					</ul>
+				  </div>
+				`;
+				document.body.appendChild(sidebar);
+
+				function showSidebar(){
+					sidebar.classList.add('open');
+					overlay.classList.add('visible');
+				}
+				function hideSidebar(){
+					sidebar.classList.remove('open');
+					overlay.classList.remove('visible');
+				}
+
+				openBtn.addEventListener('click', showSidebar);
+				document.addEventListener('click', (e)=>{
+					// keep overlay and close button handling separate
+				});
+				document.getElementById('close-sidebar').addEventListener('click', hideSidebar);
+				overlay.addEventListener('click', hideSidebar);
+				document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hideSidebar(); });
+				// hide when clicking main content
+				document.querySelector('main').addEventListener('click', ()=>{ if (sidebar.classList.contains('open')) hideSidebar(); });
 			</script>
 		</main>
 	</body>
