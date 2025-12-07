@@ -4,13 +4,286 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Biology I — StudyStuff</title>
-  <style>body{font-family:Segoe UI,Roboto,Arial,sans-serif;padding:2rem;background:#f7f7fb;color:#111}.card{max-width:720px;margin:0 auto;background:#fff;padding:1.5rem;border-radius:8px;box-shadow:0 6px 18px rgba(20,20,40,0.06)}a.button{display:inline-block;margin-top:1rem;padding:0.5rem 0.9rem;background:#0ea5a4;color:#fff;border-radius:6px;text-decoration:none}</style>
+  <style>
+    :root{--bg:#f7f7fb;--card:#fff;--accent:#0ea5a4;--muted:#6b7280}
+    body{font-family:Segoe UI,Roboto,Arial,sans-serif;margin:0;padding:0;background:var(--bg);color:#111}
+    .page{max-width:1100px;margin:1.5rem auto;padding:1rem;display:grid;grid-template-columns:1fr 300px;gap:1rem}
+    .card{background:var(--card);padding:1rem;border-radius:8px;box-shadow:0 6px 18px rgba(20,20,40,0.06)}
+    h1{margin:.2rem 0 1rem}
+
+    /* Notes column */
+    .notes{display:block}
+    .unit{margin-bottom:1.25rem}
+    .unit h2{margin:.4rem 0}
+    .subunit{margin:0.5rem 0;padding:0.6rem;border-left:3px solid rgba(0,0,0,0.04);background:rgba(0,0,0,0.01);border-radius:4px}
+    .note-controls{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem}
+    .btn{background:var(--accent);color:white;padding:.35rem .6rem;border-radius:6px;text-decoration:none;border:none;cursor:pointer}
+    .btn.secondary{background:#2563eb}
+    .micro{font-size:.85rem;color:var(--muted)}
+
+    /* TOC / tab bar on right (sticky) */
+    .toc{position:relative}
+    .toc-inner{position:sticky;top:1rem}
+    .toc h3{margin:.2rem 0}
+    .toc-list{list-style:none;padding:0;margin:0;display:block}
+    .toc-list li{padding:.35rem .4rem;border-radius:6px;cursor:pointer}
+    .toc-list li:hover{background:rgba(37,99,235,0.06)}
+    .toc-list .sub{font-size:.95rem;color:var(--muted);padding-left:.8rem}
+    .toc-actions{display:flex;gap:.4rem;margin-bottom:.6rem}
+    .search{width:100%;padding:.4rem;border-radius:6px;border:1px solid rgba(0,0,0,0.08)}
+
+    /* Quiz area */
+    .quiz .score{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+    .question{margin:0.4rem 0 0.8rem}
+    .choices{display:flex;flex-direction:column;gap:.5rem}
+    .choice{padding:.6rem;border-radius:6px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;background:white}
+    .choice.selected{outline:2px solid rgba(37,99,235,0.22)}
+    .choice.correct{background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.2)}
+    .choice.wrong{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.12)}
+    .small{font-size:.9rem;color:var(--muted)}
+    .controls{display:flex;gap:.5rem;margin-top:.75rem}
+    .controls .btn.disabled{opacity:.5;pointer-events:none}
+
+    /* responsive */
+    @media (max-width:900px){
+      .page{grid-template-columns:1fr;}
+      .toc{order:2}
+      .toc-inner{position:static;margin-top:1rem}
+    }
+  </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Biology I Honors</h1>
-    <p>Notes or materials for Biology I Honors go here.</p>
-    <a class="button" href="index.html">← Back</a>
+  <div class="page">
+    <div>
+      <div class="card">
+        <h1>Biology I — Notes & Quiz</h1>
+        <div class="note-controls">
+          <button id="add-unit" class="btn">+ Add Unit</button>
+          <button id="export-notes" class="btn secondary">Export Notes</button>
+          <span class="micro">Notes are saved to your browser localStorage.</span>
+        </div>
+        <div id="notes" class="notes">
+          <!-- Units and subunits will be rendered here -->
+        </div>
+      </div>
+
+      <div class="card quiz" style="margin-top:1rem">
+        <div class="score">
+          <div>
+            <strong>Quiz — Biology I</strong>
+            <div class="small">Answer question types: multiple-choice, select-all, true/false</div>
+          </div>
+          <div class="micro">Score: <span id="score">0</span> / <span id="total">0</span></div>
+        </div>
+
+        <hr />
+        <div id="quiz-area">
+          <!-- Question will render here -->
+        </div>
+
+        <div class="controls">
+          <button id="submit-answer" class="btn">Submit Answer</button>
+          <button id="next-question" class="btn secondary">Next Question</button>
+          <button id="reset-quiz" class="btn" style="background:#ef4444">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="toc">
+      <div class="card toc-inner">
+        <h3>Units</h3>
+        <div class="toc-actions">
+          <input id="search-notes" class="search" placeholder="Search notes..." />
+        </div>
+        <ul id="toc-list" class="toc-list">
+          <!-- TOC generated here -->
+        </ul>
+      </div>
+    </aside>
   </div>
+
+<script>
+// NOTES data model and UI
+const NOTES_KEY = 'study_bio_notes_v1';
+let notes = JSON.parse(localStorage.getItem(NOTES_KEY) || 'null') || {
+  units:[
+    {id:'unit1',title:'Unit 1: Cells', sub:[{id:'u1-s1',title:'Cell Structure',content:'Notes about cell structure...'}]},
+    {id:'unit2',title:'Unit 2: Genetics', sub:[{id:'u2-s1',title:'DNA & RNA',content:'Notes about DNA...'}]}
+  ]
+};
+
+const notesEl = document.getElementById('notes');
+const tocList = document.getElementById('toc-list');
+const searchInput = document.getElementById('search-notes');
+
+function saveNotes(){ localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); }
+
+function renderNotes(filter=''){
+  notesEl.innerHTML='';
+  tocList.innerHTML='';
+  notes.units.forEach(unit=>{
+    const u = document.createElement('div'); u.className='unit'; u.id = unit.id;
+    const h = document.createElement('h2'); h.textContent = unit.title;
+    const addSubBtn = document.createElement('button'); addSubBtn.className='btn'; addSubBtn.textContent='Add Subunit';
+    addSubBtn.onclick = ()=>{ const title = prompt('Subunit title'); if(!title) return; const content = prompt('Subunit content (brief)')||''; const sid = unit.id+'-s'+(unit.sub.length+1); unit.sub.push({id:sid,title,content}); saveNotes(); renderNotes(searchInput.value); }
+    h.appendChild(document.createTextNode(' ')); h.appendChild(addSubBtn);
+
+    u.appendChild(h);
+
+    unit.sub.forEach(s=>{
+      if(filter && !(s.title.toLowerCase().includes(filter.toLowerCase())||s.content.toLowerCase().includes(filter.toLowerCase()))) return; // filter
+      const su = document.createElement('div'); su.className='subunit'; su.id = s.id;
+      const st = document.createElement('strong'); st.textContent = s.title; su.appendChild(st);
+      const p = document.createElement('div'); p.innerHTML = '<p class="micro">'+(s.content||'<em>No notes yet</em>')+'</p>';
+      su.appendChild(p);
+      u.appendChild(su);
+
+      // TOC entry
+      const li = document.createElement('li'); li.textContent = unit.title + ' — ' + s.title; li.className='toc-item'; li.onclick = ()=>{ document.getElementById(s.id).scrollIntoView({behavior:'smooth',block:'center'}); };
+      tocList.appendChild(li);
+    });
+
+    // unit controls: edit title
+    const editUnit = document.createElement('button'); editUnit.className='btn secondary'; editUnit.style.marginLeft='0.5rem'; editUnit.textContent='Edit Unit';
+    editUnit.onclick = ()=>{ const newTitle = prompt('Edit unit title', unit.title); if(newTitle){ unit.title = newTitle; saveNotes(); renderNotes(searchInput.value);} };
+    u.querySelector('h2').appendChild(editUnit);
+
+    notesEl.appendChild(u);
+  });
+}
+
+// initial render
+renderNotes();
+
+// Add unit
+document.getElementById('add-unit').addEventListener('click', ()=>{
+  const title = prompt('Unit title'); if(!title) return; const id = 'unit'+(notes.units.length+1);
+  notes.units.push({id,title,sub:[]}); saveNotes(); renderNotes();
+});
+
+// Export notes
+document.getElementById('export-notes').addEventListener('click', ()=>{
+  const blob = new Blob([JSON.stringify(notes, null, 2)],{type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'bio-notes.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+});
+
+// Search notes
+searchInput.addEventListener('input', ()=>{ renderNotes(searchInput.value); });
+
+/* Highlight active TOC entry on scroll */
+window.addEventListener('scroll', ()=>{
+  const subs = document.querySelectorAll('.subunit');
+  let current = null;
+  subs.forEach(s=>{
+    const rect = s.getBoundingClientRect();
+    if(rect.top <= window.innerHeight*0.4 && rect.bottom >= 0){ current = s.id; }
+  });
+  document.querySelectorAll('.toc-list li').forEach(li=>li.style.fontWeight='normal');
+  if(current){ document.querySelectorAll('.toc-list li').forEach(li=>{ if(li.textContent.includes(document.getElementById(current).querySelector('strong').textContent)) li.style.fontWeight='600'; }); }
+});
+
+// QUIZ implementation
+const questions = [
+  {id:'q1',type:'multiple',q:'What is the powerhouse of the cell?',choices:['Ribosome','Mitochondria','Endoplasmic Reticulum','Golgi Apparatus'],answer:1,explain:'Mitochondria generate ATP via cellular respiration.'},
+  {id:'q2',type:'truefalse',q:'DNA is double-stranded.',choices:['True','False'],answer:0,explain:'DNA is typically double-stranded forming a double helix.'},
+  {id:'q3',type:'selectall',q:'Which of the following are components of a nucleotide?',choices:['Phosphate group','Amino acid','Sugar','Nitrogenous base'],answer:[0,2,3],explain:'Nucleotides contain a phosphate, a sugar, and a nitrogenous base.'},
+  {id:'q4',type:'multiple',q:'Which process produces gametes?',choices:['Mitosis','Meiosis','Binary fission','Photosynthesis'],answer:1,explain:'Meiosis reduces chromosome number to produce gametes.'},
+  {id:'q5',type:'truefalse',q:'Prokaryotic cells have a nucleus.',choices:['True','False'],answer:1,explain:'Prokaryotes lack a membrane-bound nucleus.'}
+];
+let currentIndex = 0; let score = 0; let total = 0; // total answered
+
+const quizArea = document.getElementById('quiz-area');
+const scoreEl = document.getElementById('score');
+const totalEl = document.getElementById('total');
+const submitBtn = document.getElementById('submit-answer');
+const nextBtn = document.getElementById('next-question');
+const resetBtn = document.getElementById('reset-quiz');
+
+function renderQuestion(idx){
+  const q = questions[idx];
+  quizArea.innerHTML = '';
+  const questionEl = document.createElement('div'); questionEl.className='question'; questionEl.innerHTML = `<strong>Q${idx+1}.</strong> ${q.q}`;
+  quizArea.appendChild(questionEl);
+  const choices = document.createElement('div'); choices.className='choices';
+
+  if(q.type === 'multiple' || q.type === 'truefalse'){
+    q.choices.forEach((c,i)=>{
+      const ch = document.createElement('div'); ch.className='choice'; ch.tabIndex=0; ch.dataset.index=i; ch.textContent = c;
+      ch.onclick = ()=>{ // select single
+        choices.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
+        ch.classList.add('selected');
+      };
+      choices.appendChild(ch);
+    });
+  } else if(q.type === 'selectall'){
+    q.choices.forEach((c,i)=>{
+      const ch = document.createElement('label'); ch.className='choice'; ch.style.display='flex'; ch.style.alignItems='center';
+      const cb = document.createElement('input'); cb.type='checkbox'; cb.style.marginRight='0.6rem'; cb.dataset.index = i;
+      ch.appendChild(cb); ch.appendChild(document.createTextNode(c));
+      choices.appendChild(ch);
+    });
+  }
+  quizArea.appendChild(choices);
+
+  // explanation area (only shown on correct answer per request)
+  const explainEl = document.createElement('div'); explainEl.id='explain'; explainEl.style.marginTop='0.6rem'; quizArea.appendChild(explainEl);
+
+  // set buttons
+  submitBtn.disabled = false; nextBtn.disabled = true;
+}
+
+function arraysEqual(a,b){ if(a.length!==b.length) return false; a = [...a].sort(); b=[...b].sort(); return a.every((v,i)=>v===b[i]); }
+
+submitBtn.addEventListener('click', ()=>{
+  const q = questions[currentIndex];
+  const choicesEl = quizArea.querySelector('.choices');
+  let correct = false;
+  if(q.type === 'multiple' || q.type === 'truefalse'){
+    const sel = choicesEl.querySelector('.choice.selected');
+    if(!sel){ alert('Please select an answer'); return; }
+    const idx = Number(sel.dataset.index);
+    if(idx === q.answer){ correct = true; sel.classList.add('correct'); }
+    else{ sel.classList.add('wrong'); }
+  } else if(q.type === 'selectall'){
+    const checked = Array.from(choicesEl.querySelectorAll('input[type="checkbox"]')).filter(c=>c.checked).map(c=>Number(c.dataset.index));
+    if(checked.length===0){ alert('Select at least one option'); return; }
+    if(arraysEqual(checked, q.answer)){
+      correct = true;
+      // mark correct ones
+      checked.forEach(i=>{ const el = choicesEl.querySelector('[data-index="'+i+'"]').parentElement; el.classList.add('correct'); });
+    } else {
+      // mark selected wrong choices
+      Array.from(choicesEl.querySelectorAll('input[type="checkbox"]')).forEach(c=>{ if(c.checked){ c.parentElement.classList.add('wrong'); } });
+    }
+  }
+
+  // update counters
+  total += 1;
+  if(correct) score += 1;
+  scoreEl.textContent = score; totalEl.textContent = total;
+
+  // show explanation only when correct per request
+  const explainEl = document.getElementById('explain');
+  explainEl.innerHTML = '';
+  if(correct){ const p = document.createElement('div'); p.className='micro'; p.innerHTML = '<strong>Explanation:</strong> ' + q.explain; explainEl.appendChild(p); }
+
+  submitBtn.disabled = true; nextBtn.disabled = false;
+});
+
+nextBtn.addEventListener('click', ()=>{
+  // advance to next question
+  currentIndex = (currentIndex + 1) % questions.length;
+  renderQuestion(currentIndex);
+});
+
+resetBtn.addEventListener('click', ()=>{
+  if(!confirm('Reset quiz score and progress?')) return; score = 0; total = 0; scoreEl.textContent=score; totalEl.textContent=total; currentIndex=0; renderQuestion(currentIndex);
+});
+
+// initialize quiz
+renderQuestion(currentIndex);
+
+</script>
 </body>
 </html>
