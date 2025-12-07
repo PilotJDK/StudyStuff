@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>StudyStuff — Test Page</title>
+		<style>
+			body{font-family:Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;padding:2rem;background:#f7f7fb;color:#111}
+			main{max-width:720px;margin:0 auto;background:#fff;padding:1.5rem;border-radius:8px;box-shadow:0 6px 18px rgba(20,20,40,0.06)}
+			button{margin-top:1rem;padding:0.5rem 1rem;border-radius:6px;border:1px solid #2b6cb0;background:#3182ce;color:#fff;cursor:pointer}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1>StudyStuff — Test Page</h1>
+			<p id="message">This is a simple HTML starter used to verify the site setup.</p>
+			<button id="testBtn">Click to change text</button>
+			<script>
+				const btn = document.getElementById('testBtn');
+				const msg = document.getElementById('message');
+				btn.addEventListener('click', ()=>{
+					const now = new Date().toLocaleTimeString();
+					msg.textContent = `Button clicked at ${now}`;
+				});
+			</script>
+		</main>
+	</body>
+</html>
