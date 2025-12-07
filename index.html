@@ -21,6 +21,44 @@
 		</style>
 	</head>
 	<body>
+		<!-- Sidebar and controls: placed as direct children of body so fixed positioning works reliably -->
+		<button id="open-sidebar-btn" type="button">Sidebar</button>
+		<div id="sidebar-overlay"></div>
+		<aside id="sidebar" aria-hidden="true">
+		  <div class="sidebar-header">
+			<strong>StudyStuff:</strong>
+			<button class="close-btn" id="close-sidebar" aria-label="Close sidebar">✕</button>
+		  </div>
+		  <div class="sidebar-body">
+			<section>
+			  <h3>Testing:</h3>
+			  <ul>
+				<li>- ACT</li>
+				<li>- SAT</li>
+				<li>- PSAT</li>
+			  </ul>
+			</section>
+			<section>
+			  <h3>Math:</h3>
+			  <ul>
+				<li>- Math III Honors</li>
+			  </ul>
+			</section>
+			<section>
+			  <h3>History:</h3>
+			  <ul>
+				<li>- AP World History</li>
+			  </ul>
+			</section>
+			<section>
+			  <h3>Science:</h3>
+			  <ul>
+				<li>- Biology I Honors</li>
+			  </ul>
+			</section>
+		  </div>
+		</aside>
+
 		<main>
 			<h1>StudyStuff — Test Page</h1>
 			<p id="message">This is a simple HTML starter used to verify the site setup.</p>
@@ -36,49 +74,14 @@
 
 				/* Sidebar: use static markup and DOMContentLoaded to ensure elements exist */
 			</script>
-			<!-- Static sidebar markup so behavior is consistent and easy to debug -->
-			<button id="open-sidebar-btn" type="button">Sidebar</button>
-			<div id="sidebar-overlay"></div>
-			<aside id="sidebar" aria-hidden="true">
-			  <div class="sidebar-header">
-				<strong>StudyStuff:</strong>
-				<button class="close-btn" id="close-sidebar" aria-label="Close sidebar">✕</button>
-			  </div>
-			  <div class="sidebar-body">
-				<section>
-				  <h3>Testing:</h3>
-				  <ul>
-					<li>- ACT</li>
-					<li>- SAT</li>
-					<li>- PSAT</li>
-				  </ul>
-				</section>
-				<section>
-				  <h3>Math:</h3>
-				  <ul>
-					<li>- Math III Honors</li>
-				  </ul>
-				</section>
-				<section>
-				  <h3>History:</h3>
-				  <ul>
-					<li>- AP World History</li>
-				  </ul>
-				</section>
-				<section>
-				  <h3>Science:</h3>
-				  <ul>
-					<li>- Biology I Honors</li>
-				  </ul>
-				</section>
-			  </div>
-			</aside>
 			<script>
-				document.addEventListener('DOMContentLoaded', ()=>{
+				(function initSidebar(){
 					const openBtn = document.getElementById('open-sidebar-btn');
 					const overlay = document.getElementById('sidebar-overlay');
 					const sidebar = document.getElementById('sidebar');
 					const closeBtn = document.getElementById('close-sidebar');
+
+					if (!openBtn || !overlay || !sidebar || !closeBtn) return;
 
 					function showSidebar(){
 						sidebar.classList.add('open');
@@ -97,7 +100,7 @@
 					document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hideSidebar(); });
 					// hide when clicking main content
 					document.querySelector('main').addEventListener('click', ()=>{ if (sidebar.classList.contains('open')) hideSidebar(); });
-				});
+				})();
 			</script>
 		</main>
 	</body>
