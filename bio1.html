@@ -64,7 +64,9 @@
     #sidebar .sidebar-body{padding:1rem;overflow:auto;flex:1}
     #sidebar .sidebar-body li{cursor:pointer;padding:0.15rem 0.25rem;border-radius:4px}
     #sidebar .sidebar-body li:hover{background:rgba(37,99,235,0.06)}
-    #open-sidebar-btn{position:fixed;left:1rem;bottom:1rem;z-index:1300;padding:0.6rem 0.9rem;border-radius:999px;border:none;background:#0ea5a4;color:#fff;box-shadow:0 6px 18px rgba(20,20,40,0.12);cursor:pointer}
+    #open-sidebar-btn{position:fixed;left:1rem;right:auto;bottom:1rem;z-index:1300;padding:0.6rem 0.9rem;border-radius:999px;border:none;background:#0ea5a4;color:#fff;box-shadow:0 6px 18px rgba(20,20,40,0.12);cursor:pointer}
+    .card-header{display:flex;align-items:center;justify-content:space-between}
+    .card h2{font-size:1.25rem;margin:.1rem 0 .5rem}
     #sidebar .close-btn{background:transparent;border:none;font-size:1.1rem;cursor:pointer}
     .page-controls{display:flex;gap:.6rem;align-items:center;margin-bottom:.6rem}
   </style>
@@ -87,22 +89,14 @@
   </aside>
   <div class="page">
     <div>
-      <div class="page-controls">
-        <label class="micro">View</label>
-        <select id="view-select" class="search" style="width:10rem">
-          <option value="both">Both</option>
-          <option value="notes">Notes only</option>
-          <option value="quiz">Quiz only</option>
-        </select>
-        <button id="toggle-unit-selector" class="btn">Units ▾</button>
-      </div>
+        <!-- top controls removed; moved to the right-side Settings card -->
 
       <div class="card" style="margin-bottom:.8rem">
         <h1>Biology I Honors</h1>
       </div>
 
       <div id="notes-card" class="card">
-        <h2>Notes</h2>
+        <div class="card-header"><h2>Notes</h2><button id="toggle-notes-visibility" class="btn" aria-expanded="true">Hide Notes</button></div>
         <div class="note-controls">
           <input id="search-notes" class="search" placeholder="Search notes (keywords)..." />
           <button id="export-notes" class="btn secondary">Export Notes</button>
@@ -116,22 +110,10 @@
       <div id="quiz-card" class="card quiz" style="margin-top:1rem">
         <div class="score">
           <div>
-            <strong>Quiz</strong>
+            <h2>Quiz</h2>
             <div class="small">Answer question types: multiple-choice, select-all, true/false</div>
           </div>
           <div class="micro">Score: <span id="score">0</span> / <span id="total">0</span></div>
-        </div>
-        </div>
-
-        <div id="unit-selector" style="margin-top:.6rem;display:none;border-top:1px dashed rgba(0,0,0,0.04);padding-top:.6rem">
-          <div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.4rem">
-            <button id="select-all-units" class="btn">Select All</button>
-            <button id="hide-unit-selector" class="btn secondary">Hide</button>
-            <button id="shuffle-start" class="btn secondary">Shuffle & Start</button>
-          </div>
-          <div id="unit-checkboxes" style="display:flex;flex-direction:column;gap:.3rem">
-            <!-- populated dynamically -->
-          </div>
         </div>
 
         <hr />
@@ -156,6 +138,24 @@
         <ul id="toc-list" class="toc-list">
           <!-- TOC generated here -->
         </ul>
+          <hr />
+          <div id="settings" style="margin-top:.6rem">
+            <div style="margin-bottom:.5rem">
+              <label class="micro">View</label>
+              <select id="view-select" class="search" style="width:100%">
+                <option value="both">Both</option>
+                <option value="notes">Notes only</option>
+                <option value="quiz">Quiz only</option>
+              </select>
+            </div>
+            <div style="margin-top:.5rem;margin-bottom:.5rem;display:flex;gap:.4rem">
+              <button id="select-all-units" class="btn">Select All</button>
+              <button id="shuffle-start" class="btn secondary">Shuffle & Start</button>
+            </div>
+            <div id="unit-checkboxes" style="display:flex;flex-direction:column;gap:.3rem">
+              <!-- unit checkboxes populated here -->
+            </div>
+          </div>
       </div>
     </aside>
   </div>
@@ -435,10 +435,23 @@ resetBtn.addEventListener('click', ()=>{
 });
 
 // Unit selector & view handlers
-document.getElementById('toggle-unit-selector').addEventListener('click', ()=>{ const el = document.getElementById('unit-selector'); el.style.display = (el.style.display==='none' || !el.style.display) ? 'block' : 'none'; });
+// top toggle was removed; keep backward-compat by no-op if missing
+const topToggle = document.getElementById('toggle-unit-selector'); if(topToggle){ topToggle.addEventListener('click', ()=>{ const el = document.getElementById('unit-selector'); if(el) el.style.display = (el.style.display==='none' || !el.style.display) ? 'block' : 'none'; }); }
 document.getElementById('select-all-units').addEventListener('click', ()=>{ document.querySelectorAll('#unit-checkboxes input[type="checkbox"]').forEach(c=>c.checked=true); });
-document.getElementById('hide-unit-selector').addEventListener('click', ()=>{ document.getElementById('unit-selector').style.display='none'; });
-document.getElementById('shuffle-start').addEventListener('click', ()=>{ buildSessionQuestions(); document.getElementById('unit-selector').style.display='none'; });
+document.getElementById('shuffle-start').addEventListener('click', ()=>{ buildSessionQuestions(); const s=document.getElementById('settings'); if(s) s.style.display='none'; });
+
+// toggle notes visibility (keep title visible)
+const notesToggle = document.getElementById('toggle-notes-visibility');
+if(notesToggle){
+  notesToggle.addEventListener('click', ()=>{
+    const notesBody = document.getElementById('notes');
+    if(!notesBody) return;
+    const hidden = notesBody.style.display === 'none';
+    notesBody.style.display = hidden ? 'block' : 'none';
+    notesToggle.textContent = hidden ? 'Hide Notes' : 'Show Notes';
+    notesToggle.setAttribute('aria-expanded', String(hidden));
+  });
+}
 
 document.getElementById('view-select').addEventListener('change', (e)=>{
   const v = e.target.value; const notesCard = document.getElementById('notes-card'); const quizCard = document.getElementById('quiz-card');
