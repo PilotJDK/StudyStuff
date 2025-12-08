@@ -64,16 +64,16 @@
     #sidebar .sidebar-body{padding:1rem;overflow:auto;flex:1}
     #sidebar .sidebar-body li{cursor:pointer;padding:0.15rem 0.25rem;border-radius:4px}
     #sidebar .sidebar-body li:hover{background:rgba(37,99,235,0.06)}
-    #open-sidebar-btn{position:fixed;left:1rem;right:auto;bottom:1rem;z-index:1300;padding:0.6rem 0.9rem;border-radius:999px;border:none;background:#0ea5a4;color:#fff;box-shadow:0 6px 18px rgba(20,20,40,0.12);cursor:pointer}
-    .card-header{display:flex;align-items:center;justify-content:space-between}
+    .card-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
     .card h2{font-size:1.25rem;margin:.1rem 0 .5rem}
+    .quiz h2{font-size:2rem;margin:.2rem 0 .4rem}
     #sidebar .close-btn{background:transparent;border:none;font-size:1.1rem;cursor:pointer}
-    .page-controls{display:flex;gap:.6rem;align-items:center;margin-bottom:.6rem}
+    .unit-controls{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+    .unit-controls label{display:flex;align-items:center;gap:.25rem;font-size:.85rem}
   </style>
 </head>
 <body>
   <!-- Sidebar -->
-  <button id="open-sidebar-btn" type="button">Sidebar</button>
   <div id="sidebar-overlay"></div>
   <aside id="sidebar" aria-hidden="true">
     <div class="sidebar-header">
@@ -96,7 +96,12 @@
       </div>
 
       <div id="notes-card" class="card">
-        <div class="card-header"><h2>Notes</h2><button id="toggle-notes-visibility" class="btn" aria-expanded="true">Hide Notes</button></div>
+        <div class="card-header">
+          <h2>Notes</h2>
+          <div class="unit-controls" id="unit-controls-header">
+            <!-- Unit checkboxes will be added here dynamically -->
+          </div>
+        </div>
         <div class="note-controls">
           <input id="search-notes" class="search" placeholder="Search notes (keywords)..." />
           <button id="export-notes" class="btn secondary">Export Notes</button>
@@ -138,24 +143,11 @@
         <ul id="toc-list" class="toc-list">
           <!-- TOC generated here -->
         </ul>
-          <hr />
-          <div id="settings" style="margin-top:.6rem">
-            <div style="margin-bottom:.5rem">
-              <label class="micro">View</label>
-              <select id="view-select" class="search" style="width:100%">
-                <option value="both">Both</option>
-                <option value="notes">Notes only</option>
-                <option value="quiz">Quiz only</option>
-              </select>
-            </div>
-            <div style="margin-top:.5rem;margin-bottom:.5rem;display:flex;gap:.4rem">
-              <button id="select-all-units" class="btn">Select All</button>
-              <button id="shuffle-start" class="btn secondary">Shuffle & Start</button>
-            </div>
-            <div id="unit-checkboxes" style="display:flex;flex-direction:column;gap:.3rem">
-              <!-- unit checkboxes populated here -->
-            </div>
-          </div>
+        <hr />
+        <div style="margin-top:.6rem;display:flex;gap:.4rem;flex-wrap:wrap">
+          <button id="select-all-units" class="btn">Select All</button>
+          <button id="shuffle-start" class="btn secondary">Shuffle & Start</button>
+        </div>
       </div>
     </aside>
   </div>
@@ -311,11 +303,11 @@ function shuffleArray(a){
 }
 
 function buildUnitSelector(){
-  const container = document.getElementById('unit-checkboxes'); if(!container) return;
+  const container = document.getElementById('unit-controls-header'); if(!container) return;
   container.innerHTML = '';
   notes.units.forEach(u=>{
     const id = u.id;
-    const row = document.createElement('label'); row.style.display='flex'; row.style.alignItems='center'; row.style.gap='0.5rem';
+    const row = document.createElement('label'); row.style.display='flex'; row.style.alignItems='center'; row.style.gap='0.3rem'; row.style.fontSize='.85rem';
     const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = true; cb.dataset.unit = id; cb.id = 'chk-'+id;
     const span = document.createElement('span'); span.textContent = u.title;
     row.appendChild(cb); row.appendChild(span);
@@ -324,7 +316,7 @@ function buildUnitSelector(){
 }
 
 function getSelectedUnits(){
-  const checks = Array.from(document.querySelectorAll('#unit-checkboxes input[type="checkbox"]'));
+  const checks = Array.from(document.querySelectorAll('#unit-controls-header input[type="checkbox"]'));
   const sel = checks.filter(c=>c.checked).map(c=>c.dataset.unit);
   return sel.length? sel : notes.units.map(u=>u.id);
 }
@@ -434,31 +426,9 @@ resetBtn.addEventListener('click', ()=>{
   score = 0; total = 0; scoreEl.textContent=score; totalEl.textContent=total; currentIndex=0; buildSessionQuestions();
 });
 
-// Unit selector & view handlers
-// top toggle was removed; keep backward-compat by no-op if missing
-const topToggle = document.getElementById('toggle-unit-selector'); if(topToggle){ topToggle.addEventListener('click', ()=>{ const el = document.getElementById('unit-selector'); if(el) el.style.display = (el.style.display==='none' || !el.style.display) ? 'block' : 'none'; }); }
-document.getElementById('select-all-units').addEventListener('click', ()=>{ document.querySelectorAll('#unit-checkboxes input[type="checkbox"]').forEach(c=>c.checked=true); });
-document.getElementById('shuffle-start').addEventListener('click', ()=>{ buildSessionQuestions(); const s=document.getElementById('settings'); if(s) s.style.display='none'; });
-
-// toggle notes visibility (keep title visible)
-const notesToggle = document.getElementById('toggle-notes-visibility');
-if(notesToggle){
-  notesToggle.addEventListener('click', ()=>{
-    const notesBody = document.getElementById('notes');
-    if(!notesBody) return;
-    const hidden = notesBody.style.display === 'none';
-    notesBody.style.display = hidden ? 'block' : 'none';
-    notesToggle.textContent = hidden ? 'Hide Notes' : 'Show Notes';
-    notesToggle.setAttribute('aria-expanded', String(hidden));
-  });
-}
-
-document.getElementById('view-select').addEventListener('change', (e)=>{
-  const v = e.target.value; const notesCard = document.getElementById('notes-card'); const quizCard = document.getElementById('quiz-card');
-  if(v === 'both'){ notesCard.style.display='block'; quizCard.style.display='block'; }
-  else if(v === 'notes'){ notesCard.style.display='block'; quizCard.style.display='none'; }
-  else { notesCard.style.display='none'; quizCard.style.display='block'; }
-});
+// Unit selector handlers
+document.getElementById('select-all-units').addEventListener('click', ()=>{ document.querySelectorAll('#unit-controls-header input[type="checkbox"]').forEach(c=>c.checked=true); });
+document.getElementById('shuffle-start').addEventListener('click', ()=>{ buildSessionQuestions(); });
 
 // initial setup
 buildUnitSelector(); buildSessionQuestions();
@@ -466,21 +436,16 @@ buildUnitSelector(); buildSessionQuestions();
 </script>
 <script>
   (function initSidebar(){
-    const openBtn = document.getElementById('open-sidebar-btn');
     const overlay = document.getElementById('sidebar-overlay');
     const sidebar = document.getElementById('sidebar');
     const closeBtn = document.getElementById('close-sidebar');
-    if (!openBtn || !overlay || !sidebar || !closeBtn) return;
-    function showSidebar(){ sidebar.classList.add('open'); overlay.classList.add('visible'); sidebar.setAttribute('aria-hidden','false'); }
+    if (!overlay || !sidebar || !closeBtn) return;
     function hideSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('visible'); sidebar.setAttribute('aria-hidden','true'); }
-    openBtn.addEventListener('click', showSidebar);
     closeBtn.addEventListener('click', hideSidebar);
     overlay.addEventListener('click', hideSidebar);
     document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hideSidebar(); });
     const sidebarItems = Array.from(document.querySelectorAll('.sidebar-item'));
     sidebarItems.forEach(item=>{ item.addEventListener('click', ()=>{ const id = item.dataset.id; if(id) window.location.href = id + '.html'; }); });
-    // close when clicking outside main content on small screens
-    const main = document.querySelector('.page'); if(main){ main.addEventListener('click', ()=>{ if(sidebar.classList.contains('open')) hideSidebar(); }); }
   })();
 </script>
 </body>
