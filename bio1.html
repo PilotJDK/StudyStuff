@@ -72,7 +72,9 @@
     .unit-tree{list-style:none;padding:0;margin:0}
     .unit-tree li{padding:.25rem 0}
     .unit-tree .unit-item{display:flex;justify-content:space-between;align-items:center;font-weight:600}
+    .unit-tree .unit-item span:hover{color:var(--accent)}
     .unit-tree .subunit-item{display:flex;justify-content:space-between;align-items:center;padding-left:1.2rem;font-size:.9rem;color:var(--muted)}
+    .unit-tree .subunit-item:hover{color:var(--accent)}
   </style>
 </head>
 <body>
@@ -140,8 +142,7 @@
         <ul id="notes-tree" class="unit-tree">
           <!-- Notes unit tree with checkboxes -->
         </ul>
-        <hr style="margin:1rem 0" />
-        <h3 style="cursor:pointer" onclick="document.getElementById('quiz-card').scrollIntoView({behavior:'smooth'})">Quiz</h3>
+        <h3 style="cursor:pointer;margin-top:1rem" onclick="document.getElementById('quiz-card').scrollIntoView({behavior:'smooth'})">Quiz</h3>
       </div>
     </aside>
   </div>
@@ -300,6 +301,8 @@ function buildUnitSelector(){
     const nItem = document.createElement('li');
     const nDiv = document.createElement('div'); nDiv.className='unit-item';
     const nSpan = document.createElement('span'); nSpan.textContent = u.title;
+    nSpan.style.cursor = 'pointer';
+    nSpan.onclick = ()=>{ const el = document.getElementById(u.id); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); };
     const nCb = document.createElement('input'); nCb.type='checkbox'; nCb.checked = true; nCb.dataset.unit = u.id; nCb.className='unit-checkbox';
     nDiv.appendChild(nSpan); nDiv.appendChild(nCb);
     nItem.appendChild(nDiv);
@@ -310,6 +313,8 @@ function buildUnitSelector(){
         const subItem = document.createElement('li');
         const subDiv = document.createElement('div'); subDiv.className='subunit-item';
         subDiv.textContent = s.title;
+        subDiv.style.cursor = 'pointer';
+        subDiv.onclick = ()=>{ const el = document.getElementById(s.id); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); };
         subItem.appendChild(subDiv);
         nItem.appendChild(subItem);
       });
