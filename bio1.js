@@ -3120,10 +3120,18 @@ function shuffleArray(a) {
 
 function getSelectedUnits() {
     const checks = Array.from(document.querySelectorAll('#notes-tree .unit-checkbox'));
+    if (checks.length === 0) {
+        // If no checkboxes exist yet, return all available units
+        const allUnits = Array.from(document.querySelectorAll('.unit[data-unit]'));
+        return allUnits.map(u => u.dataset.unit);
+    }
     const sel = checks.filter(c => c.checked).map(c => c.dataset.unit);
-    if (sel.length) return sel;
-    const allUnits = Array.from(document.querySelectorAll('.unit[data-unit]'));
-    return allUnits.map(u => u.dataset.unit);
+    // If no units are checked, return all units (this shouldn't happen but safety check)
+    if (!sel || sel.length === 0) {
+        const allUnits = Array.from(document.querySelectorAll('.unit[data-unit]'));
+        return allUnits.map(u => u.dataset.unit);
+    }
+    return sel;
 }
 
 function buildSessionQuestions() {
