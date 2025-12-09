@@ -1,280 +1,548 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Biology I — StudyStuff</title>
-  <link rel="stylesheet" href="bio1.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Biology I — StudyStuff</title>
+    <link rel="stylesheet" href="bio1.css" />
 </head>
+
 <body>
-  <button id="open-sidebar-btn" type="button">☰ Menu</button>
-  <div id="clock"></div>
-  <div id="sidebar-overlay"></div>
-  <aside id="sidebar" aria-hidden="true">
-    <div class="sidebar-header">
-      <strong>StudyStuff:</strong>
-      <button class="close-btn" id="close-sidebar" aria-label="Close sidebar">✕</button>
-    </div>
-    <div class="sidebar-body">
-      <section><h3>Testing:</h3><ul><li class="sidebar-item" data-id="act">ACT</li><li class="sidebar-item" data-id="sat">SAT</li><li class="sidebar-item" data-id="psat">PSAT</li></ul></section>
-      <section><h3>Math:</h3><ul><li class="sidebar-item" data-id="math3">Math III</li></ul></section>
-      <section><h3>History:</h3><ul><li class="sidebar-item" data-id="apworld">AP World History</li></ul></section>
-      <section><h3>Science:</h3><ul><li class="sidebar-item" data-id="bio1">Biology I Honors</li></ul></section>
-    </div>
-  </aside>
-  <div class="page">
-    <div>
-      <div class="card" style="margin-bottom:.8rem">
-        <h1>Biology I Honors</h1>
-      </div>
-
-      <div id="notes-card" class="card">
-        <h2>Notes</h2>
-        <div class="note-controls">
-          <input id="search-notes" class="search" placeholder="Search notes (keywords)..." />
-          <span class="micro">Notes are read-only here.</span>
+    <button id="open-sidebar-btn" type="button">☰ Menu</button>
+    <div id="clock"></div>
+    <div id="sidebar-overlay"></div>
+    <aside id="sidebar" aria-hidden="true">
+        <div class="sidebar-header">
+            <strong>StudyStuff:</strong>
+            <button class="close-btn" id="close-sidebar" aria-label="Close sidebar">✕</button>
         </div>
-        <div id="notes" class="notes">
-          <div id="course-content">
-
-  <div class="unit" id="unit1" data-unit="unit1">
-            <h2>Unit 1: Biochemistry</h2>
-
-    <div class="subunit" id="u1-s1">
-      <strong>Homeostasis</strong>
-      <p class="micro">
-        Homeostasis is the dynamic process by which multicellular organisms preserve internal conditions within physiologically acceptable limits despite fluctuations in the external environment. This constant regulation allows biochemical systems, particularly enzymes and membrane proteins, to operate efficiently. At the core of homeostasis are three functional components: sensors that detect internal variables such as temperature, pH, osmolarity, and blood gas levels; integrative control centers—primarily neural (hypothalamus, brainstem) and endocrine (hypothalamic-pituitary axes)—that compare sensor input to biologically-determined set points and compute appropriate responses; and effectors, including sweat glands, skeletal muscles, vascular smooth muscle, liver metabolic pathways, and endocrine glands, which implement corrective actions. For example, thermoregulation is achieved through heat-loss mechanisms such as vasodilation and evaporative cooling and heat-conservation mechanisms such as vasoconstriction and shivering thermogenesis. Blood glucose homeostasis is tightly regulated by pancreatic islet hormones: insulin promotes cellular uptake and glycogen synthesis in response to hyperglycemia, whereas glucagon stimulates glycogenolysis and gluconeogenesis during hypoglycemia. The hypothalamic–pituitary–thyroid axis illustrates layered endocrine negative feedback where rising thyroid hormones suppress upstream releasing and stimulating hormones to stabilize metabolic rate. Some biological processes use positive feedback for rapid escalation to a defined endpoint; the classic examples are the oxytocin-driven contraction cascade during parturition and platelet activation during thrombosis. Homeostatic control also includes anticipatory adjustments, such as conditioned salivation and circadian modulation of hormone release, and relies on redundancy and overlapping pathways to preserve function; failure or chronic strain on these systems produces pathology, including diabetes mellitus, heart failure, heat stroke, and acid–base disturbances.
-      </p>
-    </div>
-
-            <div class="subunit" id="u1-s2">
-      <strong>Biomolecules / Macromolecules</strong>
-      <p class="micro">
-        Biomolecules are organic compounds built primarily from carbon skeletons decorated with hydrogen, oxygen, nitrogen, phosphorus, and sulfur. Their chemistry and three-dimensional organization produce the functions required for life. Carbohydrates range from simple monosaccharides like glucose and fructose to complex polysaccharides such as glycogen, starch, cellulose, and chitin. Glucose is central to cellular metabolism; it is catabolized via glycolysis to pyruvate and can enter aerobic pathways for maximal ATP yield. Structural carbohydrates such as cellulose differ from storage polymers by their β-glycosidic linkages, which produce straight, hydrogen-bonded fibrils resistant to most animal digestive enzymes. Lipids form a chemically diverse group defined by hydrophobicity; triglycerides store dense chemical energy in adipose tissue, phospholipids self-assemble into bilayers that create cellular compartments, sterols such as cholesterol modulate membrane fluidity and serve as precursors for steroid hormones, and waxes protect surfaces from water loss. Proteins are polymers of twenty canonical amino acids linked by peptide bonds. The side chain chemistry of amino acids determines local secondary structure such as α-helices and β-sheets through backbone hydrogen bonding and further drives tertiary folding through hydrophobic packing, ionic interactions, hydrogen bonds, and disulfide bridges. Proper folding is critical for function; molecular chaperones assist folding and protect nascent chains under stress. Nucleic acids—DNA and RNA—store and transmit genetic information. DNA's antiparallel double helix forms through complementary base pairing (adenine–thymine via two hydrogen bonds; cytosine–guanine via three hydrogen bonds) and is stabilized by base stacking interactions. RNA, with its ribose sugar and uracil base, adopts single-stranded structures that can fold into catalytic motifs (ribozymes) and mediates translation (mRNA), tRNA-mediated amino acid delivery, and ribosomal function (rRNA). Biochemical reactions building polymers proceed by dehydration synthesis, while hydrolysis returns polymers to monomers; enzymes and regulated pathways catalyze these transitions. The properties of water—polarity, high heat capacity, cohesion, adhesion, and solvent capacity—critically influence macromolecular assembly, reaction rates, and cellular thermoregulation.
-      </p>
-    </div>
-
-    <div class="subunit" id="u1-s3">
-      <strong>Enzymes</strong>
-      <p class="micro">
-        Enzymes are biological catalysts that accelerate chemical reactions by stabilizing transition states and lowering activation energy barriers, thereby increasing reaction rates without altering reaction equilibria. Although most enzymes are proteins, some RNA molecules (ribozymes) demonstrate catalytic activity, linking protein and nucleotide biochemistry. The active site of an enzyme forms a highly specific microenvironment tailored to bind substrates through complementary shape, charge, and hydrophobic/hydrophilic interactions; the induced fit model describes dynamic conformational changes that optimize catalysis. Enzyme kinetics reveal that reaction velocity rises with substrate concentration until active sites saturate at a maximum velocity (Vmax); the Michaelis constant (Km) quantitatively reflects substrate concentration at half-maximal velocity and serves as a comparative measure of affinity. Enzymes are exquisitely sensitive to environmental conditions: temperature increases kinetic energy and reaction rates up to an optimal point, after which thermal motion disrupts tertiary structure and causes denaturation; pH alters protonation states of active-site residues and substrates, thereby modulating catalysis and binding. Enzymatic activity is regulated on multiple levels including reversible inhibitors—competitive inhibitors bind the active site and can be outcompeted by substrate concentration, while noncompetitive inhibitors bind allosteric sites to reduce catalytic efficiency—covalent modifications such as phosphorylation that toggle activity states, and availability of cofactors and coenzymes including metal ions and organic carriers like NAD+ and FAD. Feedback inhibition, where an end product of a metabolic pathway allosterically inhibits an upstream enzyme, conserves resources and stabilizes flux. Experimental approaches to study enzymes include Michaelis–Menten kinetics, Lineweaver–Burk plotting for parameter estimation, spectrophotometric assays to monitor substrate depletion or product formation, and mutational analyses to identify catalytic residues. Representative enzymes include DNA polymerases which add nucleotides in a 5′→3′ direction with high fidelity, kinases which transfer phosphate groups, hydrolases like lipases that cleave ester bonds, and oxidoreductases such as dehydrogenases that mediate electron transfers central to respiration and photosynthesis.
-      </p>
-    </div>
-          </div>
-
-  <div class="unit" id="unit2" data-unit="unit2">
-    <h2>Unit 2: Cellular Structure and Function</h2>
-
-    <div class="subunit" id="u2-s1">
-      <strong>Cell Theory</strong>
-      <p class="micro">
-        Cell theory is a foundational principle in biology stating that all living organisms are composed of cells, that cells represent the basic structural and functional unit of life, and that all cells arise from pre-existing cells through cell division. This framework unifies diverse biological phenomena, providing an explanatory model for growth, development, heredity, and tissue maintenance. Cell theory implies that to understand whole-organism physiology, one must understand cellular components and interactions, including how cells obtain energy, replicate genetic material, and interact with each other through junctions and signaling molecules.
-      </p>
-    </div>
-
-    <div class="subunit" id="u2-s2">
-      <strong>Prokaryotic and Eukaryotic Cells</strong>
-      <p class="micro">
-        Cells are broadly classified into prokaryotic and eukaryotic types based on organizational complexity. Prokaryotic cells, typified by bacteria and archaea, lack membrane-bound nuclei and organelles; their genetic material is generally organized in a nucleoid, and they often possess a cell wall composed of peptidoglycan or similar polymers, a plasma membrane, ribosomes, and sometimes flagella or pili for motility and adhesion. Eukaryotic cells contain a true nucleus enveloped by a double membrane and multiple membrane-bound organelles such as mitochondria, endoplasmic reticulum, Golgi apparatus, lysosomes, and—within photosynthetic lineages—chloroplasts. Eukaryotic compartmentalization allows separation of incompatible biochemical processes, spatial regulation of metabolism, and more complex regulation of gene expression. Differences in genome architecture, replication mechanisms, transcriptional control, and cytoskeletal complexity are central to the functional distinctions between prokaryotes and eukaryotes.
-      </p>
-    </div>
-
-    <div class="subunit" id="u2-s3">
-      <strong>Organelles</strong>
-      <p class="micro">
-        Organelles are membrane-bound subcellular units that carry out specialized functions essential to eukaryotic life. The nucleus houses chromosomal DNA and coordinates gene expression and replication. The endoplasmic reticulum, divided into rough ER studded with ribosomes and smooth ER enriched for lipid synthesis and detoxification, collaborates with the Golgi apparatus to process, modify, and sort proteins and lipids for secretion or internal use. Mitochondria generate ATP through oxidative phosphorylation and play roles in apoptosis and metabolic signaling; their double-membrane structure and own genome support the endosymbiotic origin hypothesis. Lysosomes and peroxisomes degrade macromolecules and detoxify reactive species respectively. The cytoskeleton—composed of microtubules, microfilaments, and intermediate filaments—organizes cell shape, mediates intracellular transport, and enables cell movement. Chloroplasts in photosynthetic eukaryotes perform light capture and carbon fixation within a series of membrane compartments and enzyme complexes. Dysfunction or genetic defects in organelles can produce disease phenotypes ranging from mitochondrial myopathies to lysosomal storage disorders.
-      </p>
-    </div>
-
-    <div class="subunit" id="u2-s4">
-      <strong>Cell Differentiation & Specialization</strong>
-      <p class="micro">
-        Cell differentiation arises through differential gene expression orchestrated by transcription factors, epigenetic modifications, signaling gradients, and extracellular cues during development. Pluripotent stem cells can give rise to multiple cell types, while multipotent progenitors are lineage restricted. Differentiation produces specialized cells with unique morphologies and functions—neurons with extended axons and dendrites for electrical signaling, myocytes rich in contractile proteins for force generation, and epithelial cells forming barrier layers with polarized apical–basal surfaces. Cellular specialization enables division of labor in multicellular organisms, and mechanisms such as lateral inhibition, morphogen gradients, and extracellular matrix interactions guide pattern formation and tissue architecture.
-      </p>
-    </div>
-
-    <div class="subunit" id="u2-s5">
-      <strong>Lab Safety</strong>
-      <p class="micro">
-        Laboratory safety mitigates physical and biological hazards and is essential for credible experimental outcomes. Safe practice includes correctly handling microscopes to avoid optical damage, using personal protective equipment such as gloves, goggles, and lab coats, following biosafety levels for work with microbes, disposing of biological and chemical waste according to regulation, and maintaining sterile technique where contamination undermines experiments. Understanding material safety data sheets (MSDS) for chemicals, proper labeling, and emergency procedures for spills or exposures is part of responsible laboratory behavior.
-      </p>
-    </div>
-  </div>
-
-<!-- ===================== EXPANDED UNITS 3–8 ===================== -->
-
-<div class="unit" id="unit3" data-unit="unit3">
-  <h2>Unit 3: DNA, Chromosomes, and Mitosis</h2>
-
-  <div class="subunit">
-    <strong>Chromosome Structure and DNA Packaging</strong>
-    <p class="micro">
-      In eukaryotic cells, DNA is not free-floating but is organized into a complex called chromatin, which allows extremely long DNA molecules to fit inside the nucleus while still being accessible for transcription and replication. DNA wraps around histone proteins to form nucleosomes, creating a bead-like structure that coils further into chromatin fibers. During cell division, chromatin condenses into visible chromosomes, each consisting of two identical sister chromatids joined at a centromere. Telomeres, which are repetitive DNA sequences at chromosome ends, protect DNA from degradation and prevent chromosomes from fusing together. Telomerase is an enzyme that can lengthen telomeres in certain cell types such as stem cells and cancer cells. Changes in chromatin structure through chemical modifications, such as histone acetylation and methylation, regulate whether genes are turned on or off.
-    </p>
-  </div>
-
-  <div class="subunit">
-    <strong>DNA Replication</strong>
-    <p class="micro">
-      DNA replication is a highly accurate, semi-conservative process that occurs during the S phase of interphase. The double helix is unwound by helicase, creating a replication fork. Single-strand binding proteins stabilize the separated strands and prevent them from reannealing. Primase synthesizes short RNA primers, providing a starting point for DNA polymerase III to add complementary DNA nucleotides in the 5′ to 3′ direction. Replication occurs continuously on the leading strand but discontinuously on the lagging strand, producing Okazaki fragments that are later joined together by DNA ligase. DNA polymerases also possess proofreading ability, correcting mismatched bases to maintain genetic stability. Multiple origins of replication ensure the eukaryotic genome is copied efficiently. Any errors that escape repair become permanent mutations after the next round of replication.
-    </p>
-  </div>
-
-  <div class="subunit">
-    <strong>Mitosis and Cytokinesis</strong>
-    <p class="micro">
-      Mitosis is the process by which a eukaryotic cell divides its nucleus to produce two genetically identical daughter nuclei. During prophase, chromatin condenses into chromosomes and the mitotic spindle begins to form from centrosomes. In metaphase, chromosomes line up along the metaphase plate, and spindle fibers attach to kinetochores located at the centromeres. During anaphase, sister chromatids separate and are pulled toward opposite poles of the cell by shortening spindle fibers. Telophase follows, during which nuclear membranes reform around each set of chromosomes and chromosomes begin to decondense. Cytokinesis divides the cytoplasm of the cell, forming two separate daughter cells. In animal cells, a cleavage furrow forms, while in plant cells, a cell plate develops. Mitosis is essential for growth, tissue repair, and asexual reproduction.
-    </p>
-  </div>
-</div>
-
-<div class="unit" id="unit4" data-unit="unit4">
-  <h2>Unit 4: Cell Transport and Cellular Energy</h2>
-
-  <div class="subunit">
-    <strong>Membrane Structure and Fluid Mosaic Model</strong>
-    <p class="micro">
-      The plasma membrane is described by the fluid mosaic model, which states that the membrane is composed of a flexible phospholipid bilayer embedded with a mosaic of proteins. The hydrophilic heads of phospholipids face outward toward water, while the hydrophobic tails face inward, creating a selective barrier. Integral proteins span the membrane and function as channels, carriers, or receptors, while peripheral proteins are attached to the surface and often serve as enzymes or anchors. Cholesterol molecules help stabilize membrane fluidity in animal cells, preventing the membrane from becoming too rigid in cold conditions or too fluid in hot conditions. Carbohydrate chains attached to proteins and lipids form identification markers that allow cells to recognize one another.
-    </p>
-  </div>
-
-  <div class="subunit">
-    <strong>Passive and Active Transport</strong>
-    <p class="micro">
-      Passive transport moves molecules across membranes without the use of cellular energy and always occurs from areas of higher concentration to lower concentration. Simple diffusion allows small, nonpolar molecules such as oxygen and carbon dioxide to cross the lipid bilayer directly. Facilitated diffusion uses channel or carrier proteins to transport ions and polar molecules such as glucose. Osmosis is the diffusion of water through a selectively permeable membrane and is often regulated by aquaporin proteins. Active transport requires ATP to move substances against their concentration gradient, such as the sodium–potassium pump, which maintains the electrical balance in nerve and muscle cells. Bulk transport mechanisms, including endocytosis and exocytosis, allow cells to move large molecules and particles in and out of the cell using membrane-bound vesicles.
-    </p>
-  </div>
-
-  <div class="subunit">
-    <strong>Photosynthesis and Cellular Respiration</strong>
-    <p class="micro">
-      Photosynthesis occurs in two major stages inside chloroplasts. The light-dependent reactions take place in the thylakoid membranes and use sunlight to excite electrons in chlorophyll, producing ATP and NADPH and releasing oxygen through the splitting of water molecules. The light-independent reactions, also known as the Calvin cycle, occur in the stroma and use ATP and NADPH to fix carbon dioxide into glucose. Cellular respiration takes place in the mitochondria and begins with glycolysis in the cytoplasm, where glucose is broken into pyruvate with the production of a small amount of ATP. The Krebs cycle and electron transport chain then extract high-energy electrons to generate large amounts of ATP. Oxygen serves as the final electron acceptor in aerobic respiration. In the absence of oxygen, cells perform fermentation to regenerate NAD+ so glycolysis can continue.
-    </p>
-  </div>
-</div>
-
-<div class="unit" id="unit5" data-unit="unit5">
-  <h2>Unit 5: Ecology and Environmental Biology</h2>
-
-  <div class="subunit">
-    <strong>Population Dynamics</strong>
-    <p class="micro">
-      Population dynamics focuses on how and why populations change in size over time. Exponential growth occurs when resources are unlimited, producing a J-shaped growth curve, while logistic growth occurs when environmental limits slow growth and create an S-shaped curve. Carrying capacity is the maximum number of individuals an environment can support sustainably. Limiting factors such as food availability, predation, disease, and climate influence population size. Density-dependent factors have a greater effect as population density increases, while density-independent factors affect populations regardless of size, such as hurricanes, droughts, and wildfires.
-    </p>
-  </div>
-
-  <div class="subunit">
-    <strong>Community Interactions</strong>
-    <p class="micro">
-      A biological community consists of interacting populations of different species living in the same area. Relationships within communities include competition for limited resources, predation in which one organism captures and consumes another, and symbiotic relationships such as mutualism (both species benefit), commensalism (one benefits while the other is unaffected), and parasitism (one benefits while the other is harmed). Keystone species play a disproportionately large role in maintaining ecosystem structure, and their removal can cause trophic cascades that dramatically alter community composition.
-    </p>
-  </div>
-
-  <div class="subunit">
-    <strong>Succession and Biomes</strong>
-    <p class="micro">
-      Ecological succession is the gradual process of change in species composition in a given area over time. Primary succession begins on bare rock surfaces where no soil exists, such as after volcanic eruptions or glacial retreat, while secondary succession occurs in areas where a disturbance has destroyed a community but left soil intact. Biomes are large regions characterized by distinct climate conditions and biological communities, including forests, deserts, grasslands, tundra, and aquatic ecosystems. Temperature, precipitation, and latitude largely determine biome distribution.
-    </p>
-  </div>
-</div>
-
-<div class="unit" id="unit6" data-unit="unit6">
-  <h2>Unit 6: Protein Synthesis and Genetic Variation</h2>
-
-  <div class="subunit">
-    <strong>Transcription and RNA Processing</strong>
-    <p class="micro">
-      Transcription begins when RNA polymerase binds to promoter regions such as the TATA box and synthesizes a complementary RNA strand from the DNA template. In eukaryotes, the resulting pre-mRNA undergoes modifications including the addition of a 5′ methyl cap, removal of noncoding introns through splicing, and addition of a poly-A tail. These modifications protect the mRNA from degradation and help guide it out of the nucleus and toward ribosomes.
-    </p>
-  </div>
-
-  <div class="subunit">
-    <strong>Translation and the Genetic Code</strong>
-    <p class="micro">
-      During translation, ribosomes read mRNA codons three nucleotides at a time. Transfer RNA molecules bring specific amino acids to the ribosome based on complementary anticodon pairing. The process begins at the start codon (AUG) and continues until a stop codon is reached. The sequence of amino acids determines the primary structure of the protein, which later folds into complex functional shapes. Errors during translation can cause misfolded or nonfunctional proteins.
-    </p>
-  </div>
-
-  <div class="subunit">
-    <strong>Genetic Variation and Mutations</strong>
-    <p class="micro">
-      Genetic variation arises from mutations, independent assortment, crossing over, and random fertilization. Mutations can be caused by environmental factors such as radiation and chemical exposure or by random errors in DNA replication. While many mutations are neutral or harmful, some can be beneficial and increase an organism's ability to survive and reproduce in a given environment.
-    </p>
-  </div>
-</div>
-
-<div class="unit" id="unit7" data-unit="unit7">
-  <h2>Unit 7: Heredity and Genetic Patterns</h2>
-
-  <div class="subunit">
-    <strong>Mendelian Genetics</strong>
-    <p class="micro">
-      Gregor Mendel's experiments with pea plants led to the formulation of basic laws of genetics, including the law of segregation and the law of independent assortment. Alleles can be dominant or recessive, and organisms may be homozygous or heterozygous for a trait. Punnett squares are used to predict the probability of different genotypes and phenotypes in offspring.
-    </p>
-  </div>
-
-  <div class="subunit">
-    <strong>Non-Mendelian Inheritance</strong>
-    <p class="micro">
-      Not all traits follow simple dominant–recessive patterns. Incomplete dominance produces blended traits, codominance allows both alleles to be fully expressed, and sex-linked traits are often carried on the X chromosome. Environmental factors and gene interactions can influence trait expression.
-    </p>
-  </div>
-</div>
-
-<div class="unit" id="unit8" data-unit="unit8">
-  <h2>Unit 8: Evolution and Biological Classification</h2>
-
-  <div class="subunit">
-    <strong>Mechanisms of Evolution</strong>
-    <p class="micro">
-      Evolution occurs through mutation, genetic drift, gene flow, and natural selection. Genetic drift causes random changes in allele frequencies in small populations, while gene flow introduces new alleles through migration. Natural selection favors individuals with advantageous traits that increase survival and reproduction over time.
-    </p>
-  </div>
-
-  <div class="subunit">
-    <strong>Speciation and Fossil Evidence</strong>
-    <p class="micro">
-      Speciation occurs when populations become reproductively isolated and accumulate genetic differences. Fossils provide evidence of evolutionary change by documenting extinct species and transitional forms. Comparing anatomical structures and DNA sequences allows scientists to infer evolutionary relationships among organisms.
-    </p>
-  </div>
-</div>
-
-</div>
-
+        <div class="sidebar-body">
+            <section>
+                <h3>Testing:</h3>
+                <ul>
+                    <li class="sidebar-item" data-id="act">ACT</li>
+                    <li class="sidebar-item" data-id="sat">SAT</li>
+                    <li class="sidebar-item" data-id="psat">PSAT</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Math:</h3>
+                <ul>
+                    <li class="sidebar-item" data-id="math3">Math III</li>
+                </ul>
+            </section>
+            <section>
+                <h3>History:</h3>
+                <ul>
+                    <li class="sidebar-item" data-id="apworld">AP World History</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Science:</h3>
+                <ul>
+                    <li class="sidebar-item" data-id="bio1">Biology I Honors</li>
+                </ul>
+            </section>
         </div>
-      </div>
-
-      <div id="quiz-card" class="card quiz" style="margin-top:1rem">
-        <div class="score">
-          <div>
-            <h2>Quiz</h2>
-            <div class="small">Answer question types: multiple-choice, select-all, true/false</div>
-          </div>
-          <div class="micro">Score: <span id="score">0</span> / <span id="total">0</span></div>
-        </div>
-
-        <hr />
-        <div id="quiz-area">
-        </div>
-
-        <div class="controls">
-          <button id="submit-answer" class="btn">Submit Answer</button>
-          <button id="next-question" class="btn secondary">Next Question</button>
-          <button id="reset-quiz" class="btn" style="background:#ef4444">Reset</button>
-        </div>
-      </div>
-    </div>
-
-    <aside class="toc">
-      <div class="card toc-inner">
-        <h3 style="cursor:pointer" onclick="document.getElementById('notes-card').scrollIntoView({behavior:'smooth'})">Notes</h3>
-        <ul id="notes-tree" class="unit-tree">
-        </ul>
-        <h3 style="cursor:pointer;margin-top:1rem" onclick="document.getElementById('quiz-card').scrollIntoView({behavior:'smooth'})">Quiz</h3>
-      </div>
     </aside>
-  </div>
+    <div class="page">
+        <div>
+            <div class="card" style="margin-bottom:.8rem">
+                <h1>Biology I Honors</h1>
+            </div>
 
-<script src="bio1.js"></script>
+            <div id="notes-card" class="card">
+                <h2>Notes</h2>
+                <div class="note-controls">
+                    <input id="search-notes" class="search" placeholder="Search notes (keywords)..." />
+                    <span class="micro">Notes are read-only here.</span>
+                </div>
+                <div id="notes" class="notes">
+                    <div id="course-content">
+
+                        <div class="unit" id="unit1" data-unit="unit1">
+                            <h2>Unit 1: Biochemistry</h2>
+
+                            <div class="subunit" id="u1-s1">
+                                <strong>Homeostasis</strong>
+                                <p class="micro">
+                                    Homeostasis is the dynamic process by which multicellular organisms preserve
+                                    internal conditions within physiologically acceptable limits despite fluctuations in
+                                    the external environment. This constant regulation allows biochemical systems,
+                                    particularly enzymes and membrane proteins, to operate efficiently. At the core of
+                                    homeostasis are three functional components: sensors that detect internal variables
+                                    such as temperature, pH, osmolarity, and blood gas levels; integrative control
+                                    centers—primarily neural (hypothalamus, brainstem) and endocrine
+                                    (hypothalamic-pituitary axes)—that compare sensor input to biologically-determined
+                                    set points and compute appropriate responses; and effectors, including sweat glands,
+                                    skeletal muscles, vascular smooth muscle, liver metabolic pathways, and endocrine
+                                    glands, which implement corrective actions. For example, thermoregulation is
+                                    achieved through heat-loss mechanisms such as vasodilation and evaporative cooling
+                                    and heat-conservation mechanisms such as vasoconstriction and shivering
+                                    thermogenesis. Blood glucose homeostasis is tightly regulated by pancreatic islet
+                                    hormones: insulin promotes cellular uptake and glycogen synthesis in response to
+                                    hyperglycemia, whereas glucagon stimulates glycogenolysis and gluconeogenesis during
+                                    hypoglycemia. The hypothalamic–pituitary–thyroid axis illustrates layered endocrine
+                                    negative feedback where rising thyroid hormones suppress upstream releasing and
+                                    stimulating hormones to stabilize metabolic rate. Some biological processes use
+                                    positive feedback for rapid escalation to a defined endpoint; the classic examples
+                                    are the oxytocin-driven contraction cascade during parturition and platelet
+                                    activation during thrombosis. Homeostatic control also includes anticipatory
+                                    adjustments, such as conditioned salivation and circadian modulation of hormone
+                                    release, and relies on redundancy and overlapping pathways to preserve function;
+                                    failure or chronic strain on these systems produces pathology, including diabetes
+                                    mellitus, heart failure, heat stroke, and acid–base disturbances.
+                                </p>
+                            </div>
+
+                            <div class="subunit" id="u1-s2">
+                                <strong>Biomolecules / Macromolecules</strong>
+                                <p class="micro">
+                                    Biomolecules are organic compounds built primarily from carbon skeletons decorated
+                                    with hydrogen, oxygen, nitrogen, phosphorus, and sulfur. Their chemistry and
+                                    three-dimensional organization produce the functions required for life.
+                                    Carbohydrates range from simple monosaccharides like glucose and fructose to complex
+                                    polysaccharides such as glycogen, starch, cellulose, and chitin. Glucose is central
+                                    to cellular metabolism; it is catabolized via glycolysis to pyruvate and can enter
+                                    aerobic pathways for maximal ATP yield. Structural carbohydrates such as cellulose
+                                    differ from storage polymers by their β-glycosidic linkages, which produce straight,
+                                    hydrogen-bonded fibrils resistant to most animal digestive enzymes. Lipids form a
+                                    chemically diverse group defined by hydrophobicity; triglycerides store dense
+                                    chemical energy in adipose tissue, phospholipids self-assemble into bilayers that
+                                    create cellular compartments, sterols such as cholesterol modulate membrane fluidity
+                                    and serve as precursors for steroid hormones, and waxes protect surfaces from water
+                                    loss. Proteins are polymers of twenty canonical amino acids linked by peptide bonds.
+                                    The side chain chemistry of amino acids determines local secondary structure such as
+                                    α-helices and β-sheets through backbone hydrogen bonding and further drives tertiary
+                                    folding through hydrophobic packing, ionic interactions, hydrogen bonds, and
+                                    disulfide bridges. Proper folding is critical for function; molecular chaperones
+                                    assist folding and protect nascent chains under stress. Nucleic acids—DNA and
+                                    RNA—store and transmit genetic information. DNA's antiparallel double helix forms
+                                    through complementary base pairing (adenine–thymine via two hydrogen bonds;
+                                    cytosine–guanine via three hydrogen bonds) and is stabilized by base stacking
+                                    interactions. RNA, with its ribose sugar and uracil base, adopts single-stranded
+                                    structures that can fold into catalytic motifs (ribozymes) and mediates translation
+                                    (mRNA), tRNA-mediated amino acid delivery, and ribosomal function (rRNA).
+                                    Biochemical reactions building polymers proceed by dehydration synthesis, while
+                                    hydrolysis returns polymers to monomers; enzymes and regulated pathways catalyze
+                                    these transitions. The properties of water—polarity, high heat capacity, cohesion,
+                                    adhesion, and solvent capacity—critically influence macromolecular assembly,
+                                    reaction rates, and cellular thermoregulation.
+                                </p>
+                            </div>
+
+                            <div class="subunit" id="u1-s3">
+                                <strong>Enzymes</strong>
+                                <p class="micro">
+                                    Enzymes are biological catalysts that accelerate chemical reactions by stabilizing
+                                    transition states and lowering activation energy barriers, thereby increasing
+                                    reaction rates without altering reaction equilibria. Although most enzymes are
+                                    proteins, some RNA molecules (ribozymes) demonstrate catalytic activity, linking
+                                    protein and nucleotide biochemistry. The active site of an enzyme forms a highly
+                                    specific microenvironment tailored to bind substrates through complementary shape,
+                                    charge, and hydrophobic/hydrophilic interactions; the induced fit model describes
+                                    dynamic conformational changes that optimize catalysis. Enzyme kinetics reveal that
+                                    reaction velocity rises with substrate concentration until active sites saturate at
+                                    a maximum velocity (Vmax); the Michaelis constant (Km) quantitatively reflects
+                                    substrate concentration at half-maximal velocity and serves as a comparative measure
+                                    of affinity. Enzymes are exquisitely sensitive to environmental conditions:
+                                    temperature increases kinetic energy and reaction rates up to an optimal point,
+                                    after which thermal motion disrupts tertiary structure and causes denaturation; pH
+                                    alters protonation states of active-site residues and substrates, thereby modulating
+                                    catalysis and binding. Enzymatic activity is regulated on multiple levels including
+                                    reversible inhibitors—competitive inhibitors bind the active site and can be
+                                    outcompeted by substrate concentration, while noncompetitive inhibitors bind
+                                    allosteric sites to reduce catalytic efficiency—covalent modifications such as
+                                    phosphorylation that toggle activity states, and availability of cofactors and
+                                    coenzymes including metal ions and organic carriers like NAD+ and FAD. Feedback
+                                    inhibition, where an end product of a metabolic pathway allosterically inhibits an
+                                    upstream enzyme, conserves resources and stabilizes flux. Experimental approaches to
+                                    study enzymes include Michaelis–Menten kinetics, Lineweaver–Burk plotting for
+                                    parameter estimation, spectrophotometric assays to monitor substrate depletion or
+                                    product formation, and mutational analyses to identify catalytic residues.
+                                    Representative enzymes include DNA polymerases which add nucleotides in a 5′→3′
+                                    direction with high fidelity, kinases which transfer phosphate groups, hydrolases
+                                    like lipases that cleave ester bonds, and oxidoreductases such as dehydrogenases
+                                    that mediate electron transfers central to respiration and photosynthesis.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="unit" id="unit2" data-unit="unit2">
+                            <h2>Unit 2: Cellular Structure and Function</h2>
+
+                            <div class="subunit" id="u2-s1">
+                                <strong>Cell Theory</strong>
+                                <p class="micro">
+                                    Cell theory is a foundational principle in biology stating that all living organisms
+                                    are composed of cells, that cells represent the basic structural and functional unit
+                                    of life, and that all cells arise from pre-existing cells through cell division.
+                                    This framework unifies diverse biological phenomena, providing an explanatory model
+                                    for growth, development, heredity, and tissue maintenance. Cell theory implies that
+                                    to understand whole-organism physiology, one must understand cellular components and
+                                    interactions, including how cells obtain energy, replicate genetic material, and
+                                    interact with each other through junctions and signaling molecules.
+                                </p>
+                            </div>
+
+                            <div class="subunit" id="u2-s2">
+                                <strong>Prokaryotic and Eukaryotic Cells</strong>
+                                <p class="micro">
+                                    Cells are broadly classified into prokaryotic and eukaryotic types based on
+                                    organizational complexity. Prokaryotic cells, typified by bacteria and archaea, lack
+                                    membrane-bound nuclei and organelles; their genetic material is generally organized
+                                    in a nucleoid, and they often possess a cell wall composed of peptidoglycan or
+                                    similar polymers, a plasma membrane, ribosomes, and sometimes flagella or pili for
+                                    motility and adhesion. Eukaryotic cells contain a true nucleus enveloped by a double
+                                    membrane and multiple membrane-bound organelles such as mitochondria, endoplasmic
+                                    reticulum, Golgi apparatus, lysosomes, and—within photosynthetic
+                                    lineages—chloroplasts. Eukaryotic compartmentalization allows separation of
+                                    incompatible biochemical processes, spatial regulation of metabolism, and more
+                                    complex regulation of gene expression. Differences in genome architecture,
+                                    replication mechanisms, transcriptional control, and cytoskeletal complexity are
+                                    central to the functional distinctions between prokaryotes and eukaryotes.
+                                </p>
+                            </div>
+
+                            <div class="subunit" id="u2-s3">
+                                <strong>Organelles</strong>
+                                <p class="micro">
+                                    Organelles are membrane-bound subcellular units that carry out specialized functions
+                                    essential to eukaryotic life. The nucleus houses chromosomal DNA and coordinates
+                                    gene expression and replication. The endoplasmic reticulum, divided into rough ER
+                                    studded with ribosomes and smooth ER enriched for lipid synthesis and
+                                    detoxification, collaborates with the Golgi apparatus to process, modify, and sort
+                                    proteins and lipids for secretion or internal use. Mitochondria generate ATP through
+                                    oxidative phosphorylation and play roles in apoptosis and metabolic signaling; their
+                                    double-membrane structure and own genome support the endosymbiotic origin
+                                    hypothesis. Lysosomes and peroxisomes degrade macromolecules and detoxify reactive
+                                    species respectively. The cytoskeleton—composed of microtubules, microfilaments, and
+                                    intermediate filaments—organizes cell shape, mediates intracellular transport, and
+                                    enables cell movement. Chloroplasts in photosynthetic eukaryotes perform light
+                                    capture and carbon fixation within a series of membrane compartments and enzyme
+                                    complexes. Dysfunction or genetic defects in organelles can produce disease
+                                    phenotypes ranging from mitochondrial myopathies to lysosomal storage disorders.
+                                </p>
+                            </div>
+
+                            <div class="subunit" id="u2-s4">
+                                <strong>Cell Differentiation & Specialization</strong>
+                                <p class="micro">
+                                    Cell differentiation arises through differential gene expression orchestrated by
+                                    transcription factors, epigenetic modifications, signaling gradients, and
+                                    extracellular cues during development. Pluripotent stem cells can give rise to
+                                    multiple cell types, while multipotent progenitors are lineage restricted.
+                                    Differentiation produces specialized cells with unique morphologies and
+                                    functions—neurons with extended axons and dendrites for electrical signaling,
+                                    myocytes rich in contractile proteins for force generation, and epithelial cells
+                                    forming barrier layers with polarized apical–basal surfaces. Cellular specialization
+                                    enables division of labor in multicellular organisms, and mechanisms such as lateral
+                                    inhibition, morphogen gradients, and extracellular matrix interactions guide pattern
+                                    formation and tissue architecture.
+                                </p>
+                            </div>
+
+                            <div class="subunit" id="u2-s5">
+                                <strong>Lab Safety</strong>
+                                <p class="micro">
+                                    Laboratory safety mitigates physical and biological hazards and is essential for
+                                    credible experimental outcomes. Safe practice includes correctly handling
+                                    microscopes to avoid optical damage, using personal protective equipment such as
+                                    gloves, goggles, and lab coats, following biosafety levels for work with microbes,
+                                    disposing of biological and chemical waste according to regulation, and maintaining
+                                    sterile technique where contamination undermines experiments. Understanding material
+                                    safety data sheets (MSDS) for chemicals, proper labeling, and emergency procedures
+                                    for spills or exposures is part of responsible laboratory behavior.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="unit" id="unit3" data-unit="unit3">
+                            <h2>Unit 3: DNA, Chromosomes, and Mitosis</h2>
+
+                            <div class="subunit">
+                                <strong>Chromosome Structure and DNA Packaging</strong>
+                                <p class="micro">
+                                    In eukaryotic cells, DNA is not free-floating but is organized into a complex called
+                                    chromatin, which allows extremely long DNA molecules to fit inside the nucleus while
+                                    still being accessible for transcription and replication. DNA wraps around histone
+                                    proteins to form nucleosomes, creating a bead-like structure that coils further into
+                                    chromatin fibers. During cell division, chromatin condenses into visible
+                                    chromosomes, each consisting of two identical sister chromatids joined at a
+                                    centromere. Telomeres, which are repetitive DNA sequences at chromosome ends,
+                                    protect DNA from degradation and prevent chromosomes from fusing together.
+                                    Telomerase is an enzyme that can lengthen telomeres in certain cell types such as
+                                    stem cells and cancer cells. Changes in chromatin structure through chemical
+                                    modifications, such as histone acetylation and methylation, regulate whether genes
+                                    are turned on or off.
+                                </p>
+                            </div>
+
+                            <div class="subunit">
+                                <strong>DNA Replication</strong>
+                                <p class="micro">
+                                    DNA replication is a highly accurate, semi-conservative process that occurs during
+                                    the S phase of interphase. The double helix is unwound by helicase, creating a
+                                    replication fork. Single-strand binding proteins stabilize the separated strands and
+                                    prevent them from reannealing. Primase synthesizes short RNA primers, providing a
+                                    starting point for DNA polymerase III to add complementary DNA nucleotides in the 5′
+                                    to 3′ direction. Replication occurs continuously on the leading strand but
+                                    discontinuously on the lagging strand, producing Okazaki fragments that are later
+                                    joined together by DNA ligase. DNA polymerases also possess proofreading ability,
+                                    correcting mismatched bases to maintain genetic stability. Multiple origins of
+                                    replication ensure the eukaryotic genome is copied efficiently. Any errors that
+                                    escape repair become permanent mutations after the next round of replication.
+                                </p>
+                            </div>
+
+                            <div class="subunit">
+                                <strong>Mitosis and Cytokinesis</strong>
+                                <p class="micro">
+                                    Mitosis is the process by which a eukaryotic cell divides its nucleus to produce two
+                                    genetically identical daughter nuclei. During prophase, chromatin condenses into
+                                    chromosomes and the mitotic spindle begins to form from centrosomes. In metaphase,
+                                    chromosomes line up along the metaphase plate, and spindle fibers attach to
+                                    kinetochores located at the centromeres. During anaphase, sister chromatids separate
+                                    and are pulled toward opposite poles of the cell by shortening spindle fibers.
+                                    Telophase follows, during which nuclear membranes reform around each set of
+                                    chromosomes and chromosomes begin to decondense. Cytokinesis divides the cytoplasm
+                                    of the cell, forming two separate daughter cells. In animal cells, a cleavage furrow
+                                    forms, while in plant cells, a cell plate develops. Mitosis is essential for growth,
+                                    tissue repair, and asexual reproduction.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="unit" id="unit4" data-unit="unit4">
+                            <h2>Unit 4: Cell Transport and Cellular Energy</h2>
+
+                            <div class="subunit">
+                                <strong>Membrane Structure and Fluid Mosaic Model</strong>
+                                <p class="micro">
+                                    The plasma membrane is described by the fluid mosaic model, which states that the
+                                    membrane is composed of a flexible phospholipid bilayer embedded with a mosaic of
+                                    proteins. The hydrophilic heads of phospholipids face outward toward water, while
+                                    the hydrophobic tails face inward, creating a selective barrier. Integral proteins
+                                    span the membrane and function as channels, carriers, or receptors, while peripheral
+                                    proteins are attached to the surface and often serve as enzymes or anchors.
+                                    Cholesterol molecules help stabilize membrane fluidity in animal cells, preventing
+                                    the membrane from becoming too rigid in cold conditions or too fluid in hot
+                                    conditions. Carbohydrate chains attached to proteins and lipids form identification
+                                    markers that allow cells to recognize one another.
+                                </p>
+                            </div>
+
+                            <div class="subunit">
+                                <strong>Passive and Active Transport</strong>
+                                <p class="micro">
+                                    Passive transport moves molecules across membranes without the use of cellular
+                                    energy and always occurs from areas of higher concentration to lower concentration.
+                                    Simple diffusion allows small, nonpolar molecules such as oxygen and carbon dioxide
+                                    to cross the lipid bilayer directly. Facilitated diffusion uses channel or carrier
+                                    proteins to transport ions and polar molecules such as glucose. Osmosis is the
+                                    diffusion of water through a selectively permeable membrane and is often regulated
+                                    by aquaporin proteins. Active transport requires ATP to move substances against
+                                    their concentration gradient, such as the sodium–potassium pump, which maintains the
+                                    electrical balance in nerve and muscle cells. Bulk transport mechanisms, including
+                                    endocytosis and exocytosis, allow cells to move large molecules and particles in and
+                                    out of the cell using membrane-bound vesicles.
+                                </p>
+                            </div>
+
+                            <div class="subunit">
+                                <strong>Photosynthesis and Cellular Respiration</strong>
+                                <p class="micro">
+                                    Photosynthesis occurs in two major stages inside chloroplasts. The light-dependent
+                                    reactions take place in the thylakoid membranes and use sunlight to excite electrons
+                                    in chlorophyll, producing ATP and NADPH and releasing oxygen through the splitting
+                                    of water molecules. The light-independent reactions, also known as the Calvin cycle,
+                                    occur in the stroma and use ATP and NADPH to fix carbon dioxide into glucose.
+                                    Cellular respiration takes place in the mitochondria and begins with glycolysis in
+                                    the cytoplasm, where glucose is broken into pyruvate with the production of a small
+                                    amount of ATP. The Krebs cycle and electron transport chain then extract high-energy
+                                    electrons to generate large amounts of ATP. Oxygen serves as the final electron
+                                    acceptor in aerobic respiration. In the absence of oxygen, cells perform
+                                    fermentation to regenerate NAD+ so glycolysis can continue.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="unit" id="unit5" data-unit="unit5">
+                            <h2>Unit 5: Ecology and Environmental Biology</h2>
+
+                            <div class="subunit">
+                                <strong>Population Dynamics</strong>
+                                <p class="micro">
+                                    Population dynamics focuses on how and why populations change in size over time.
+                                    Exponential growth occurs when resources are unlimited, producing a J-shaped growth
+                                    curve, while logistic growth occurs when environmental limits slow growth and create
+                                    an S-shaped curve. Carrying capacity is the maximum number of individuals an
+                                    environment can support sustainably. Limiting factors such as food availability,
+                                    predation, disease, and climate influence population size. Density-dependent factors
+                                    have a greater effect as population density increases, while density-independent
+                                    factors affect populations regardless of size, such as hurricanes, droughts, and
+                                    wildfires.
+                                </p>
+                            </div>
+
+                            <div class="subunit">
+                                <strong>Community Interactions</strong>
+                                <p class="micro">
+                                    A biological community consists of interacting populations of different species
+                                    living in the same area. Relationships within communities include competition for
+                                    limited resources, predation in which one organism captures and consumes another,
+                                    and symbiotic relationships such as mutualism (both species benefit), commensalism
+                                    (one benefits while the other is unaffected), and parasitism (one benefits while the
+                                    other is harmed). Keystone species play a disproportionately large role in
+                                    maintaining ecosystem structure, and their removal can cause trophic cascades that
+                                    dramatically alter community composition.
+                                </p>
+                            </div>
+
+                            <div class="subunit">
+                                <strong>Succession and Biomes</strong>
+                                <p class="micro">
+                                    Ecological succession is the gradual process of change in species composition in a
+                                    given area over time. Primary succession begins on bare rock surfaces where no soil
+                                    exists, such as after volcanic eruptions or glacial retreat, while secondary
+                                    succession occurs in areas where a disturbance has destroyed a community but left
+                                    soil intact. Biomes are large regions characterized by distinct climate conditions
+                                    and biological communities, including forests, deserts, grasslands, tundra, and
+                                    aquatic ecosystems. Temperature, precipitation, and latitude largely determine biome
+                                    distribution.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="unit" id="unit6" data-unit="unit6">
+                            <h2>Unit 6: Protein Synthesis and Genetic Variation</h2>
+
+                            <div class="subunit">
+                                <strong>Transcription and RNA Processing</strong>
+                                <p class="micro">
+                                    Transcription begins when RNA polymerase binds to promoter regions such as the TATA
+                                    box and synthesizes a complementary RNA strand from the DNA template. In eukaryotes,
+                                    the resulting pre-mRNA undergoes modifications including the addition of a 5′ methyl
+                                    cap, removal of noncoding introns through splicing, and addition of a poly-A tail.
+                                    These modifications protect the mRNA from degradation and help guide it out of the
+                                    nucleus and toward ribosomes.
+                                </p>
+                            </div>
+
+                            <div class="subunit">
+                                <strong>Translation and the Genetic Code</strong>
+                                <p class="micro">
+                                    During translation, ribosomes read mRNA codons three nucleotides at a time. Transfer
+                                    RNA molecules bring specific amino acids to the ribosome based on complementary
+                                    anticodon pairing. The process begins at the start codon (AUG) and continues until a
+                                    stop codon is reached. The sequence of amino acids determines the primary structure
+                                    of the protein, which later folds into complex functional shapes. Errors during
+                                    translation can cause misfolded or nonfunctional proteins.
+                                </p>
+                            </div>
+
+                            <div class="subunit">
+                                <strong>Genetic Variation and Mutations</strong>
+                                <p class="micro">
+                                    Genetic variation arises from mutations, independent assortment, crossing over, and
+                                    random fertilization. Mutations can be caused by environmental factors such as
+                                    radiation and chemical exposure or by random errors in DNA replication. While many
+                                    mutations are neutral or harmful, some can be beneficial and increase an organism's
+                                    ability to survive and reproduce in a given environment.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="unit" id="unit7" data-unit="unit7">
+                            <h2>Unit 7: Heredity and Genetic Patterns</h2>
+
+                            <div class="subunit">
+                                <strong>Mendelian Genetics</strong>
+                                <p class="micro">
+                                    Gregor Mendel's experiments with pea plants led to the formulation of basic laws of
+                                    genetics, including the law of segregation and the law of independent assortment.
+                                    Alleles can be dominant or recessive, and organisms may be homozygous or
+                                    heterozygous for a trait. Punnett squares are used to predict the probability of
+                                    different genotypes and phenotypes in offspring.
+                                </p>
+                            </div>
+
+                            <div class="subunit">
+                                <strong>Non-Mendelian Inheritance</strong>
+                                <p class="micro">
+                                    Not all traits follow simple dominant–recessive patterns. Incomplete dominance
+                                    produces blended traits, codominance allows both alleles to be fully expressed, and
+                                    sex-linked traits are often carried on the X chromosome. Environmental factors and
+                                    gene interactions can influence trait expression.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="unit" id="unit8" data-unit="unit8">
+                            <h2>Unit 8: Evolution and Biological Classification</h2>
+
+                            <div class="subunit">
+                                <strong>Mechanisms of Evolution</strong>
+                                <p class="micro">
+                                    Evolution occurs through mutation, genetic drift, gene flow, and natural selection.
+                                    Genetic drift causes random changes in allele frequencies in small populations,
+                                    while gene flow introduces new alleles through migration. Natural selection favors
+                                    individuals with advantageous traits that increase survival and reproduction over
+                                    time.
+                                </p>
+                            </div>
+
+                            <div class="subunit">
+                                <strong>Speciation and Fossil Evidence</strong>
+                                <p class="micro">
+                                    Speciation occurs when populations become reproductively isolated and accumulate
+                                    genetic differences. Fossils provide evidence of evolutionary change by documenting
+                                    extinct species and transitional forms. Comparing anatomical structures and DNA
+                                    sequences allows scientists to infer evolutionary relationships among organisms.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="quiz-card" class="card quiz" style="margin-top:1rem">
+                <div class="score">
+                    <div>
+                        <h2>Quiz</h2>
+                        <div class="small">Answer question types: multiple-choice, select-all, true/false</div>
+                    </div>
+                    <div class="micro">Score: <span id="score">0</span> / <span id="total">0</span></div>
+                </div>
+
+                <hr />
+                <div id="quiz-area">
+                </div>
+
+                <div class="controls">
+                    <button id="submit-answer" class="btn">Submit Answer</button>
+                    <button id="next-question" class="btn secondary">Next Question</button>
+                    <button id="reset-quiz" class="btn" style="background:#ef4444">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <aside class="toc">
+            <div class="card toc-inner">
+                <h3 style="cursor:pointer"
+                    onclick="document.getElementById('notes-card').scrollIntoView({behavior:'smooth'})">Notes</h3>
+                <ul id="notes-tree" class="unit-tree">
+                </ul>
+                <h3 style="cursor:pointer;margin-top:1rem"
+                    onclick="document.getElementById('quiz-card').scrollIntoView({behavior:'smooth'})">Quiz</h3>
+            </div>
+        </aside>
+    </div>
+
+    <script src="bio1.js"></script>
 </body>
+
 </html>
