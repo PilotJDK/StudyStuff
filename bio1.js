@@ -3260,29 +3260,6 @@ function reshuffleQuestions() {
 function renderQuestion(idx) {
     if (!sessionQuestions || sessionQuestions.length === 0) { quizArea.innerHTML = '<div class="small">No questions available for selected units. Use the Notes tab to select different units.</div>'; submitBtn.disabled = true; nextBtn.disabled = true; return; }
     let q = sessionQuestions[idx];
-    // Create a fresh shuffled copy for display
-    q = {
-        id: q.id,
-        unit: q.unit,
-        type: q.type,
-        q: q.q,
-        choices: [...q.choices],
-        answer: Array.isArray(q.answer) ? [...q.answer] : q.answer,
-        explain: q.explain,
-        explain_each: [...q.explain_each]
-    };
-    // Re-shuffle choices each time this question is displayed
-    const indices = Array.from({length: q.choices.length}, (_, i) => i);
-    const shuffledIndices = shuffleArray(indices);
-    const newChoices = shuffledIndices.map(i => q.choices[i]);
-    const newExplainEach = shuffledIndices.map(i => q.explain_each[i] || '');
-    if (Array.isArray(q.answer)) {
-        q.answer = q.answer.map(origIdx => shuffledIndices.indexOf(origIdx));
-    } else {
-        q.answer = shuffledIndices.indexOf(q.answer);
-    }
-    q.choices = newChoices;
-    q.explain_each = newExplainEach;
     quizArea.innerHTML = '';
     const questionEl = document.createElement('div'); questionEl.className = 'question'; questionEl.innerHTML = `<strong>Q${idx + 1}.</strong> ${q.q}`;
     quizArea.appendChild(questionEl);
