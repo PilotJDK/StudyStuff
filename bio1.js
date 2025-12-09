@@ -3106,8 +3106,14 @@ const resetBtn = document.getElementById('reset-quiz');
 let sessionQuestions = [];
 
 function shuffleArray(a) {
-    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
-    return a;
+    const arr = [...a];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    return arr;
 }
 
 function getSelectedUnits() {
@@ -3120,8 +3126,55 @@ function getSelectedUnits() {
 
 function buildSessionQuestions() {
     const selected = getSelectedUnits();
+    // Create a fresh copy of all questions, not just pool
     let pool = questions.filter(q => { return !q.unit || selected.includes(q.unit); });
+    
+    // Deep copy each question and shuffle its choices
     const mapped = pool.map(orig => {
+        // Create a complete deep copy
+        const q = {
+            id: orig.id,
+            unit: orig.unit,
+            type: orig.type,
+            q: orig.q,
+            choices: [...orig.choices],
+            answer: Array.isArray(orig.answer) ? [...orig.answer] : orig.answer,
+            explain: orig.explain,
+            explain_each: orig.explain_each ? [...orig.explain_each] : []
+        };
+        
+        // Shuffle the choices for this copy
+        const indices = Array.from({length: q.choices.length}, (_, i) => i);
+        const shuffledIndices = shuffleArray(indices);
+        
+        const newChoices = shuffledIndices.map(i => q.choices[i]);
+        const newExplainEach = shuffledIndices.map(i => q.explain_each[i] || '');
+        
+        // Update answer indices based on shuffle
+        if (Array.isArray(q.answer)) {
+            q.answer = q.answer.map(origIdx => shuffledIndices.indexOf(origIdx));
+        } else {
+            q.answer = shuffledIndices.indexOf(q.answer);
+        }
+        
+        q.choices = newChoices;
+        q.explain_each = newExplainEach;
+        return q;
+    });
+    
+    // Shuffle the question order too
+    sessionQuestions = shuffleArray(mapped);
+    currentIndex = 0;
+    score = 0;
+    total = 0;
+    scoreEl.textContent = score;
+    totalEl.textContent = total;
+    renderQuestion(currentIndex);
+}
+
+function reshuffleQuestions() {
+    if (!sessionQuestions || sessionQuestions.length === 0) return;
+    sessionQuestions = sessionQuestions.map(orig => {
         const q = JSON.parse(JSON.stringify(orig));
         const idxs = q.choices.map((_, i) => i);
         shuffleArray(idxs);
@@ -3136,10 +3189,6 @@ function buildSessionQuestions() {
         q.choices = newChoices; q.explain_each = newExplainEach;
         return q;
     });
-    shuffleArray(mapped);
-    sessionQuestions = mapped;
-    currentIndex = 0; score = 0; total = 0; scoreEl.textContent = score; totalEl.textContent = total;
-    renderQuestion(currentIndex);
 }
 
 function renderQuestion(idx) {
@@ -3219,7 +3268,13 @@ resetBtn.addEventListener('click', () => {
     score = 0; total = 0; scoreEl.textContent = score; totalEl.textContent = total; currentIndex = 0; buildSessionQuestions();
 });
 
-buildUnitSelector(); buildSessionQuestions();
+buildUnitSelector();
+// Force a fresh shuffle each page load with current timestamp
+sessionQuestions = [];
+currentIndex = 0;
+score = 0;
+total = 0;
+buildSessionQuestions();
 
 (function updateClock() {
     const clockEl = document.getElementById('clock');
