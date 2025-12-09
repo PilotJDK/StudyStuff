@@ -4,81 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Biology I — StudyStuff</title>
-  <style>
-    :root{--bg:#f7f7fb;--card:#fff;--accent:#0ea5a4;--muted:#6b7280}
-    body{font-family:Segoe UI,Roboto,Arial,sans-serif;margin:0;padding:0;background:var(--bg);color:#111}
-    .page{max-width:1100px;margin:1.5rem auto;padding:1rem;display:grid;grid-template-columns:1fr 300px;gap:1rem}
-    .card{background:var(--card);padding:1rem;border-radius:8px;box-shadow:0 6px 18px rgba(20,20,40,0.06)}
-    h1{margin:.2rem 0 1rem}
-
-    /* Notes column */
-    .notes{display:block}
-    .unit{margin-bottom:1.25rem}
-    .unit h2{margin:.4rem 0}
-    .subunit{margin:0.5rem 0;padding:0.6rem;border-left:3px solid rgba(0,0,0,0.04);background:rgba(0,0,0,0.01);border-radius:4px}
-    .note-controls{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem}
-    .btn{background:var(--accent);color:white;padding:.35rem .6rem;border-radius:6px;text-decoration:none;border:none;cursor:pointer}
-    .btn.secondary{background:#2563eb}
-    .micro{font-size:.85rem;color:var(--muted)}
-
-    /* TOC / tab bar on right (sticky) */
-    .toc{position:relative}
-    .toc-inner{position:sticky;top:1rem}
-    .toc h3{margin:.2rem 0}
-    .toc-list{list-style:none;padding:0;margin:0;display:block}
-    .toc-list li{padding:.35rem .4rem;border-radius:6px;cursor:pointer}
-    .toc-list li:hover{background:rgba(37,99,235,0.06)}
-    .toc-list .sub{font-size:.95rem;color:var(--muted);padding-left:.8rem}
-    .toc-actions{display:flex;gap:.4rem;margin-bottom:.6rem}
-    .search{width:100%;padding:.4rem;border-radius:6px;border:1px solid rgba(0,0,0,0.08)}
-    /* choice arrow on the right */
-    .choice::after{content:'›';float:right;color:#94a3b8;font-weight:600}
-    .choice.selected::after{color:#0ea5a4}
-    /* highlight matches */
-    mark{background:gold;color:#000;padding:0 .12rem;border-radius:2px}
-
-    /* Quiz area */
-    .quiz .score{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
-    .question{margin:0.4rem 0 0.8rem}
-    .choices{display:flex;flex-direction:column;gap:.5rem}
-    .choice{display:flex;align-items:center;justify-content:space-between;padding:.6rem;border-radius:6px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;background:white}
-    .choice.selected{outline:2px solid rgba(37,99,235,0.22)}
-    .choice.correct{background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.2)}
-    .choice.wrong{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.12)}
-    .small{font-size:.9rem;color:var(--muted)}
-    .controls{display:flex;gap:.5rem;margin-top:.75rem}
-    .controls .btn.disabled{opacity:.5;pointer-events:none}
-
-    /* responsive */
-    @media (max-width:900px){
-      .page{grid-template-columns:1fr;}
-      .toc{order:2}
-      .toc-inner{position:static;margin-top:1rem}
-    }
-    /* Sidebar styles (shared) */
-    #sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);opacity:0;pointer-events:none;transition:opacity .18s ease;z-index:1190}
-    #sidebar-overlay.visible{opacity:1;pointer-events:auto}
-    #sidebar{position:fixed;left:0;top:0;height:100%;width:320px;max-width:90vw;background:#fff;border-right:1px solid rgba(0,0,0,0.06);box-shadow:10px 0 30px rgba(20,20,40,0.12);transform:translateX(-110%);transition:transform .22s cubic-bezier(.2,.9,.3,1);display:flex;flex-direction:column;z-index:1200}
-    #sidebar.open{transform:translateX(0)}
-    #sidebar .sidebar-header{padding:1rem;border-bottom:1px solid rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:space-between}
-    #sidebar .sidebar-body{padding:1rem;overflow:auto;flex:1}
-    #sidebar .sidebar-body li{cursor:pointer;padding:0.15rem 0.25rem;border-radius:4px}
-    #sidebar .sidebar-body li:hover{background:rgba(37,99,235,0.06)}
-    .card-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
-    .card h2{font-size:1.5rem;margin:.3rem 0 .6rem;font-weight:600}
-    #sidebar .close-btn{background:transparent;border:none;font-size:1.1rem;cursor:pointer}
-    #open-sidebar-btn{position:fixed;left:1.5rem;bottom:1.5rem;z-index:1300;padding:0.6rem 1.2rem;border-radius:999px;border:none;background:#0ea5a4;color:#fff;box-shadow:0 6px 18px rgba(20,20,40,0.12);cursor:pointer}
-    #clock{position:fixed;right:1.5rem;bottom:1.5rem;z-index:1300;padding:0.6rem 1.2rem;border-radius:999px;background:#fff;color:#111;box-shadow:0 6px 18px rgba(20,20,40,0.12);font-weight:600;font-size:1rem}
-    .unit-tree{list-style:none;padding:0;margin:0}
-    .unit-tree li{padding:.25rem 0}
-    .unit-tree .unit-item{display:flex;justify-content:space-between;align-items:center;font-weight:600}
-    .unit-tree .unit-item span:hover{color:var(--accent)}
-    .unit-tree .subunit-item{display:flex;justify-content:space-between;align-items:center;padding-left:1.2rem;font-size:.9rem;color:var(--muted)}
-    .unit-tree .subunit-item:hover{color:var(--accent)}
-  </style>
+  <link rel="stylesheet" href="bio1.css" />
 </head>
 <body>
-  <!-- Sidebar -->
   <button id="open-sidebar-btn" type="button">☰ Menu</button>
   <div id="clock"></div>
   <div id="sidebar-overlay"></div>
@@ -96,8 +24,6 @@
   </aside>
   <div class="page">
     <div>
-        <!-- top controls removed; moved to the right-side Settings card -->
-
       <div class="card" style="margin-bottom:.8rem">
         <h1>Biology I Honors</h1>
       </div>
@@ -106,11 +32,271 @@
         <h2>Notes</h2>
         <div class="note-controls">
           <input id="search-notes" class="search" placeholder="Search notes (keywords)..." />
-          <button id="export-notes" class="btn secondary">Export Notes</button>
-          <span class="micro">Notes are read-only here; export is available.</span>
+          <span class="micro">Notes are read-only here.</span>
         </div>
         <div id="notes" class="notes">
-          <!-- Units and subunits will be rendered here -->
+          
+          <div class="unit" id="unit1" data-unit="unit1">
+            <h2>Unit 1: Biochemistry</h2>
+
+            <div class="subunit" id="u1-s1">
+              <strong>Homeostasis</strong>
+              <p class="micro">
+                Homeostasis is the regulation of internal conditions (e.g., temperature, pH, glucose) to maintain stability compatible with life. It relies on feedback mechanisms that detect deviations and initiate responses to restore set points.
+              </p>
+              <ul class="micro">
+                <li><strong>Components of control systems:</strong> <em>Stimulus</em> (change), <em>Receptor</em> (senses change), <em>Control center</em> (compares to set point; typically brain/endocrine), <em>Effector</em> (executes response).</li>
+                <li><strong>Set point vs. range:</strong> A target value (e.g., ~37°C body temp) with an acceptable range; oscillations around the set point are normal.</li>
+                <li><strong>Negative feedback:</strong> The response opposes the initial change, reducing the deviation and stabilizing the system.
+                  <ul>
+                    <li><strong>Blood glucose regulation:</strong> High blood glucose → pancreas secretes insulin → cells uptake glucose; low blood glucose → pancreas releases glucagon → liver releases glucose.</li>
+                    <li><strong>Thermoregulation:</strong> High temp → sweating/vasodilation; low temp → shivering/vasoconstriction.</li>
+                    <li><strong>Thyroid axis:</strong> Hypothalamus (TRH) → pituitary (TSH) → thyroid (T3/T4); high T3/T4 suppress upstream signals.</li>
+                  </ul>
+                </li>
+                <li><strong>Positive feedback:</strong> The response amplifies the change, driving processes to completion (less common in homeostasis).
+                  <ul>
+                    <li><strong>Childbirth:</strong> Cervical stretch → oxytocin release → stronger contractions → more stretch (loop continues until birth).</li>
+                    <li><strong>Blood clotting:</strong> Platelet activation recruits more platelets to rapidly seal wounds.</li>
+                  </ul>
+                </li>
+                <li><strong>Homeostatic variables and sensors:</strong> Chemoreceptors (CO₂/O₂), osmoreceptors (osmolarity), baroreceptors (blood pressure), thermoreceptors (temperature).</li>
+                <li><strong>pH balance:</strong> Buffers (e.g., bicarbonate in blood) resist pH changes by reversible binding of H⁺; enzymes require narrow pH ranges.</li>
+                <li><strong>Water and osmotic balance:</strong> Aquaporins facilitate water movement; osmolarity gradients drive osmosis to equalize solute concentrations.</li>
+                <li><strong>Homeostasis at cellular level:</strong> Membrane transport, ion pumps (Na⁺/K⁺-ATPase), intracellular buffers, chaperones (protein stability).</li>
+                <li><strong>Dysregulation:</strong> Chronic hyperglycemia (diabetes), hypertension, acidosis/alkalosis, heat stroke/hypothermia indicate failed regulation.</li>
+              </ul>
+            </div>
+
+            <div class="subunit" id="u1-s2">
+              <strong>Biomolecules / Macromolecules</strong>
+              <p class="micro">
+                Biomolecules are carbon-based compounds essential to life. The four major classes—carbohydrates, lipids, proteins, and nucleic acids—have distinct monomers, structures, and functions. Organic molecules primarily contain carbon (C), hydrogen (H), oxygen (O), nitrogen (N), phosphorus (P), and sulfur (S).
+              </p>
+              <ul class="micro">
+                <li><strong>Carbohydrates:</strong> Energy storage and structural roles.
+                  <ul>
+                    <li><strong>Monomers:</strong> Monosaccharides (glucose, fructose, galactose).</li>
+                    <li><strong>Bond:</strong> Glycosidic linkage (formed via dehydration synthesis; broken by hydrolysis).</li>
+                    <li><strong>Types:</strong> Disaccharides (sucrose, lactose), polysaccharides (starch in plants; glycogen in animals; cellulose for plant cell walls; chitin in fungi/arthropods).</li>
+                    <li><strong>Starch vs. cellulose:</strong> Both glucose polymers; differing glycosidic bonds (α vs. β) change digestibility and structure.</li>
+                    <li><strong>Function:</strong> Rapid energy (glucose), short-/long-term storage (glycogen/starch), structure (cellulose).</li>
+                  </ul>
+                </li>
+                <li><strong>Lipids:</strong> Hydrophobic molecules (insoluble in water) for long-term energy, membrane structure, signaling.
+                  <ul>
+                    <li><strong>Types:</strong> Triglycerides (glycerol + 3 fatty acids), phospholipids (membranes; hydrophilic head + hydrophobic tails), steroids (cholesterol, hormones), waxes (protective coatings).</li>
+                    <li><strong>Saturated vs. unsaturated:</strong> Saturated (no double bonds; solid at room temp), unsaturated (≥1 double bond; kinks; liquid oils).</li>
+                    <li><strong>Membranes:</strong> Phospholipid bilayer forms selectively permeable barriers; cholesterol modulates fluidity.</li>
+                    <li><strong>Functions:</strong> Energy storage, insulation, buoyancy, signaling (steroid hormones), waterproofing (waxes).</li>
+                  </ul>
+                </li>
+                <li><strong>Proteins:</strong> Workhorse polymers performing structural, catalytic, transport, signaling, and defense roles.
+                  <ul>
+                    <li><strong>Monomers:</strong> Amino acids (20 standard; R-group determines properties).</li>
+                    <li><strong>Bond:</strong> Peptide bond (dehydration synthesis between amino and carboxyl groups).</li>
+                    <li><strong>Structure:</strong> Primary (sequence), secondary (α-helix/β-sheet via H-bonds), tertiary (3D folding via hydrophobic interactions, ionic bonds, H-bonds, disulfide bridges), quaternary (multiple polypeptides).</li>
+                    <li><strong>Functions:</strong> Enzymes, channels/transporters, receptors, antibodies, cytoskeleton, hormones (e.g., insulin).</li>
+                    <li><strong>Denaturation:</strong> Loss of shape and function due to heat, pH, solvents; may be reversible or irreversible.</li>
+                  </ul>
+                </li>
+                <li><strong>Nucleic acids:</strong> Information storage and transfer.
+                  <ul>
+                    <li><strong>Monomers:</strong> Nucleotides (sugar + phosphate + nitrogenous base).</li>
+                    <li><strong>DNA:</strong> Deoxyribose sugar; bases A, T, C, G; double-stranded antiparallel helix; complementary base pairing (A–T, C–G).</li>
+                    <li><strong>RNA:</strong> Ribose sugar; bases A, U, C, G; typically single-stranded; types include mRNA, tRNA, rRNA; roles in protein synthesis and regulation.</li>
+                    <li><strong>Phosphodiester bonds:</strong> Link sugar-phosphate backbone; 5′→3′ directionality critical for replication/transcription.</li>
+                  </ul>
+                </li>
+                <li><strong>Functional groups:</strong> Hydroxyl (–OH), carboxyl (–COOH), amino (–NH₂), phosphate (–PO₄²⁻), carbonyl (C=O), sulfhydryl (–SH) dictate reactivity and interactions.</li>
+                <li><strong>Polymerization:</strong> Dehydration synthesis builds polymers; hydrolysis breaks them into monomers.</li>
+                <li><strong>Atoms and bonds:</strong> Covalent bonds (strong), hydrogen bonds (moderate; vital in H₂O, DNA), ionic interactions (charged groups), van der Waals forces (weak, cumulative).</li>
+                <li><strong>Water properties:</strong> Polarity, hydrogen bonding, cohesion/adhesion, high specific heat, high heat of vaporization, universal solvent; critical for biochemical reactions and temperature buffering.</li>
+              </ul>
+            </div>
+
+            <div class="subunit" id="u1-s3">
+              <strong>Enzymes</strong>
+              <p class="micro">
+                Enzymes are biological catalysts (mostly proteins; some RNA ribozymes) that increase reaction rates by lowering activation energy. They do not alter overall ΔG or the reaction's equilibrium—only the speed at which equilibrium is reached.
+              </p>
+              <ul class="micro">
+                <li><strong>Active site:</strong> Region where substrates bind; specificity arises from shape and chemical environment (induced fit fine-tunes interactions).</li>
+                <li><strong>Substrates → products:</strong> Enzymes stabilize transition states and orient substrates to facilitate bond breaking/forming.</li>
+                <li><strong>Optimum conditions:</strong> Each enzyme has an optimal temperature and pH for maximal activity; deviations reduce rate or cause denaturation.
+                  <ul>
+                    <li><strong>Temperature:</strong> Increasing temp generally increases rate (to a point) by kinetic energy; excessive heat disrupts bonds → denaturation.</li>
+                    <li><strong>pH:</strong> Alters ionization of active-site residues and substrate; extreme pH disrupts ionic/H-bonds → denaturation.</li>
+                  </ul>
+                </li>
+                <li><strong>Denaturation:</strong> Loss of 3D structure (and function) due to heat, extreme pH, solvents, heavy metals; may be irreversible.</li>
+                <li><strong>Kinetics:</strong> Reaction rate depends on substrate concentration, enzyme concentration, and environmental conditions.
+                  <ul>
+                    <li><strong>Saturation:</strong> At high substrate, active sites are fully occupied; rate plateaus at <em>V<sub>max</sub></em>.</li>
+                    <li><strong>Michaelis–Menten (conceptual):</strong> <em>K<sub>m</sub></em> reflects substrate concentration at half <em>V<sub>max</sub></em>; lower <em>K<sub>m</sub></em> indicates higher affinity.</li>
+                  </ul>
+                </li>
+                <li><strong>Regulation:</strong> Cells modulate enzyme activity by inhibitors, activators, cofactors, coenzymes, and post-translational modifications.
+                  <ul>
+                    <li><strong>Inhibitors:</strong> Competitive (bind active site; overcome by more substrate) vs noncompetitive (bind allosteric site; reduce <em>V<sub>max</sub></em>).</li>
+                    <li><strong>Allosteric regulation:</strong> Effector binding changes conformation and activity (feedback inhibition common in pathways).</li>
+                    <li><strong>Cofactors/coenzymes:</strong> Non-protein helpers (metal ions, vitamins-derived molecules like NAD⁺/FAD) essential for catalysis.</li>
+                  </ul>
+                </li>
+                <li><strong>Reaction terms:</strong> <em>Reactant/substrate</em> (starting chemical), <em>product</em> (result), <em>catalyst</em> (accelerates without being consumed), <em>activation energy</em> (energy barrier to start reaction).</li>
+                <li><strong>Assays and experimental tests:</strong>
+                  <ul>
+                    <li><strong>Rate measurement:</strong> Track substrate disappearance or product appearance over time (colorimetric, fluorometric).</li>
+                    <li><strong>Effect of variables:</strong> Systematically vary temperature, pH, substrate/enzyme concentration, or inhibitors; plot rate vs variable.</li>
+                    <li><strong>Controls:</strong> Include negative controls (no enzyme) and positive controls (known active enzyme) to validate results.</li>
+                    <li><strong>Standard curves:</strong> Convert absorbance/fluorescence to concentration for quantitative analysis.</li>
+                  </ul>
+                </li>
+                <li><strong>Real-world examples:</strong> Amylase (starch → maltose), lactase (lactose → glucose/galactose), DNA polymerase (adds nucleotides), catalase (H₂O₂ → H₂O + O₂).</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="unit" id="unit2" data-unit="unit2">
+            <h2>Unit 2: Cellular Structure and Function</h2>
+            <div class="subunit" id="u2-s1">
+              <strong>Cell Theory</strong>
+              <p class="micro">All living things are made of cells, cells are the basic unit of life, and all cells come from pre-existing cells.</p>
+            </div>
+            <div class="subunit" id="u2-s2">
+              <strong>Prokaryotic and Eukaryotic Cells</strong>
+              <p class="micro">Prokaryotes lack membrane-bound organelles; eukaryotes have them. Classification based on traits like nucleus presence, complexity, and size.</p>
+            </div>
+            <div class="subunit" id="u2-s3">
+              <strong>Organelles</strong>
+              <p class="micro">Nucleus, mitochondria, ribosomes, ER, Golgi, lysosomes, chloroplasts. Dysfunction leads to disease. Each has a specific role in cell function.</p>
+            </div>
+            <div class="subunit" id="u2-s4">
+              <strong>Cell Differentiation & Specialization</strong>
+              <p class="micro">Cells specialize to perform unique functions (e.g., muscle vs nerve cells). Stem cells can differentiate into many types.</p>
+            </div>
+            <div class="subunit" id="u2-s5">
+              <strong>Lab Safety</strong>
+              <p class="micro">Microscope handling, proper use of lab tools, and safety protocols to prevent accidents.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit3" data-unit="unit3">
+            <h2>Unit 3: DNA and Mitosis</h2>
+            <div class="subunit" id="u3-s1">
+              <strong>DNA</strong>
+              <p class="micro">Double helix structure. Replication is semi-conservative. RNA is a related nucleic acid used in protein synthesis.</p>
+            </div>
+            <div class="subunit" id="u3-s2">
+              <strong>Cell Cycle</strong>
+              <p class="micro">Includes interphase, mitosis, cytokinesis. Errors can lead to cancer. Mitosis ensures identical diploid cells.</p>
+            </div>
+            <div class="subunit" id="u3-s3">
+              <strong>Biotechnology</strong>
+              <p class="micro">DNA fingerprinting, gel electrophoresis, genetic engineering, GMOs, and transgenic organisms.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit4" data-unit="unit4">
+            <h2>Unit 4: Cell Transport and Energy</h2>
+            <div class="subunit" id="u4-s1">
+              <strong>Plasma Membrane</strong>
+              <p class="micro">Semipermeable barrier with protein channels. Maintains homeostasis by controlling entry/exit of molecules.</p>
+            </div>
+            <div class="subunit" id="u4-s2">
+              <strong>Transport</strong>
+              <p class="micro">Passive transport (diffusion, osmosis) vs active transport (requires ATP). Maintains balance in cells.</p>
+            </div>
+            <div class="subunit" id="u4-s3">
+              <strong>Photosynthesis & Respiration</strong>
+              <p class="micro">Photosynthesis produces glucose and oxygen; respiration (aerobic and anaerobic) produces ATP. Includes glycolysis, Krebs cycle, electron transport chain.</p>
+            </div>
+            <div class="subunit" id="u4-s4">
+              <strong>Bioenergetics</strong>
+              <p class="micro">Study of energy flow in living systems. Links photosynthesis and respiration as complementary processes.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit5" data-unit="unit5">
+            <h2>Unit 5: Ecology</h2>
+            <div class="subunit" id="u5-s1">
+              <strong>Cycles</strong>
+              <p class="micro">Nitrogen, phosphorus, water, oxygen, and carbon cycles recycle matter through ecosystems.</p>
+            </div>
+            <div class="subunit" id="u5-s2">
+              <strong>Ecosystems</strong>
+              <p class="micro">Energy flows through trophic levels (producers, consumers, decomposers). Classification of ecosystem layers.</p>
+            </div>
+            <div class="subunit" id="u5-s3">
+              <strong>Human Impact</strong>
+              <p class="micro">Pollution, deforestation, climate change, and biodiversity loss affect ecosystems.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit6" data-unit="unit6">
+            <h2>Unit 6: Protein Synthesis and Genetic Variability</h2>
+            <div class="subunit" id="u6-s1">
+              <strong>DNA Biotechnology</strong>
+              <p class="micro">Gel electrophoresis separates DNA fragments. Used in forensics and genetic research.</p>
+            </div>
+            <div class="subunit" id="u6-s2">
+              <strong>Protein Synthesis</strong>
+              <p class="micro">Transcription (DNA → mRNA) and translation (mRNA → protein at ribosomes).</p>
+            </div>
+            <div class="subunit" id="u6-s3">
+              <strong>Meiosis</strong>
+              <p class="micro">Produces gametes (haploid). Crossing over increases genetic diversity. Fertilization forms zygotes.</p>
+            </div>
+            <div class="subunit" id="u6-s4">
+              <strong>DNA Mutations</strong>
+              <p class="micro">Point and frameshift mutations alter genetic code. Chromosomal changes affect variation. Replication is semi-conservative.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit7" data-unit="unit7">
+            <h2>Unit 7: Heredity</h2>
+            <div class="subunit" id="u7-s1">
+              <strong>Genetics Basics</strong>
+              <p class="micro">Monohybrid crosses, incomplete dominance, codominance, multiple alleles, sex-linked traits.</p>
+            </div>
+            <div class="subunit" id="u7-s2">
+              <strong>Pedigrees & Polygenic Traits</strong>
+              <p class="micro">Pedigrees trace inheritance. Polygenic traits involve multiple genes (e.g., height, skin color).</p>
+            </div>
+            <div class="subunit" id="u7-s3">
+              <strong>Cell Cycle & Reproduction</strong>
+              <p class="micro">Meiosis terms: haploid, diploid, zygote, gamete, nondisjunction. Genotype vs phenotype, homozygous vs heterozygous.</p>
+            </div>
+            <div class="subunit" id="u7-s4">
+              <strong>Karyotypes & Syndromes</strong>
+              <p class="micro">Chromosome analysis reveals conditions like Down syndrome, Klinefelter, dwarfism, Huntington's, PKU.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit8" data-unit="unit8">
+            <h2>Unit 8: Evolution and Classification</h2>
+            <div class="subunit" id="u8-s1">
+              <strong>Dichotomous Keys</strong>
+              <p class="micro">Tools for identifying organisms based on traits.</p>
+            </div>
+            <div class="subunit" id="u8-s2">
+              <strong>Natural Selection</strong>
+              <p class="micro">Adaptation, fitness, resistance. Darwin's theory explains survival of the fittest.</p>
+            </div>
+            <div class="subunit" id="u8-s3">
+              <strong>Evolution Concepts</strong>
+              <p class="micro">Endosymbiosis, LUCA, common ancestor, cladograms, phylogenetic trees. Contributions of Darwin and Lamarck.</p>
+            </div>
+            <div class="subunit" id="u8-s4">
+              <strong>Isolation Mechanisms</strong>
+              <p class="micro">Geographic, reproductive, and behavioral isolation drive speciation.</p>
+            </div>
+            <div class="subunit" id="u8-s5">
+              <strong>Evidence of Evolution</strong>
+              <p class="micro">Homologous, analogous, and vestigial structures. Fossil record supports evolutionary theory.</p>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -125,7 +311,6 @@
 
         <hr />
         <div id="quiz-area">
-          <!-- Question will render here -->
         </div>
 
         <div class="controls">
@@ -140,344 +325,12 @@
       <div class="card toc-inner">
         <h3 style="cursor:pointer" onclick="document.getElementById('notes-card').scrollIntoView({behavior:'smooth'})">Notes</h3>
         <ul id="notes-tree" class="unit-tree">
-          <!-- Notes unit tree with checkboxes -->
         </ul>
         <h3 style="cursor:pointer;margin-top:1rem" onclick="document.getElementById('quiz-card').scrollIntoView({behavior:'smooth'})">Quiz</h3>
       </div>
     </aside>
   </div>
 
-<script>
-// NOTES data model and UI
-const NOTES_KEY = 'study_bio_notes_v1';
-let notes = JSON.parse(localStorage.getItem(NOTES_KEY) || 'null') || {
-  units:[
-    {id:'unit1',title:'Unit 1: Cells', sub:[{id:'u1-s1',title:'Cell Structure',content:'Notes about cell structure...'}]},
-    {id:'unit2',title:'Unit 2: Genetics', sub:[{id:'u2-s1',title:'DNA & RNA',content:'Notes about DNA...'}]}
-  ]
-};
-
-const notesEl = document.getElementById('notes');
-const searchInput = document.getElementById('search-notes');
-
-function saveNotes(){ localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); }
-
-function escapeRegExp(string){ return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-function highlight(text, term){ if(!term) return text; const esc = escapeRegExp(term); const re = new RegExp('('+esc+')','gi'); return text.replace(re, '<mark>$1</mark>'); }
-
-function renderNotes(filter=''){
-  notesEl.innerHTML='';
-  const term = (filter||'').trim();
-  notes.units.forEach(unit=>{
-    const matchedSubs = unit.sub.filter(s=>{
-      if(!term) return true;
-      return s.title.toLowerCase().includes(term.toLowerCase()) || s.content.toLowerCase().includes(term.toLowerCase());
-    });
-    if(matchedSubs.length===0) return; // hide units without matches
-
-    const u = document.createElement('div'); u.className='unit'; u.id = unit.id;
-    const h = document.createElement('h2'); h.innerHTML = term ? highlight(unit.title, term) : unit.title;
-    u.appendChild(h);
-
-    matchedSubs.forEach(s=>{
-      const su = document.createElement('div'); su.className='subunit'; su.id = s.id;
-      const st = document.createElement('strong'); st.innerHTML = term ? highlight(s.title, term) : s.title; su.appendChild(st);
-      const p = document.createElement('div'); p.innerHTML = '<p class="micro">'+ (term ? highlight(s.content||'<em>No notes yet</em>', term) : (s.content||'<em>No notes yet</em>')) + '</p>';
-      su.appendChild(p);
-      u.appendChild(su);
-    });
-
-    notesEl.appendChild(u);
-  });
-}
-
-// initial render
-renderNotes();
-
-// Adding/editing is disabled — notes are read-only in this view. Use Export to download.
-
-// Export notes
-document.getElementById('export-notes').addEventListener('click', ()=>{
-  const blob = new Blob([JSON.stringify(notes, null, 2)],{type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'bio-notes.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-});
-
-// Search notes
-searchInput.addEventListener('input', ()=>{ renderNotes(searchInput.value); });
-
-/* Highlight active TOC entry on scroll */
-window.addEventListener('scroll', ()=>{
-  const subs = document.querySelectorAll('.subunit');
-  let current = null;
-  subs.forEach(s=>{
-    const rect = s.getBoundingClientRect();
-    if(rect.top <= window.innerHeight*0.4 && rect.bottom >= 0){ current = s.id; }
-  });
-  document.querySelectorAll('.toc-list li').forEach(li=>li.style.fontWeight='normal');
-  if(current){ document.querySelectorAll('.toc-list li').forEach(li=>{ if(li.textContent.includes(document.getElementById(current).querySelector('strong').textContent)) li.style.fontWeight='600'; }); }
-});
-
-// QUIZ implementation
-const questions = [
-  {
-    id:'q1', unit:'unit1', type:'multiple', q:'What is the powerhouse of the cell?',
-    choices:['Ribosome','Mitochondria','Endoplasmic Reticulum','Golgi Apparatus'],
-    answer:1,
-    explain:'Mitochondria generate ATP via cellular respiration.',
-    explain_each:[
-      'Ribosomes synthesize proteins; they do not generate ATP.',
-      'Correct — mitochondria produce ATP via oxidative phosphorylation during cellular respiration.',
-      'Endoplasmic reticulum handles protein and lipid synthesis, not primary ATP production.',
-      'Golgi apparatus modifies and packages proteins for export, not energy production.'
-    ]
-  },
-  {
-    id:'q2', unit:'unit2', type:'truefalse', q:'DNA is double-stranded.',
-    choices:['True','False'],answer:0,
-    explain:'DNA is typically double-stranded forming a double helix.',
-    explain_each:[
-      'Correct — canonical DNA molecules in cells are two complementary strands forming a double helix.',
-      'While some viruses or fragments can be single-stranded, standard cellular DNA is double-stranded.'
-    ]
-  },
-  {
-    id:'q3', unit:'unit2', type:'selectall', q:'Which of the following are components of a nucleotide?',
-    choices:['Phosphate group','Amino acid','Sugar','Nitrogenous base'],
-    answer:[0,2,3],
-    explain:'Nucleotides contain a phosphate, a sugar, and a nitrogenous base.',
-    explain_each:[
-      'Phosphate: Yes — nucleotides have a phosphate group that links sugars in the backbone.',
-      'Amino acid: No — amino acids are the building blocks of proteins, not nucleotides.',
-      'Sugar: Yes — either ribose (RNA) or deoxyribose (DNA) is present in a nucleotide.',
-      'Nitrogenous base: Yes — adenine, thymine/uracil, cytosine, or guanine make up the base.'
-    ]
-  },
-  {
-    id:'q4', unit:'unit1', type:'multiple', q:'Which process produces gametes?',
-    choices:['Mitosis','Meiosis','Binary fission','Photosynthesis'],
-    answer:1,
-    explain:'Meiosis reduces chromosome number to produce gametes.',
-    explain_each:[
-      'Mitosis produces daughter cells identical to the parent; it does not halve chromosome number for gametes.',
-      'Correct — meiosis involves two divisions and produces haploid gametes from diploid cells.',
-      'Binary fission is used by many prokaryotes for asexual reproduction; it is not meiosis.',
-      'Photosynthesis is the process plants use to convert light energy to chemical energy; unrelated to gamete formation.'
-    ]
-  },
-  {
-    id:'q5', unit:'unit1', type:'truefalse', q:'Prokaryotic cells have a nucleus.',
-    choices:['True','False'],answer:1,
-    explain:'Prokaryotes lack a membrane-bound nucleus.',
-    explain_each:[
-      'Incorrect — prokaryotes do not have a membrane-bound nucleus; their genetic material is in the nucleoid.',
-      'Correct — prokaryotes lack a true nucleus enclosed by a membrane.'
-    ]
-  }
-];
-let currentIndex = 0; let score = 0; let total = 0; // total answered
-
-const quizArea = document.getElementById('quiz-area');
-const scoreEl = document.getElementById('score');
-const totalEl = document.getElementById('total');
-const submitBtn = document.getElementById('submit-answer');
-const nextBtn = document.getElementById('next-question');
-const resetBtn = document.getElementById('reset-quiz');
-
-let sessionQuestions = [];
-
-function shuffleArray(a){
-  for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; }
-  return a;
-}
-
-function buildUnitSelector(){
-  const notesTree = document.getElementById('notes-tree');
-  if(!notesTree) return;
-  notesTree.innerHTML = '';
-  
-  notes.units.forEach(u=>{
-    // Notes tree with checkboxes
-    const nItem = document.createElement('li');
-    const nDiv = document.createElement('div'); nDiv.className='unit-item';
-    const nSpan = document.createElement('span'); nSpan.textContent = u.title;
-    nSpan.style.cursor = 'pointer';
-    nSpan.onclick = ()=>{ const el = document.getElementById(u.id); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); };
-    const nCb = document.createElement('input'); nCb.type='checkbox'; nCb.checked = true; nCb.dataset.unit = u.id; nCb.className='unit-checkbox';
-    nDiv.appendChild(nSpan); nDiv.appendChild(nCb);
-    nItem.appendChild(nDiv);
-    
-    // Add subunits indented
-    if(u.sub && u.sub.length){
-      u.sub.forEach(s=>{
-        const subItem = document.createElement('li');
-        const subDiv = document.createElement('div'); subDiv.className='subunit-item';
-        subDiv.textContent = s.title;
-        subDiv.style.cursor = 'pointer';
-        subDiv.onclick = ()=>{ const el = document.getElementById(s.id); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); };
-        subItem.appendChild(subDiv);
-        nItem.appendChild(subItem);
-      });
-    }
-    notesTree.appendChild(nItem);
-  });
-  
-  // Auto-trigger quiz build on any checkbox change
-  document.querySelectorAll('.unit-checkbox').forEach(cb=>{
-    cb.addEventListener('change', ()=>{ buildSessionQuestions(); });
-  });
-}
-
-function getSelectedUnits(){
-  const checks = Array.from(document.querySelectorAll('#notes-tree .unit-checkbox'));
-  const sel = checks.filter(c=>c.checked).map(c=>c.dataset.unit);
-  return sel.length? sel : notes.units.map(u=>u.id);
-}
-
-function buildSessionQuestions(){
-  const selected = getSelectedUnits();
-  // filter questions by unit (if question.unit exists), otherwise keep
-  let pool = questions.filter(q=>{ return !q.unit || selected.includes(q.unit); });
-  // deep-copy and shuffle choices per question
-  const mapped = pool.map(orig=>{
-    const q = JSON.parse(JSON.stringify(orig));
-    // shuffle choice order and remap answers/explanations
-    const idxs = q.choices.map((_,i)=>i);
-    shuffleArray(idxs);
-    const newChoices = idxs.map(i=>q.choices[i]);
-    const newExplainEach = idxs.map(i=> (q.explain_each && q.explain_each[i]) ? q.explain_each[i] : '');
-    // remap answer
-    if(Array.isArray(q.answer)){
-      const newAns = q.answer.map(origIdx=> idxs.findIndex(n=>n===origIdx)).filter(v=>v>=0);
-      q.answer = newAns;
-    } else {
-      q.answer = idxs.findIndex(n=>n===q.answer);
-    }
-    q.choices = newChoices; q.explain_each = newExplainEach;
-    return q;
-  });
-  shuffleArray(mapped);
-  sessionQuestions = mapped;
-  currentIndex = 0; score = 0; total = 0; scoreEl.textContent=score; totalEl.textContent=total;
-  renderQuestion(currentIndex);
-}
-
-function renderQuestion(idx){
-  if(!sessionQuestions || sessionQuestions.length===0){ quizArea.innerHTML = '<div class="small">No questions available for selected units. Use the Units button to select different units.</div>'; submitBtn.disabled=true; nextBtn.disabled=true; return; }
-  const q = sessionQuestions[idx];
-  quizArea.innerHTML = '';
-  const questionEl = document.createElement('div'); questionEl.className='question'; questionEl.innerHTML = `<strong>Q${idx+1}.</strong> ${q.q}`;
-  quizArea.appendChild(questionEl);
-  const choices = document.createElement('div'); choices.className='choices';
-
-  if(q.type === 'multiple' || q.type === 'truefalse'){
-    q.choices.forEach((c,i)=>{
-      const ch = document.createElement('div'); ch.className='choice'; ch.tabIndex=0; ch.dataset.index=i; ch.innerHTML = `<span>${c}</span>`;
-      ch.onclick = ()=>{ choices.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected')); ch.classList.add('selected'); };
-      choices.appendChild(ch);
-    });
-  } else if(q.type === 'selectall'){
-    q.choices.forEach((c,i)=>{
-      const ch = document.createElement('label'); ch.className='choice'; ch.style.display='flex'; ch.style.alignItems='center'; ch.style.justifyContent='space-between';
-      const left = document.createElement('span'); left.style.display='flex'; left.style.alignItems='center';
-      const cb = document.createElement('input'); cb.type='checkbox'; cb.style.marginRight='0.6rem'; cb.dataset.index = i;
-      left.appendChild(cb); left.appendChild(document.createTextNode(c));
-      ch.appendChild(left);
-      choices.appendChild(ch);
-    });
-  }
-  quizArea.appendChild(choices);
-  const explainEl = document.createElement('div'); explainEl.id='explain'; explainEl.style.marginTop='0.6rem'; quizArea.appendChild(explainEl);
-  submitBtn.disabled = false; nextBtn.disabled = true;
-}
-
-function arraysEqual(a,b){ if(a.length!==b.length) return false; a = [...a].sort(); b=[...b].sort(); return a.every((v,i)=>v===b[i]); }
-
-submitBtn.addEventListener('click', ()=>{
-  const q = sessionQuestions[currentIndex];
-  const choicesEl = quizArea.querySelector('.choices');
-  if(!q) return;
-  let correct = false;
-  let userSelection = null;
-
-  if(q.type === 'multiple' || q.type === 'truefalse'){
-    const sel = choicesEl.querySelector('.choice.selected');
-    if(!sel){ alert('Please select an answer'); return; }
-    const idx = Number(sel.dataset.index); userSelection = idx;
-    if(idx === q.answer){ correct = true; sel.classList.add('correct'); } else { sel.classList.add('wrong'); }
-  } else if(q.type === 'selectall'){
-    const checked = Array.from(choicesEl.querySelectorAll('input[type="checkbox"]')).filter(c=>c.checked).map(c=>Number(c.dataset.index));
-    if(checked.length===0){ alert('Select at least one option'); return; }
-    userSelection = checked;
-    if(arraysEqual(checked, q.answer)){ correct = true; checked.forEach(i=>{ const el = choicesEl.querySelector('[data-index="'+i+'"]').closest('.choice'); if(el) el.classList.add('correct'); }); }
-    else { Array.from(choicesEl.querySelectorAll('input[type="checkbox"]')).forEach(c=>{ if(c.checked){ c.closest('.choice').classList.add('wrong'); } }); }
-  }
-
-  total += 1; if(correct) score += 1; scoreEl.textContent = score; totalEl.textContent = total;
-
-  const explainEl = document.getElementById('explain'); explainEl.innerHTML = '';
-  const list = document.createElement('div'); list.className='micro'; const ul = document.createElement('ul'); ul.style.paddingLeft='1rem';
-  q.choices.forEach((choice,i)=>{
-    const li = document.createElement('li'); li.style.marginBottom='0.5rem';
-    const prefix = (Array.isArray(userSelection) ? (userSelection.includes(i) ? 'Your selection — ' : '') : (userSelection===i ? 'Your selection — ' : ''));
-    const correctness = ( (Array.isArray(q.answer) ? q.answer.includes(i) : q.answer===i) ) ? ' (correct)' : ' (incorrect)';
-    li.innerHTML = `<strong>${prefix}${choice}</strong>${correctness}<div style="margin-top:0.25rem">${(q.explain_each && q.explain_each[i]) ? q.explain_each[i] : (i===q.answer ? q.explain : '')}</div>`;
-    ul.appendChild(li);
-  }); list.appendChild(ul); explainEl.appendChild(list);
-
-  submitBtn.disabled = true; nextBtn.disabled = false;
-});
-
-nextBtn.addEventListener('click', ()=>{
-  if(!sessionQuestions || sessionQuestions.length===0) return;
-  currentIndex = (currentIndex + 1) % sessionQuestions.length;
-  renderQuestion(currentIndex);
-});
-
-resetBtn.addEventListener('click', ()=>{
-  if(!confirm('Reset quiz score and progress?')) return;
-  score = 0; total = 0; scoreEl.textContent=score; totalEl.textContent=total; currentIndex=0; buildSessionQuestions();
-});
-
-// Unit selector auto-updates on checkbox change (see buildUnitSelector)
-
-// initial setup
-buildUnitSelector(); buildSessionQuestions();
-
-// Clock
-(function updateClock(){
-  const clockEl = document.getElementById('clock');
-  if(!clockEl) return;
-  function tick(){
-    const now = new Date();
-    let h = now.getHours();
-    const m = now.getMinutes().toString().padStart(2,'0');
-    const s = now.getSeconds().toString().padStart(2,'0');
-    const ampm = h >= 12 ? 'PM' : 'AM';
-    h = h % 12 || 12;
-    clockEl.textContent = `${h}:${m}:${s} ${ampm}`;
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
-
-</script>
-<script>
-  (function initSidebar(){
-    const openBtn = document.getElementById('open-sidebar-btn');
-    const overlay = document.getElementById('sidebar-overlay');
-    const sidebar = document.getElementById('sidebar');
-    const closeBtn = document.getElementById('close-sidebar');
-    if (!openBtn || !overlay || !sidebar || !closeBtn) return;
-    function showSidebar(){ sidebar.classList.add('open'); overlay.classList.add('visible'); sidebar.setAttribute('aria-hidden','false'); }
-    function hideSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('visible'); sidebar.setAttribute('aria-hidden','true'); }
-    openBtn.addEventListener('click', showSidebar);
-    closeBtn.addEventListener('click', hideSidebar);
-    overlay.addEventListener('click', hideSidebar);
-    document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hideSidebar(); });
-    const sidebarItems = Array.from(document.querySelectorAll('.sidebar-item'));
-    sidebarItems.forEach(item=>{ item.addEventListener('click', ()=>{ const id = item.dataset.id; if(id) window.location.href = id + '.html'; }); });
-  })();
-</script>
+<script src="bio1.js"></script>
 </body>
 </html>
