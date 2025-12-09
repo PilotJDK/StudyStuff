@@ -14,7 +14,7 @@ h1{margin:.2rem 0 1rem}
 .micro{font-size:.85rem;color:var(--muted)}
 
 .toc{position:relative}
-.toc-inner{position:sticky;top:1rem}
+.toc-inner{position:sticky;top:1rem;max-height:calc(100vh - 2rem);overflow-y:auto}
 .toc h3{margin:.2rem 0}
 .toc-list{list-style:none;padding:0;margin:0;display:block}
 .toc-list li{padding:.35rem .4rem;border-radius:6px;cursor:pointer}

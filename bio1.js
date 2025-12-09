@@ -3139,6 +3139,20 @@ function buildSessionQuestions() {
     // Create a fresh copy of all questions, not just pool
     let pool = questions.filter(q => { return !q.unit || selected.includes(q.unit); });
     
+    // Check if there are any questions selected
+    if (!pool || pool.length === 0) {
+        sessionQuestions = [];
+        currentIndex = 0;
+        score = 0;
+        total = 0;
+        scoreEl.textContent = score;
+        totalEl.textContent = total;
+        quizArea.innerHTML = '<div class="small" style="text-align: center; padding: 2rem; color: var(--muted);">Please select at least one unit from the Notes tab to begin the quiz.</div>';
+        submitBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+    }
+    
     // Deep copy each question and shuffle its choices
     const mapped = pool.map(orig => {
         // Create a complete deep copy
