@@ -1,452 +1,241 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Biology I — StudyStuff</title>
-    <link rel="stylesheet" href="bio1.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Biology I — StudyStuff</title>
+  <link rel="stylesheet" href="bio1.css" />
 </head>
-
 <body>
-    <button id="open-sidebar-btn" type="button">☰ Menu</button>
-    <div id="clock"></div>
-    <div id="sidebar-overlay"></div>
-    <aside id="sidebar" aria-hidden="true">
-        <div class="sidebar-header">
-            <strong>StudyStuff:</strong>
-            <button class="close-btn" id="close-sidebar" aria-label="Close sidebar">✕</button>
+  <button id="open-sidebar-btn" type="button">☰ Menu</button>
+  <div id="clock"></div>
+  <div id="sidebar-overlay"></div>
+  <aside id="sidebar" aria-hidden="true">
+    <div class="sidebar-header">
+      <strong>StudyStuff:</strong>
+      <button class="close-btn" id="close-sidebar" aria-label="Close sidebar">✕</button>
+    </div>
+    <div class="sidebar-body">
+      <section><h3>Testing:</h3><ul><li class="sidebar-item" data-id="act">ACT</li><li class="sidebar-item" data-id="sat">SAT</li><li class="sidebar-item" data-id="psat">PSAT</li></ul></section>
+      <section><h3>Math:</h3><ul><li class="sidebar-item" data-id="math3">Math III</li></ul></section>
+      <section><h3>History:</h3><ul><li class="sidebar-item" data-id="apworld">AP World History</li></ul></section>
+      <section><h3>Science:</h3><ul><li class="sidebar-item" data-id="bio1">Biology I Honors</li></ul></section>
+    </div>
+  </aside>
+  <div class="page">
+    <div>
+      <div class="card" style="margin-bottom:.8rem">
+        <h1>Biology I Honors</h1>
+      </div>
+
+      <div id="notes-card" class="card">
+        <h2>Notes</h2>
+        <div class="note-controls">
+          <input id="search-notes" class="search" placeholder="Search notes (keywords)..." />
+          <span class="micro">Notes are read-only here.</span>
         </div>
-        <div class="sidebar-body">
-            <section>
-                <h3>Testing:</h3>
-                <ul>
-                    <li class="sidebar-item" data-id="act">ACT</li>
-                    <li class="sidebar-item" data-id="sat">SAT</li>
-                    <li class="sidebar-item" data-id="psat">PSAT</li>
-                </ul>
-            </section>
-            <section>
-                <h3>Math:</h3>
-                <ul>
-                    <li class="sidebar-item" data-id="math3">Math III</li>
-                </ul>
-            </section>
-            <section>
-                <h3>History:</h3>
-                <ul>
-                    <li class="sidebar-item" data-id="apworld">AP World History</li>
-                </ul>
-            </section>
-            <section>
-                <h3>Science:</h3>
-                <ul>
-                    <li class="sidebar-item" data-id="bio1">Biology I Honors</li>
-                </ul>
-            </section>
-        </div>
-    </aside>
-    <div class="page">
-        <div>
-            <div class="card" style="margin-bottom:.8rem">
-                <h1>Biology I Honors</h1>
-            </div>
+        <div id="notes" class="notes">
+          <div id="course-content">
 
-            <div id="notes-card" class="card">
-                <h2>Notes</h2>
-                <div class="note-controls">
-                    <input id="search-notes" class="search" placeholder="Search notes (keywords)..." />
-                    <span class="micro">Notes are read-only here.</span>
-                </div>
-                <div id="notes" class="notes">
-                    <div class="unit" id="unit1" data-unit="unit1">
-                        <h2>Unit 1: Biochemistry</h2>
+  <div class="unit" id="unit1" data-unit="unit1">
+            <h2>Unit 1: Biochemistry</h2>
 
-                        <div class="subunit" id="u1-s1">
-                            <strong>Homeostasis</strong>
-                            <p class="micro">
-                                Homeostasis is the biological process by which organisms maintain stable internal
-                                conditions despite external environmental changes. This regulation keeps critical
-                                variables such as body temperature, blood pH, water balance, and glucose concentration
-                                within narrow limits that allow enzymes and cells to function properly. Homeostasis
-                                operates through feedback loops that involve receptors detecting change, control centers
-                                processing that information, and effectors carrying out responses. Negative feedback
-                                loops are the most common and counteract change, such as insulin lowering blood sugar or
-                                sweating cooling the body. Positive feedback loops, which are less common, amplify
-                                change to drive a process to completion, such as oxytocin release during childbirth or
-                                the cascade of reactions involved in blood clotting. Failure of homeostatic systems
-                                results in disorders such as diabetes, hypertension, hypothermia, or acidosis.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u1-s2">
-                            <strong>Biomolecules / Macromolecules</strong>
-                            <p class="micro">
-                                Living organisms are built from carbon-based molecules known as biomolecules, which
-                                include carbohydrates, lipids, proteins, and nucleic acids. Carbohydrates function
-                                primarily as short- and long-term energy sources and structural components. Lipids
-                                provide long-term energy storage, insulation, and form the basis of cell membranes
-                                through phospholipid bilayers. Proteins, built from amino acids, perform most cellular
-                                work including transport, signaling, structure, defense, and chemical reactions. Nucleic
-                                acids such as DNA and RNA store and transmit genetic information. These macromolecules
-                                are formed by dehydration synthesis and broken down by hydrolysis. The unique chemical
-                                properties of water, including polarity and hydrogen bonding, make it essential for the
-                                structure and function of these molecules.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u1-s3">
-                            <strong>Enzymes</strong>
-                            <p class="micro">
-                                Enzymes are biological catalysts that accelerate chemical reactions by lowering the
-                                activation energy required for a reaction to occur. Most enzymes are proteins, although
-                                some RNA molecules can also act as catalysts. Each enzyme has a specific active site
-                                that binds substrates and facilitates their conversion into products. Enzyme activity is
-                                highly dependent on temperature and pH, with each enzyme having optimal conditions at
-                                which it works best. High temperatures or extreme pH can denature enzymes by disrupting
-                                their structure. Enzymes are essential for metabolism and can be regulated by
-                                inhibitors, activators, and cofactors to control the rates of biochemical pathways.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="unit" id="unit2" data-unit="unit2">
-                        <h2>Unit 2: Cellular Structure and Function</h2>
-
-                        <div class="subunit" id="u2-s1">
-                            <strong>Cell Theory</strong>
-                            <p class="micro">
-                                Cell theory states that all living organisms are composed of one or more cells, that the
-                                cell is the basic unit of structure and function, and that all cells arise from
-                                pre-existing cells. This theory forms the foundation of modern biology and explains
-                                growth, development, and repair in living systems.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u2-s2">
-                            <strong>Prokaryotic and Eukaryotic Cells</strong>
-                            <p class="micro">
-                                Cells are classified based on structural complexity. Prokaryotic cells, such as
-                                bacteria, lack a nucleus and membrane-bound organelles, while eukaryotic cells contain a
-                                nucleus and specialized organelles. These structural differences influence cell size,
-                                metabolism, and reproductive strategies, with eukaryotic cells typically being larger
-                                and more compartmentalized.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u2-s3">
-                            <strong>Organelles</strong>
-                            <p class="micro">
-                                Eukaryotic cells contain membrane-bound organelles that carry out specialized functions.
-                                The nucleus controls cellular activities and stores DNA, mitochondria generate ATP
-                                through cellular respiration, ribosomes synthesize proteins, the endoplasmic reticulum
-                                transports and modifies proteins and lipids, and the Golgi apparatus packages and ships
-                                materials. Lysosomes digest wastes and damaged organelles, while chloroplasts perform
-                                photosynthesis in plant cells. Malfunction of these structures can disrupt cell function
-                                and contribute to disease.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u2-s4">
-                            <strong>Cell Differentiation & Specialization</strong>
-                            <p class="micro">
-                                Cell differentiation is the process by which unspecialized cells become specialized to
-                                perform specific tasks. Through changes in gene expression, cells develop unique
-                                structures that allow them to carry out functions such as muscle contraction, nerve
-                                signaling, or nutrient absorption. Stem cells maintain the ability to divide and
-                                differentiate and play a key role in growth, development, and tissue repair.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u2-s5">
-                            <strong>Lab Safety</strong>
-                            <p class="micro">
-                                Laboratory safety is critical for preventing injuries and maintaining a controlled
-                                environment for scientific work. Proper microscope handling, correct use of chemicals
-                                and equipment, use of safety goggles and gloves, and adherence to established protocols
-                                reduce the risk of accidents and contamination.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="unit" id="unit3" data-unit="unit3">
-                        <h2>Unit 3: DNA and Mitosis</h2>
-
-                        <div class="subunit" id="u3-s1">
-                            <strong>DNA</strong>
-                            <p class="micro">
-                                DNA is a double-stranded molecule that stores the genetic instructions for the
-                                development, functioning, and reproduction of living organisms. Its double helix
-                                structure allows it to replicate accurately through a semi-conservative process,
-                                ensuring genetic continuity. RNA differs from DNA in structure and function and plays a
-                                central role in protein production.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u3-s2">
-                            <strong>Cell Cycle</strong>
-                            <p class="micro">
-                                The cell cycle is a tightly regulated series of events that leads to cell growth and
-                                division. Interphase prepares the cell by replicating DNA and producing organelles,
-                                while mitosis and cytokinesis result in two genetically identical daughter cells. When
-                                regulation fails, cells may divide uncontrollably, leading to cancer.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u3-s3">
-                            <strong>Biotechnology</strong>
-                            <p class="micro">
-                                Biotechnology involves manipulating living organisms or their systems to develop useful
-                                products and technologies. Methods such as DNA fingerprinting, gel electrophoresis,
-                                recombinant DNA technology, genetic engineering, and the production of GMOs and
-                                transgenic organisms are used in medicine, agriculture, and criminal investigations.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="unit" id="unit4" data-unit="unit4">
-                        <h2>Unit 4: Cell Transport and Energy</h2>
-
-                        <div class="subunit" id="u4-s1">
-                            <strong>Plasma Membrane</strong>
-                            <p class="micro">
-                                The plasma membrane is a selectively permeable structure composed of a phospholipid
-                                bilayer embedded with proteins, cholesterol, and carbohydrates. It controls the movement
-                                of substances into and out of the cell, allowing the cell to maintain internal balance
-                                and communicate with its environment.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u4-s2">
-                            <strong>Transport</strong>
-                            <p class="micro">
-                                Cells transport materials across membranes through passive and active processes. Passive
-                                transport, including diffusion, facilitated diffusion, and osmosis, does not require
-                                energy and moves substances along concentration gradients. Active transport requires ATP
-                                and moves substances against their concentration gradients to maintain cellular
-                                equilibrium.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u4-s3">
-                            <strong>Photosynthesis & Respiration</strong>
-                            <p class="micro">
-                                Photosynthesis captures light energy to produce glucose and oxygen, while cellular
-                                respiration releases stored energy by breaking down glucose to produce ATP. This process
-                                occurs through glycolysis, the Krebs cycle, and the electron transport chain and can
-                                function aerobically or anaerobically depending on oxygen availability.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u4-s4">
-                            <strong>Bioenergetics</strong>
-                            <p class="micro">
-                                Bioenergetics is the study of how energy flows through living systems, linking the
-                                processes of photosynthesis and cellular respiration to maintain the energy needs of
-                                organisms.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="unit" id="unit5" data-unit="unit5">
-                        <h2>Unit 5: Ecology</h2>
-
-                        <div class="subunit" id="u5-s1">
-                            <strong>Cycles</strong>
-                            <p class="micro">
-                                Biogeochemical cycles, including the water, carbon, nitrogen, oxygen, and phosphorus
-                                cycles, describe how matter is recycled through the atmosphere, biosphere, hydrosphere,
-                                and geosphere. These cycles are essential for maintaining ecosystem balance and nutrient
-                                availability.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u5-s2">
-                            <strong>Ecosystems</strong>
-                            <p class="micro">
-                                Ecosystems consist of interactions between living organisms-– such as producers,
-                                consumers, and decomposers––and their physical environment. Energy moves through trophic
-                                levels and food webs, while matter is recycled within the system.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u5-s3">
-                            <strong>Human Impact</strong>
-                            <p class="micro">
-                                Human activities such as pollution, deforestation, urban development, and climate change
-                                have significantly altered natural ecosystems, leading to habitat loss, species
-                                extinction, and changes in global climate patterns.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="unit" id="unit6" data-unit="unit6">
-                        <h2>Unit 6: Protein Synthesis and Genetic Variability</h2>
-
-                        <div class="subunit" id="u6-s1">
-                            <strong>DNA Biotechnology</strong>
-                            <p class="micro">
-                                DNA biotechnology uses laboratory techniques to analyze and manipulate genetic material.
-                                Gel electrophoresis separates DNA fragments by size and charge and is widely used in
-                                forensic science, medical research, and genetic engineering.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u6-s2">
-                            <strong>Protein Synthesis</strong>
-                            <p class="micro">
-                                Protein synthesis involves transcription, where DNA is used to create mRNA, and
-                                translation, where ribosomes read the mRNA to assemble amino acids into a functional
-                                protein.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u6-s3">
-                            <strong>Meiosis</strong>
-                            <p class="micro">
-                                Meiosis is a specialized type of cell division that produces haploid gametes and
-                                increases genetic diversity through crossing over and independent assortment.
-                                Fertilization restores the diploid chromosome number in the zygote.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u6-s4">
-                            <strong>DNA Mutations</strong>
-                            <p class="micro">
-                                Mutations include point mutations and frameshift mutations that alter DNA sequences and
-                                can affect protein function. Structural and numerical chromosome changes increase
-                                genetic variation and can lead to disease.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="unit" id="unit7" data-unit="unit7">
-                        <h2>Unit 7: Heredity</h2>
-
-                        <div class="subunit" id="u7-s1">
-                            <strong>Genetics Basics</strong>
-                            <p class="micro">
-                                Heredity is the transmission of genetic traits from parents to offspring. Inheritance
-                                patterns include simple dominant-recessive traits, incomplete dominance, codominance,
-                                multiple alleles, and sex-linked traits.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u7-s2">
-                            <strong>Pedigrees & Polygenic Traits</strong>
-                            <p class="micro">
-                                Pedigrees are diagrams used to track the inheritance of traits across multiple
-                                generations. Polygenic traits, such as height and skin color, are influenced by multiple
-                                genes and show a wide range of variation.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u7-s3">
-                            <strong>Cell Cycle & Reproduction</strong>
-                            <p class="micro">
-                                Sexual reproduction relies on meiosis to produce haploid gametes. Key terms include
-                                haploid, diploid, zygote, gamete, nondisjunction, genotype, phenotype, homozygous, and
-                                heterozygous. Errors in chromosome separation can lead to genetic disorders.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u7-s4">
-                            <strong>Karyotypes & Syndromes</strong>
-                            <p class="micro">
-                                Karyotypes are visual displays of chromosomes used to detect genetic conditions such as
-                                Down syndrome, Klinefelter syndrome, Huntington’s disease, dwarfism, and phenylketonuria
-                                (PKU).
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="unit" id="unit8" data-unit="unit8">
-                        <h2>Unit 8: Evolution and Classification</h2>
-
-                        <div class="subunit" id="u8-s1">
-                            <strong>Dichotomous Keys</strong>
-                            <p class="micro">
-                                Dichotomous keys are step-by-step tools used to identify organisms by comparing
-                                observable physical characteristics.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u8-s2">
-                            <strong>Natural Selection</strong>
-                            <p class="micro">
-                                Natural selection is the process by which individuals with advantageous traits survive
-                                and reproduce at higher rates, increasing the frequency of those traits in a population
-                                over time. Concepts such as fitness, resistance, and adaptation explain how species
-                                evolve.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u8-s3">
-                            <strong>Evolution Concepts</strong>
-                            <p class="micro">
-                                Evolution explains the diversity of life through descent with modification from a common
-                                ancestor. Concepts include endosymbiotic theory, the last universal common ancestor
-                                (LUCA), cladograms, and phylogenetic trees. Scientists such as Charles Darwin and
-                                Jean-Baptiste Lamarck contributed to evolutionary thought, although Darwin’s model is
-                                supported by modern evidence.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u8-s4">
-                            <strong>Isolation Mechanisms</strong>
-                            <p class="micro">
-                                Speciation occurs when populations become reproductively isolated through geographic
-                                barriers, behavioral differences, or biological incompatibility, preventing gene flow
-                                between groups.
-                            </p>
-                        </div>
-
-                        <div class="subunit" id="u8-s5">
-                            <strong>Evidence of Evolution</strong>
-                            <p class="micro">
-                                Fossil records and comparative anatomy provide strong evidence for evolution. Homologous
-                                structures indicate shared ancestry, analogous structures show convergent evolution, and
-                                vestigial structures are remnants of ancestral traits.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="quiz-card" class="card quiz" style="margin-top:1rem">
-                <div class="score">
-                    <div>
-                        <h2>Quiz</h2>
-                        <div class="small">Answer question types: multiple-choice, select-all, true/false</div>
-                    </div>
-                    <div class="micro">Score: <span id="score">0</span> / <span id="total">0</span></div>
-                </div>
-
-                <hr />
-                <div id="quiz-area">
-                </div>
-
-                <div class="controls">
-                    <button id="submit-answer" class="btn">Submit Answer</button>
-                    <button id="next-question" class="btn secondary">Next Question</button>
-                    <button id="reset-quiz" class="btn" style="background:#ef4444">Reset</button>
-                </div>
-            </div>
-        </div>
-
-        <aside class="toc">
-            <div class="card toc-inner">
-                <h3 style="cursor:pointer"
-                    onclick="document.getElementById('notes-card').scrollIntoView({behavior:'smooth'})">Notes</h3>
-                <ul id="notes-tree" class="unit-tree">
-                </ul>
-                <h3 style="cursor:pointer;margin-top:1rem"
-                    onclick="document.getElementById('quiz-card').scrollIntoView({behavior:'smooth'})">Quiz</h3>
-            </div>
-        </aside>
+    <div class="subunit" id="u1-s1">
+      <strong>Homeostasis</strong>
+      <p class="micro">
+        Homeostasis is the dynamic process by which multicellular organisms preserve internal conditions within physiologically acceptable limits despite fluctuations in the external environment. This constant regulation allows biochemical systems, particularly enzymes and membrane proteins, to operate efficiently. At the core of homeostasis are three functional components: sensors that detect internal variables such as temperature, pH, osmolarity, and blood gas levels; integrative control centers—primarily neural (hypothalamus, brainstem) and endocrine (hypothalamic-pituitary axes)—that compare sensor input to biologically-determined set points and compute appropriate responses; and effectors, including sweat glands, skeletal muscles, vascular smooth muscle, liver metabolic pathways, and endocrine glands, which implement corrective actions. For example, thermoregulation is achieved through heat-loss mechanisms such as vasodilation and evaporative cooling and heat-conservation mechanisms such as vasoconstriction and shivering thermogenesis. Blood glucose homeostasis is tightly regulated by pancreatic islet hormones: insulin promotes cellular uptake and glycogen synthesis in response to hyperglycemia, whereas glucagon stimulates glycogenolysis and gluconeogenesis during hypoglycemia. The hypothalamic–pituitary–thyroid axis illustrates layered endocrine negative feedback where rising thyroid hormones suppress upstream releasing and stimulating hormones to stabilize metabolic rate. Some biological processes use positive feedback for rapid escalation to a defined endpoint; the classic examples are the oxytocin-driven contraction cascade during parturition and platelet activation during thrombosis. Homeostatic control also includes anticipatory adjustments, such as conditioned salivation and circadian modulation of hormone release, and relies on redundancy and overlapping pathways to preserve function; failure or chronic strain on these systems produces pathology, including diabetes mellitus, heart failure, heat stroke, and acid–base disturbances.
+      </p>
     </div>
 
-    <script src="bio1.js"></script>
-</body>
+            <div class="subunit" id="u1-s2">
+      <strong>Biomolecules / Macromolecules</strong>
+      <p class="micro">
+        Biomolecules are organic compounds built primarily from carbon skeletons decorated with hydrogen, oxygen, nitrogen, phosphorus, and sulfur. Their chemistry and three-dimensional organization produce the functions required for life. Carbohydrates range from simple monosaccharides like glucose and fructose to complex polysaccharides such as glycogen, starch, cellulose, and chitin. Glucose is central to cellular metabolism; it is catabolized via glycolysis to pyruvate and can enter aerobic pathways for maximal ATP yield. Structural carbohydrates such as cellulose differ from storage polymers by their β-glycosidic linkages, which produce straight, hydrogen-bonded fibrils resistant to most animal digestive enzymes. Lipids form a chemically diverse group defined by hydrophobicity; triglycerides store dense chemical energy in adipose tissue, phospholipids self-assemble into bilayers that create cellular compartments, sterols such as cholesterol modulate membrane fluidity and serve as precursors for steroid hormones, and waxes protect surfaces from water loss. Proteins are polymers of twenty canonical amino acids linked by peptide bonds. The side chain chemistry of amino acids determines local secondary structure such as α-helices and β-sheets through backbone hydrogen bonding and further drives tertiary folding through hydrophobic packing, ionic interactions, hydrogen bonds, and disulfide bridges. Proper folding is critical for function; molecular chaperones assist folding and protect nascent chains under stress. Nucleic acids—DNA and RNA—store and transmit genetic information. DNA's antiparallel double helix forms through complementary base pairing (adenine–thymine via two hydrogen bonds; cytosine–guanine via three hydrogen bonds) and is stabilized by base stacking interactions. RNA, with its ribose sugar and uracil base, adopts single-stranded structures that can fold into catalytic motifs (ribozymes) and mediates translation (mRNA), tRNA-mediated amino acid delivery, and ribosomal function (rRNA). Biochemical reactions building polymers proceed by dehydration synthesis, while hydrolysis returns polymers to monomers; enzymes and regulated pathways catalyze these transitions. The properties of water—polarity, high heat capacity, cohesion, adhesion, and solvent capacity—critically influence macromolecular assembly, reaction rates, and cellular thermoregulation.
+      </p>
+    </div>
 
+    <div class="subunit" id="u1-s3">
+      <strong>Enzymes</strong>
+      <p class="micro">
+        Enzymes are biological catalysts that accelerate chemical reactions by stabilizing transition states and lowering activation energy barriers, thereby increasing reaction rates without altering reaction equilibria. Although most enzymes are proteins, some RNA molecules (ribozymes) demonstrate catalytic activity, linking protein and nucleotide biochemistry. The active site of an enzyme forms a highly specific microenvironment tailored to bind substrates through complementary shape, charge, and hydrophobic/hydrophilic interactions; the induced fit model describes dynamic conformational changes that optimize catalysis. Enzyme kinetics reveal that reaction velocity rises with substrate concentration until active sites saturate at a maximum velocity (Vmax); the Michaelis constant (Km) quantitatively reflects substrate concentration at half-maximal velocity and serves as a comparative measure of affinity. Enzymes are exquisitely sensitive to environmental conditions: temperature increases kinetic energy and reaction rates up to an optimal point, after which thermal motion disrupts tertiary structure and causes denaturation; pH alters protonation states of active-site residues and substrates, thereby modulating catalysis and binding. Enzymatic activity is regulated on multiple levels including reversible inhibitors—competitive inhibitors bind the active site and can be outcompeted by substrate concentration, while noncompetitive inhibitors bind allosteric sites to reduce catalytic efficiency—covalent modifications such as phosphorylation that toggle activity states, and availability of cofactors and coenzymes including metal ions and organic carriers like NAD+ and FAD. Feedback inhibition, where an end product of a metabolic pathway allosterically inhibits an upstream enzyme, conserves resources and stabilizes flux. Experimental approaches to study enzymes include Michaelis–Menten kinetics, Lineweaver–Burk plotting for parameter estimation, spectrophotometric assays to monitor substrate depletion or product formation, and mutational analyses to identify catalytic residues. Representative enzymes include DNA polymerases which add nucleotides in a 5′→3′ direction with high fidelity, kinases which transfer phosphate groups, hydrolases like lipases that cleave ester bonds, and oxidoreductases such as dehydrogenases that mediate electron transfers central to respiration and photosynthesis.
+      </p>
+    </div>
+          </div>
+
+          <div class="unit" id="unit2" data-unit="unit2">
+            <h2>Unit 2: Cellular Structure and Function</h2>
+            <div class="subunit" id="u2-s1">
+              <strong>Cell Theory</strong>
+              <p class="micro">All living things are made of cells, cells are the basic unit of life, and all cells come from pre-existing cells.</p>
+            </div>
+            <div class="subunit" id="u2-s2">
+              <strong>Prokaryotic and Eukaryotic Cells</strong>
+              <p class="micro">Prokaryotes lack membrane-bound organelles; eukaryotes have them. Classification based on traits like nucleus presence, complexity, and size.</p>
+            </div>
+            <div class="subunit" id="u2-s3">
+              <strong>Organelles</strong>
+              <p class="micro">Nucleus, mitochondria, ribosomes, ER, Golgi, lysosomes, chloroplasts. Dysfunction leads to disease. Each has a specific role in cell function.</p>
+            </div>
+            <div class="subunit" id="u2-s4">
+              <strong>Cell Differentiation & Specialization</strong>
+              <p class="micro">Cells specialize to perform unique functions (e.g., muscle vs nerve cells). Stem cells can differentiate into many types.</p>
+            </div>
+            <div class="subunit" id="u2-s5">
+              <strong>Lab Safety</strong>
+              <p class="micro">Microscope handling, proper use of lab tools, and safety protocols to prevent accidents.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit3" data-unit="unit3">
+            <h2>Unit 3: DNA and Mitosis</h2>
+            <div class="subunit" id="u3-s1">
+              <strong>DNA</strong>
+              <p class="micro">Double helix structure. Replication is semi-conservative. RNA is a related nucleic acid used in protein synthesis.</p>
+            </div>
+            <div class="subunit" id="u3-s2">
+              <strong>Cell Cycle</strong>
+              <p class="micro">Includes interphase, mitosis, cytokinesis. Errors can lead to cancer. Mitosis ensures identical diploid cells.</p>
+            </div>
+            <div class="subunit" id="u3-s3">
+              <strong>Biotechnology</strong>
+              <p class="micro">DNA fingerprinting, gel electrophoresis, genetic engineering, GMOs, and transgenic organisms.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit4" data-unit="unit4">
+            <h2>Unit 4: Cell Transport and Energy</h2>
+            <div class="subunit" id="u4-s1">
+              <strong>Plasma Membrane</strong>
+              <p class="micro">Semipermeable barrier with protein channels. Maintains homeostasis by controlling entry/exit of molecules.</p>
+            </div>
+            <div class="subunit" id="u4-s2">
+              <strong>Transport</strong>
+              <p class="micro">Passive transport (diffusion, osmosis) vs active transport (requires ATP). Maintains balance in cells.</p>
+            </div>
+            <div class="subunit" id="u4-s3">
+              <strong>Photosynthesis & Respiration</strong>
+              <p class="micro">Photosynthesis produces glucose and oxygen; respiration (aerobic and anaerobic) produces ATP. Includes glycolysis, Krebs cycle, electron transport chain.</p>
+            </div>
+            <div class="subunit" id="u4-s4">
+              <strong>Bioenergetics</strong>
+              <p class="micro">Study of energy flow in living systems. Links photosynthesis and respiration as complementary processes.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit5" data-unit="unit5">
+            <h2>Unit 5: Ecology</h2>
+            <div class="subunit" id="u5-s1">
+              <strong>Cycles</strong>
+              <p class="micro">Nitrogen, phosphorus, water, oxygen, and carbon cycles recycle matter through ecosystems.</p>
+            </div>
+            <div class="subunit" id="u5-s2">
+              <strong>Ecosystems</strong>
+              <p class="micro">Energy flows through trophic levels (producers, consumers, decomposers). Classification of ecosystem layers.</p>
+            </div>
+            <div class="subunit" id="u5-s3">
+              <strong>Human Impact</strong>
+              <p class="micro">Pollution, deforestation, climate change, and biodiversity loss affect ecosystems.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit6" data-unit="unit6">
+            <h2>Unit 6: Protein Synthesis and Genetic Variability</h2>
+            <div class="subunit" id="u6-s1">
+              <strong>DNA Biotechnology</strong>
+              <p class="micro">Gel electrophoresis separates DNA fragments. Used in forensics and genetic research.</p>
+            </div>
+            <div class="subunit" id="u6-s2">
+              <strong>Protein Synthesis</strong>
+              <p class="micro">Transcription (DNA → mRNA) and translation (mRNA → protein at ribosomes).</p>
+            </div>
+            <div class="subunit" id="u6-s3">
+              <strong>Meiosis</strong>
+              <p class="micro">Produces gametes (haploid). Crossing over increases genetic diversity. Fertilization forms zygotes.</p>
+            </div>
+            <div class="subunit" id="u6-s4">
+              <strong>DNA Mutations</strong>
+              <p class="micro">Point and frameshift mutations alter genetic code. Chromosomal changes affect variation. Replication is semi-conservative.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit7" data-unit="unit7">
+            <h2>Unit 7: Heredity</h2>
+            <div class="subunit" id="u7-s1">
+              <strong>Genetics Basics</strong>
+              <p class="micro">Monohybrid crosses, incomplete dominance, codominance, multiple alleles, sex-linked traits.</p>
+            </div>
+            <div class="subunit" id="u7-s2">
+              <strong>Pedigrees & Polygenic Traits</strong>
+              <p class="micro">Pedigrees trace inheritance. Polygenic traits involve multiple genes (e.g., height, skin color).</p>
+            </div>
+            <div class="subunit" id="u7-s3">
+              <strong>Cell Cycle & Reproduction</strong>
+              <p class="micro">Meiosis terms: haploid, diploid, zygote, gamete, nondisjunction. Genotype vs phenotype, homozygous vs heterozygous.</p>
+            </div>
+            <div class="subunit" id="u7-s4">
+              <strong>Karyotypes & Syndromes</strong>
+              <p class="micro">Chromosome analysis reveals conditions like Down syndrome, Klinefelter, dwarfism, Huntington's, PKU.</p>
+            </div>
+          </div>
+
+          <div class="unit" id="unit8" data-unit="unit8">
+            <h2>Unit 8: Evolution and Classification</h2>
+            <div class="subunit" id="u8-s1">
+              <strong>Dichotomous Keys</strong>
+              <p class="micro">Tools for identifying organisms based on traits.</p>
+            </div>
+            <div class="subunit" id="u8-s2">
+              <strong>Natural Selection</strong>
+              <p class="micro">Adaptation, fitness, resistance. Darwin's theory explains survival of the fittest.</p>
+            </div>
+            <div class="subunit" id="u8-s3">
+              <strong>Evolution Concepts</strong>
+              <p class="micro">Endosymbiosis, LUCA, common ancestor, cladograms, phylogenetic trees. Contributions of Darwin and Lamarck.</p>
+            </div>
+            <div class="subunit" id="u8-s4">
+              <strong>Isolation Mechanisms</strong>
+              <p class="micro">Geographic, reproductive, and behavioral isolation drive speciation.</p>
+            </div>
+            <div class="subunit" id="u8-s5">
+              <strong>Evidence of Evolution</strong>
+              <p class="micro">Homologous, analogous, and vestigial structures. Fossil record supports evolutionary theory.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="quiz-card" class="card quiz" style="margin-top:1rem">
+        <div class="score">
+          <div>
+            <h2>Quiz</h2>
+            <div class="small">Answer question types: multiple-choice, select-all, true/false</div>
+          </div>
+          <div class="micro">Score: <span id="score">0</span> / <span id="total">0</span></div>
+        </div>
+
+        <hr />
+        <div id="quiz-area">
+        </div>
+
+        <div class="controls">
+          <button id="submit-answer" class="btn">Submit Answer</button>
+          <button id="next-question" class="btn secondary">Next Question</button>
+          <button id="reset-quiz" class="btn" style="background:#ef4444">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="toc">
+      <div class="card toc-inner">
+        <h3 style="cursor:pointer" onclick="document.getElementById('notes-card').scrollIntoView({behavior:'smooth'})">Notes</h3>
+        <ul id="notes-tree" class="unit-tree">
+        </ul>
+        <h3 style="cursor:pointer;margin-top:1rem" onclick="document.getElementById('quiz-card').scrollIntoView({behavior:'smooth'})">Quiz</h3>
+      </div>
+    </aside>
+  </div>
+
+<script src="bio1.js"></script>
+</body>
 </html>
