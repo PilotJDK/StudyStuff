@@ -54,22 +54,64 @@ function buildUnitSelector() {
         const subunits = unit.querySelectorAll('.subunit');
 
         const nItem = document.createElement('li');
-        const nDiv = document.createElement('div'); nDiv.className = 'unit-item';
-        const nSpan = document.createElement('span'); nSpan.textContent = unitTitle;
+        const nDiv = document.createElement('div'); 
+        nDiv.className = 'unit-item';
+        
+        // Add toggle arrow
+        const toggleArrow = document.createElement('span');
+        toggleArrow.className = 'toggle-arrow';
+        toggleArrow.textContent = '▼';
+        toggleArrow.style.cursor = 'pointer';
+        toggleArrow.style.marginRight = '0.3rem';
+        toggleArrow.style.display = 'inline-block';
+        toggleArrow.style.fontSize = '0.8rem';
+        
+        const nSpan = document.createElement('span'); 
+        nSpan.textContent = unitTitle;
         nSpan.style.cursor = 'pointer';
+        nSpan.style.flex = '1';
         nSpan.onclick = () => { unit.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
-        const nCb = document.createElement('input'); nCb.type = 'checkbox'; nCb.checked = true; nCb.dataset.unit = unitId; nCb.className = 'unit-checkbox';
-        nDiv.appendChild(nSpan); nDiv.appendChild(nCb);
+        
+        const nCb = document.createElement('input'); 
+        nCb.type = 'checkbox'; 
+        nCb.checked = true; 
+        nCb.dataset.unit = unitId; 
+        nCb.className = 'unit-checkbox';
+        
+        nDiv.appendChild(toggleArrow);
+        nDiv.appendChild(nSpan); 
+        nDiv.appendChild(nCb);
+        nDiv.style.display = 'flex';
+        nDiv.style.alignItems = 'center';
+        nDiv.style.gap = '0.4rem';
+        
         nItem.appendChild(nDiv);
 
+        // Create subunits container
+        const subunitsContainer = document.createElement('div');
+        subunitsContainer.className = 'subunits-container';
+        subunitsContainer.style.display = 'block'; // Initially visible
+        
         subunits.forEach(sub => {
             const subItem = document.createElement('li');
-            const subDiv = document.createElement('div'); subDiv.className = 'subunit-item';
+            const subDiv = document.createElement('div'); 
+            subDiv.className = 'subunit-item';
             subDiv.textContent = sub.querySelector('strong').textContent;
             subDiv.style.cursor = 'pointer';
+            subDiv.style.paddingLeft = '1.6rem';
             subDiv.onclick = () => { sub.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
             subItem.appendChild(subDiv);
-            nItem.appendChild(subItem);
+            subunitsContainer.appendChild(subItem);
+        });
+
+        nItem.appendChild(subunitsContainer);
+
+        // Add toggle functionality
+        toggleArrow.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = subunitsContainer.style.display !== 'none';
+            subunitsContainer.style.display = isVisible ? 'none' : 'block';
+            toggleArrow.textContent = isVisible ? '▶' : '▼';
         });
 
         notesTree.appendChild(nItem);
